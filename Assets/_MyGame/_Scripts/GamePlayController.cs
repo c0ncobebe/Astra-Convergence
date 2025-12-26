@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using _MyGame._Scripts;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class GamePlayController : MonoBehaviour
@@ -6,10 +9,18 @@ public class GamePlayController : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     
     // Tracking các điểm đã nối
-    private System.Collections.Generic.List<Collider2D> connectedDots = new System.Collections.Generic.List<Collider2D>();
+    private List<Collider2D> connectedDots = new System.Collections.Generic.List<Collider2D>();
     private Collider2D lastDetectedDot;
     private Collider2D currentHoverDot;
-    
+    [SerializeField] private List<Transform> stars;
+    [SerializeField] private PolygonMeshRenderer starRenderer;
+
+    [Button]
+    public void Test()
+    {
+        starRenderer.BuildPolygon(stars, Color.yellow);
+        
+    }
     private void Start()
     {
         if (mainCamera == null)
@@ -273,4 +284,6 @@ public class GamePlayController : MonoBehaviour
         
         // TODO: Xóa LineRenderer
     }
+
+
 }
