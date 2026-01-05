@@ -18,6 +18,26 @@ public class LevelData : ScriptableObject
     
     public void Initialize()
     {
+        // Đảm bảo tất cả polygon có edges được build
+        for (int i = 0; i < polygons.Count; i++)
+        {
+            var polygon = polygons[i];
+            
+            // Nếu edges chưa được khởi tạo hoặc rỗng, build lại
+            if (polygon.edges == null || polygon.edges.Count == 0)
+            {
+                Debug.LogWarning($"[LevelData.Initialize] Polygon {polygon.polygonId} không có edges, đang rebuild...");
+                polygon.edges = new List<Edge>(polygon.pointIds.Count);
+                for (int j = 0; j < polygon.pointIds.Count; j++)
+                {
+                    int nextIndex = (j + 1) % polygon.pointIds.Count;
+                    var edge = new Edge(polygon.pointIds[j], polygon.pointIds[nextIndex]);
+                    polygon.edges.Add(edge);
+                    Debug.Log($"[LevelData.Initialize] Polygon {polygon.polygonId} added edge ({edge.point1}, {edge.point2})");
+                }
+            }
+        }
+        
         // Link points to polygons
         // Build a dictionary for fast pointId -> PointData lookup to avoid repeated List.Find calls.
         var pointLookup = new Dictionary<int, PointData>(points.Count);
@@ -40,6 +60,12 @@ public class LevelData : ScriptableObject
                     }
                 }
             }
+        }
+        
+        // Tính center position cho mỗi polygon
+        for (int i = 0; i < polygons.Count; i++)
+        {
+            polygons[i].CalculateCenter(points);
         }
         
         BuildEdgeCache();
@@ -80,7 +106,7 @@ public class LevelData : ScriptableObject
     {
         var edge = new Edge(point1, point2);
         bool found = edgeToPolygonsCache.TryGetValue(edge, out polygonIds);
-        
+        Debug.Log("sdsdsd " + polygonIds?.Count);
         if (found && polygonIds != null)
         {
             string polygonStr = "[";

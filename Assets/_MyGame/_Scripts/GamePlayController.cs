@@ -32,6 +32,7 @@ public class GamePlayManager : MonoBehaviour
     
     // Visual feedback
     private LineRenderer selectionLineRenderer;
+    private Vector2 currentCursorPosition;
     
     void Start()
     {
@@ -84,14 +85,25 @@ public class GamePlayManager : MonoBehaviour
     {
         var obj = new GameObject("SelectionLine");
         selectionLineRenderer = obj.AddComponent<LineRenderer>();
+        
+        // Setup cho game 2D - width cố định
+        selectionLineRenderer.useWorldSpace = true;
+        selectionLineRenderer.alignment = LineAlignment.TransformZ; // Luôn hướng về camera 2D
         selectionLineRenderer.startWidth = 0.05f;
         selectionLineRenderer.endWidth = 0.05f;
+        selectionLineRenderer.widthMultiplier = 1f; // Đảm bảo width không bị scale
+        
+        // Material và color
         selectionLineRenderer.material = new Material(Shader.Find("Sprites/Default"));
         selectionLineRenderer.startColor = Color.yellow;
         selectionLineRenderer.endColor = Color.yellow;
-        selectionLineRenderer.positionCount = 0;
+        
+        // Setup sorting
         selectionLineRenderer.sortingOrder = 5;
-        Debug.Log("Connect A line");
+        selectionLineRenderer.positionCount = 0;
+        
+        // Đảm bảo line ở cùng mặt phẳng Z với các điểm (cho 2D)
+        obj.transform.position = new Vector3(0, 0, 0);
     }
     
     #endregion
@@ -117,6 +129,7 @@ public class GamePlayManager : MonoBehaviour
     void OnTouchDown(Vector2 screenPos)
     {
         Vector2 worldPos = mainCamera.ScreenToWorldPoint(screenPos);
+        currentCursorPosition = worldPos;
         GamePoint point = GetPointAtPosition(worldPos);
         
         
@@ -132,6 +145,11 @@ public class GamePlayManager : MonoBehaviour
         if (!isDragging) return;
         
         Vector2 worldPos = mainCamera.ScreenToWorldPoint(screenPos);
+        currentCursorPosition = worldPos;
+        
+        // Update ghost line theo cursor real-time
+        UpdateSelectionVisual();
+        
         GamePoint point = GetPointAtPosition(worldPos);
         
         if (point != null && point.CanInteract())
@@ -238,10 +256,10 @@ public class GamePlayManager : MonoBehaviour
         string edgePolygonsStr = tempPolygonList != null ? "[" + string.Join(", ", tempPolygonList) + "]" : "null";
         Debug.Log($"[AddPoint] Edge ({lastPointId} -> {newPointId}): isValid={isValidEdge}, polygonCount={tempPolygonList?.Count ?? 0}, polygonIds={edgePolygonsStr}");
         
-        if (!isValidEdge)
+        if (!isValidEdge || tempPolygonList == null || tempPolygonList.Count == 0)
         {
-            // Không phải cạnh hợp lệ -> Clear selection
-            Debug.Log("[AddPoint] Invalid edge, clearing selection");
+            // Không phải cạnh hợp lệ hoặc không thuộc polygon nào -> Clear selection
+            Debug.LogWarning($"[AddPoint] ❌ Edge không hợp lệ hoặc không thuộc polygon nào! Clearing selection");
             ClearSelection();
             return;
         }
@@ -271,7 +289,7 @@ public class GamePlayManager : MonoBehaviour
         if (!foundCommonPolygon)
         {
             // Cạnh không thuộc đa giác nào đang có thể -> Clear
-            Debug.LogWarning($"[AddPoint] ❌ Không tìm thấy polygon chung! Clearing selection");
+            Debug.LogWarning($"[AddPoint] ❌ Không tìm thấy polygon chung giữa edge và possiblePolygons! Clearing selection");
             ClearSelection();
             return;
         }
@@ -520,19 +538,45 @@ public class GamePlayManager : MonoBehaviour
     {
         if (selectionLineRenderer == null) return;
         
-        
-        if (selectedPoints.Count < 2)
+        // Không có điểm nào được chọn
+        if (selectedPoints.Count == 0)
         {
             selectionLineRenderer.positionCount = 0;
             return;
         }
         
-        selectionLineRenderer.positionCount = selectedPoints.Count;
-        for (int i = 0; i < selectedPoints.Count; i++)
+        // Khi đang drag: hiển thị line từ các điểm đã chọn + ghost line đến cursor
+        if (isDragging)
         {
-            selectionLineRenderer.SetPosition(i, selectedPoints[i].transform.position);
+            selectionLineRenderer.positionCount = selectedPoints.Count + 1;
+            for (int i = 0; i < selectedPoints.Count; i++)
+            {
+                Vector3 pos = selectedPoints[i].transform.position;
+                pos.z = 0; // Đảm bảo Z = 0 cho game 2D
+                selectionLineRenderer.SetPosition(i, pos);
+            }
+            // Position cuối cùng là cursor (ghost line)
+            Vector3 cursorPos = currentCursorPosition;
+            cursorPos.z = 0; // Đảm bảo Z = 0
+            selectionLineRenderer.SetPosition(selectedPoints.Count, cursorPos);
         }
-        
+        else
+        {
+            // Không drag: chỉ hiện line giữa các điểm đã chọn (nếu >= 2)
+            if (selectedPoints.Count < 2)
+            {
+                selectionLineRenderer.positionCount = 0;
+                return;
+            }
+            
+            selectionLineRenderer.positionCount = selectedPoints.Count;
+            for (int i = 0; i < selectedPoints.Count; i++)
+            {
+                Vector3 pos = selectedPoints[i].transform.position;
+                pos.z = 0; // Đảm bảo Z = 0 cho game 2D
+                selectionLineRenderer.SetPosition(i, pos);
+            }
+        }
     }
     
     #endregion

@@ -25,11 +25,19 @@ public class GamePolygon : MonoBehaviour
         edges = new List<Edge>(data.edges);
         sideCount = data.sideCount;
         
+        // Setup hint text hiển thị số cạnh
         if (hintText != null)
         {
             hintText.text = sideCount.ToString();
-            transform.position = data.centerPosition;
+            hintText.fontSize = 5;
+            hintText.color = Color.white;
+            hintText.anchor = TextAnchor.MiddleCenter;
+            hintText.alignment = TextAlignment.Center;
+            hintText.gameObject.SetActive(true);
         }
+        
+        // Đặt position ở center của polygon
+        transform.position = new Vector3(data.centerPosition.x, data.centerPosition.y, 0);
         
         if (lineRenderer != null)
         {

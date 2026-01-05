@@ -19,6 +19,7 @@ public class PolygonData
         polygonId = id;
         pointIds = new List<int>(points);
         sideCount = points.Count;
+        centerPosition = Vector2.zero; // Sẽ được set từ ngoài hoặc tính sau
         
         // Tự động tạo edges từ pointIds
         edges = new List<Edge>(sideCount);
@@ -41,5 +42,39 @@ public class PolygonData
         }
         
         Debug.Log($"[PolygonData] Created polygon {id}, points={points.Count}, unique edges={edges.Count}");
+    }
+    
+    /// <summary>
+    /// Tính centerPosition từ vị trí các điểm (gọi sau khi có point positions)
+    /// </summary>
+    public void CalculateCenter(List<PointData> allPoints)
+    {
+        if (pointIds == null || pointIds.Count == 0)
+        {
+            centerPosition = Vector2.zero;
+            return;
+        }
+        
+        Vector2 sum = Vector2.zero;
+        int validPoints = 0;
+        
+        foreach (var pid in pointIds)
+        {
+            var point = allPoints.Find(p => p.pointId == pid);
+            if (point != null)
+            {
+                sum += point.position;
+                validPoints++;
+            }
+        }
+        
+        if (validPoints > 0)
+        {
+            centerPosition = sum / validPoints;
+        }
+        else
+        {
+            centerPosition = Vector2.zero;
+        }
     }
 }
