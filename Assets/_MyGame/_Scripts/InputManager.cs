@@ -2,11 +2,19 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
 
+public enum InputMode
+{
+    PointConnection, // Đang nối điểm
+    CameraPan,       // Đang di chuyển camera (1 ngón tay, không có điểm)
+    CameraZoom       // Đang zoom camera (2 ngón tay)
+}
+
 public class InputManager : MonoBehaviour
 {
     [Header("Input Settings")]
     [SerializeField] private float holdThreshold = 0.2f; // Thời gian để phân biệt tap và hold (giây)
     [SerializeField] private float dragThreshold = 10f; // Khoảng cách để coi là drag (pixels)
+    [SerializeField] private float pinchThreshold = 20f; // Khoảng cách tối thiểu để detect pinch (pixels)
     
     [Header("Detection Settings")]
     [SerializeField] private string dotTag = "Dot"; // Tag của các điểm
@@ -18,11 +26,27 @@ public class InputManager : MonoBehaviour
     public UnityEvent<Vector2> OnHoldUpdate; // Sự kiện khi đang hold/drag
     public UnityEvent<Vector2> OnHoldEnd; // Sự kiện khi kết thúc hold/drag
     
+    // Camera control events
+    public UnityEvent<Vector2> OnCameraPanStart;
+    public UnityEvent<Vector2> OnCameraPanUpdate;
+    public UnityEvent OnCameraPanEnd;
+    
+    public UnityEvent<float, Vector2> OnCameraZoomStart; // zoom delta, center point
+    public UnityEvent<float, Vector2> OnCameraZoomUpdate; // zoom delta, center point
+    public UnityEvent OnCameraZoomEnd;
+    
     private bool isPressed = false;
     private bool isHolding = false;
     private float pressStartTime;
     private Vector2 pressStartPosition;
     private Vector2 currentPosition;
+    
+    // Multi-touch tracking
+    private InputMode currentMode = InputMode.PointConnection;
+    private int previousTouchCount = 0;
+    private float previousPinchDistance = 0f;
+    private Vector2 previousPanPosition;
+    private bool isDotAtStartPosition = false; // Có điểm tại vị trí bắt đầu touch không
     
     void Update()
     {
@@ -31,66 +55,225 @@ public class InputManager : MonoBehaviour
     
     private void HandleInput()
     {
-        // Xử lý input cho cả mobile và PC
-        if (Input.GetMouseButtonDown(0))
+        // Mobile touch input (có thể multi-touch)
+        if (Input.touchCount > 0)
         {
-            OnPressStart(Input.mousePosition);
+            HandleTouchInput();
         }
-        else if (Input.GetMouseButton(0) && isPressed)
+        // Fallback cho PC (mouse = 1 touch)
+        else if (Input.GetMouseButton(0) || Input.GetMouseButtonDown(0) || Input.GetMouseButtonUp(0))
         {
-            OnPressUpdate(Input.mousePosition);
+            HandleMouseInput();
         }
-        else if (Input.GetMouseButtonUp(0) && isPressed)
+        else
         {
-            OnPressEnd(Input.mousePosition);
+            // Không có input, reset state
+            if (previousTouchCount > 0)
+            {
+                EndCurrentMode();
+            }
+            previousTouchCount = 0;
         }
     }
     
-    private void OnPressStart(Vector2 position)
+    private void HandleTouchInput()
+    {
+        int touchCount = Input.touchCount;
+        
+        // Touch count changed - reset mode
+        if (touchCount != previousTouchCount && previousTouchCount > 0)
+        {
+            EndCurrentMode();
+        }
+        
+        // 2 fingers = Zoom
+        if (touchCount >= 2)
+        {
+            HandlePinchZoom();
+        }
+        // 1 finger
+        else if (touchCount == 1)
+        {
+            Touch touch = Input.GetTouch(0);
+            
+            if (touch.phase == TouchPhase.Began)
+            {
+                OnSingleTouchStart(touch.position);
+            }
+            else if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
+            {
+                OnSingleTouchUpdate(touch.position);
+            }
+            else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+            {
+                OnSingleTouchEnd(touch.position);
+            }
+        }
+        
+        previousTouchCount = touchCount;
+    }
+    
+    private void HandleMouseInput()
+    {
+        // Xử lý input cho cả mobile và PC
+        if (Input.GetMouseButtonDown(0))
+        {
+            OnSingleTouchStart(Input.mousePosition);
+            previousTouchCount = 1;
+        }
+        else if (Input.GetMouseButton(0))
+        {
+            OnSingleTouchUpdate(Input.mousePosition);
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            OnSingleTouchEnd(Input.mousePosition);
+            previousTouchCount = 0;
+        }
+    }
+    
+    private void HandlePinchZoom()
+    {
+        Touch touch0 = Input.GetTouch(0);
+        Touch touch1 = Input.GetTouch(1);
+        
+        Vector2 touch0Pos = touch0.position;
+        Vector2 touch1Pos = touch1.position;
+        float currentDistance = Vector2.Distance(touch0Pos, touch1Pos);
+        Vector2 centerPoint = (touch0Pos + touch1Pos) * 0.5f;
+        
+        // Start zoom
+        if (currentMode != InputMode.CameraZoom)
+        {
+            currentMode = InputMode.CameraZoom;
+            previousPinchDistance = currentDistance;
+            OnCameraZoomStart?.Invoke(0f, centerPoint);
+            return;
+        }
+        
+        // Update zoom
+        float deltaDistance = currentDistance - previousPinchDistance;
+        
+        // Chỉ update nếu thay đổi đủ lớn (tránh jitter)
+        if (Mathf.Abs(deltaDistance) > pinchThreshold * 0.1f)
+        {
+            float zoomDelta = deltaDistance / Screen.height; // Normalize theo screen height
+            OnCameraZoomUpdate?.Invoke(zoomDelta, centerPoint);
+            previousPinchDistance = currentDistance;
+        }
+    }
+    
+    private void OnSingleTouchStart(Vector2 position)
     {
         isPressed = true;
         isHolding = false;
         pressStartTime = Time.time;
         pressStartPosition = position;
         currentPosition = position;
+        previousPanPosition = position;
+        
+        // Detect xem có điểm tại vị trí này không
+        isDotAtStartPosition = DetectDotAtScreenPosition(position) != null;
+        
+        // Nếu có điểm -> mode nối điểm
+        // Nếu không có điểm -> mode pan camera (sẽ xác định sau khi drag)
+        if (isDotAtStartPosition)
+        {
+            currentMode = InputMode.PointConnection;
+        }
     }
     
-    private void OnPressUpdate(Vector2 position)
+    private void OnSingleTouchUpdate(Vector2 position)
     {
         currentPosition = position;
         float holdDuration = Time.time - pressStartTime;
+        float dragDistance = Vector2.Distance(pressStartPosition, currentPosition);
         
-        // Kiểm tra nếu đã giữ đủ lâu hoặc kéo đủ xa
-        if (!isHolding && (holdDuration >= holdThreshold || Vector2.Distance(pressStartPosition, currentPosition) > dragThreshold))
+        // Nếu bắt đầu từ điểm -> luôn là mode nối điểm
+        if (isDotAtStartPosition)
         {
-            isHolding = true;
-            OnHoldStart?.Invoke(currentPosition);
+            currentMode = InputMode.PointConnection;
+            
+            // Kiểm tra nếu đã giữ đủ lâu hoặc kéo đủ xa
+            if (!isHolding && (holdDuration >= holdThreshold || dragDistance > dragThreshold))
+            {
+                isHolding = true;
+                OnHoldStart?.Invoke(currentPosition);
+            }
+            
+            // Nếu đang hold, gọi update liên tục
+            if (isHolding)
+            {
+                OnHoldUpdate?.Invoke(currentPosition);
+            }
         }
-        
-        // Nếu đang hold, gọi update liên tục
-        if (isHolding)
+        // Nếu không có điểm tại vị trí bắt đầu -> mode pan camera
+        else
         {
-            OnHoldUpdate?.Invoke(currentPosition);
+            // Chuyển sang pan mode nếu đã drag đủ xa
+            if (currentMode != InputMode.CameraPan && dragDistance > dragThreshold)
+            {
+                currentMode = InputMode.CameraPan;
+                OnCameraPanStart?.Invoke(position);
+            }
+            
+            // Update pan nếu đang trong pan mode
+            if (currentMode == InputMode.CameraPan)
+            {
+                Vector2 delta = position - previousPanPosition;
+                OnCameraPanUpdate?.Invoke(delta);
+                previousPanPosition = position;
+            }
         }
     }
     
-    private void OnPressEnd(Vector2 position)
+    private void OnSingleTouchEnd(Vector2 position)
     {
         currentPosition = position;
         
-        if (isHolding)
+        if (currentMode == InputMode.PointConnection)
         {
-            // Kết thúc hold/drag
-            OnHoldEnd?.Invoke(currentPosition);
+            if (isHolding)
+            {
+                // Kết thúc hold/drag khi nối điểm
+                OnHoldEnd?.Invoke(currentPosition);
+            }
+            else
+            {
+                // Tap nhanh
+                OnTap?.Invoke(currentPosition);
+            }
         }
-        else
+        else if (currentMode == InputMode.CameraPan)
         {
-            // Tap nhanh
-            OnTap?.Invoke(currentPosition);
+            OnCameraPanEnd?.Invoke();
+        }
+        
+        // Reset states
+        isPressed = false;
+        isHolding = false;
+        isDotAtStartPosition = false;
+        currentMode = InputMode.PointConnection; // Reset về default mode
+    }
+    
+    private void EndCurrentMode()
+    {
+        if (currentMode == InputMode.CameraZoom)
+        {
+            OnCameraZoomEnd?.Invoke();
+        }
+        else if (currentMode == InputMode.CameraPan)
+        {
+            OnCameraPanEnd?.Invoke();
+        }
+        else if (isHolding)
+        {
+            OnHoldEnd?.Invoke(currentPosition);
         }
         
         isPressed = false;
         isHolding = false;
+        currentMode = InputMode.PointConnection;
     }
     
     // Hàm tiện ích để lấy vị trí world từ screen position
@@ -160,7 +343,7 @@ public class InputManager : MonoBehaviour
     public bool IsPressed => isPressed;
     public bool IsHolding => isHolding;
     public Vector2 CurrentPosition => currentPosition;
+    public InputMode CurrentMode => currentMode;
     public string DotTag => dotTag;
     public LayerMask DotLayer => dotLayer;
 }
-

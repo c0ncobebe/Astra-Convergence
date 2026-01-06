@@ -7,6 +7,7 @@ public class GamePlayManager : MonoBehaviour
     public LevelData currentLevel;
     public GameObject pointPrefab;
     public GameObject polygonPrefab;
+    [SerializeField] private InputManager inputManager;
     
     [Header("Settings")]
     public float swipeDetectionRadius = 0.5f;
@@ -39,11 +40,44 @@ public class GamePlayManager : MonoBehaviour
         mainCamera = Camera.main;
         SetupSelectionLineRenderer();
         InitializeLevel();
+        
+        // Tự động tìm InputManager nếu chưa set
+        if (inputManager == null)
+        {
+            inputManager = FindObjectOfType<InputManager>();
+        }
+    }
+    
+    void OnEnable()
+    {
+        if (inputManager != null)
+        {
+            // Subscribe input events cho nối điểm
+            inputManager.OnHoldStart.AddListener(OnTouchDown);
+            inputManager.OnHoldUpdate.AddListener(OnTouchMove);
+            inputManager.OnHoldEnd.AddListener(OnTouchUp);
+        }
+    }
+    
+    void OnDisable()
+    {
+        if (inputManager != null)
+        {
+            // Unsubscribe input events
+            inputManager.OnHoldStart.RemoveListener(OnTouchDown);
+            inputManager.OnHoldUpdate.RemoveListener(OnTouchMove);
+            inputManager.OnHoldEnd.RemoveListener(OnTouchUp);
+        }
     }
     
     void Update()
     {
-        HandleInput();
+        // Input được xử lý qua InputManager events
+        // Chỉ update visual feedback ở đây nếu cần
+        if (isDragging)
+        {
+            UpdateSelectionVisual();
+        }
     }
     
     #region Level Setup
@@ -79,6 +113,47 @@ public class GamePlayManager : MonoBehaviour
             gamePolygon.Initialize(polygonData);
             polygonsDict[polygonData.polygonId] = gamePolygon;
         }
+        
+        // Setup camera bounds dựa trên level size
+        SetupCameraBounds();
+    }
+    
+    void SetupCameraBounds()
+    {
+        // Tìm CameraController
+        CameraController camController = Camera.main?.GetComponent<CameraController>();
+        if (camController == null)
+        {
+            return;
+        }
+        
+        // Tính bounds cố định dựa trên ortho size 12 (max zoom out)
+        float maxOrthoSize = 12f;
+        float aspect = mainCamera.aspect;
+        
+        // Kích thước view tại ortho 12
+        float viewHeight = maxOrthoSize * 2f;
+        float viewWidth = viewHeight * aspect;
+        
+        // Thêm padding 20% mỗi phía
+        float paddingX = viewWidth * 0.2f;
+        float paddingY = viewHeight * 0.2f;
+        
+        // Bounds centered tại (0, 0) với padding
+        float halfWidth = (viewWidth ) * 0.5f;
+        float halfHeight = (viewHeight ) * 0.5f;
+        
+        Rect cameraBounds = new Rect(
+            -halfWidth,
+            -halfHeight,
+            halfWidth * 2f,
+            halfHeight * 2f
+        );
+        
+        // Set bounds cho camera
+        camController.SetPanBounds(cameraBounds, true);
+        
+        Debug.Log($"[GamePlayManager] Camera bounds set: {cameraBounds} (Based on ortho 12, aspect {aspect:F2}, padding 20%)");
     }
     
     void SetupSelectionLineRenderer()
@@ -108,23 +183,7 @@ public class GamePlayManager : MonoBehaviour
     
     #endregion
     
-    #region Input Handling
-    
-    void HandleInput()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            OnTouchDown(Input.mousePosition);
-        }
-        else if (Input.GetMouseButton(0))
-        {
-            OnTouchMove(Input.mousePosition);
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            OnTouchUp();
-        }
-    }
+    #region Input Handling (Event-based)
     
     void OnTouchDown(Vector2 screenPos)
     {
@@ -147,9 +206,6 @@ public class GamePlayManager : MonoBehaviour
         Vector2 worldPos = mainCamera.ScreenToWorldPoint(screenPos);
         currentCursorPosition = worldPos;
         
-        // Update ghost line theo cursor real-time
-        UpdateSelectionVisual();
-        
         GamePoint point = GetPointAtPosition(worldPos);
         
         if (point != null && point.CanInteract())
@@ -164,7 +220,7 @@ public class GamePlayManager : MonoBehaviour
         }
     }
     
-    void OnTouchUp()
+    void OnTouchUp(Vector2 screenPos)
     {
         isDragging = false;
         ValidateAndCompleteSelection();
