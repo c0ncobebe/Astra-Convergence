@@ -202,6 +202,7 @@ MonoBehaviour:
   currentLevel: {fileID: 11400000, guid: b8f109fdf5f3ac644bb3635b4a9ee4ff, type: 2}
   pointPrefab: {fileID: 3737256275778047375, guid: dabc27db5b708474f822e32985a7bf45, type: 3}
   polygonPrefab: {fileID: 6274260314055784019, guid: f695925e68f9b504194f4110fad85ec6, type: 3}
+  linePrefab: {fileID: 1047533639791154296, guid: 8aae7f2302fc93749a97fad5c8b46d88, type: 3}
   inputManager: {fileID: 322890479}
   swipeDetectionRadius: 0.5
   showDebugLines: 1

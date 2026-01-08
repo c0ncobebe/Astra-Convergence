@@ -7,6 +7,7 @@ public class GamePlayManager : MonoBehaviour
     public LevelData currentLevel;
     public GameObject pointPrefab;
     public GameObject polygonPrefab;
+    public GameObject linePrefab; // Prefab cho line giữa các điểm hợp lệ
     [SerializeField] private InputManager inputManager;
     
     [Header("Settings")]
@@ -22,12 +23,14 @@ public class GamePlayManager : MonoBehaviour
     private List<int> selectedPointIds = new (10);
     private List<GamePoint> selectedPoints = new (10);
     private HashSet<int> possiblePolygons = new ();
+    private List<GameObject> createdLines = new (10); // Track các line đã tạo trong selection hiện tại
     
     // Edge validation cache
     private List<int> tempPolygonList = new (2); // Reuse để tránh allocation
     
     // Input tracking
     private bool isDragging = false;
+    private bool ignoreInputUntilRelease = false; // Ignore input sau khi clear/complete cho đến khi touch up
     private Camera mainCamera;
     private GamePoint lastAddedPoint = null;
     
@@ -187,6 +190,12 @@ public class GamePlayManager : MonoBehaviour
     
     void OnTouchDown(Vector2 screenPos)
     {
+        // Nếu đang ignore input, không xử lý gì
+        if (ignoreInputUntilRelease)
+        {
+            return;
+        }
+        
         Vector2 worldPos = mainCamera.ScreenToWorldPoint(screenPos);
         currentCursorPosition = worldPos;
         GamePoint point = GetPointAtPosition(worldPos);
@@ -201,6 +210,12 @@ public class GamePlayManager : MonoBehaviour
     
     void OnTouchMove(Vector2 screenPos)
     {
+        // Nếu đang ignore input, không xử lý gì
+        if (ignoreInputUntilRelease)
+        {
+            return;
+        }
+        
         if (!isDragging) return;
         
         Vector2 worldPos = mainCamera.ScreenToWorldPoint(screenPos);
@@ -223,7 +238,15 @@ public class GamePlayManager : MonoBehaviour
     void OnTouchUp(Vector2 screenPos)
     {
         isDragging = false;
-        ValidateAndCompleteSelection();
+        
+        // Nếu không đang ignore, validate và complete
+        if (!ignoreInputUntilRelease)
+        {
+            ValidateAndCompleteSelection();
+        }
+        
+        // Reset ignore flag khi user thả tay ra
+        ignoreInputUntilRelease = false;
     }
     
     GamePoint GetPointAtPosition(Vector2 worldPos)
@@ -373,6 +396,13 @@ public class GamePlayManager : MonoBehaviour
         selectedPointIds.Add(point.pointId);
         selectedPoints.Add(point);
         point.SetState(PointState.Selected);
+        
+        // Tạo line giữa lastAddedPoint và point hiện tại (nếu có 2 điểm trở lên)
+        if (lastAddedPoint != null && linePrefab != null)
+        {
+            CreateLineBetweenPoints(lastAddedPoint, point);
+        }
+        
         lastAddedPoint = point;
         
         UpdateSelectionVisual();
@@ -396,7 +426,13 @@ public class GamePlayManager : MonoBehaviour
         possiblePolygons.Clear();
         lastAddedPoint = null;
         
+        // Destroy tất cả các line đã tạo (vì không hợp lệ)
+        DestroyCreatedLines();
+        
         UpdateSelectionVisual();
+        
+        // Ignore input tiếp theo cho đến khi user thả tay ra và touch down lại
+        ignoreInputUntilRelease = true;
     }
     
     void ValidateAndCompleteSelection()
@@ -563,8 +599,15 @@ public class GamePlayManager : MonoBehaviour
         possiblePolygons.Clear();
         lastAddedPoint = null;
         
+        // Giữ các line (không destroy) vì polygon hợp lệ
+        // Chỉ clear list tracking
+        createdLines.Clear();
+        
         UpdateSelectionVisual();
         CheckLevelComplete();
+        
+        // Ignore input tiếp theo cho đến khi user thả tay ra và touch down lại
+        ignoreInputUntilRelease = true;
     }
     
     void CheckLevelComplete()
@@ -588,6 +631,67 @@ public class GamePlayManager : MonoBehaviour
     
     #endregion
     
+    #region Line Visual Management
+    
+    void CreateLineBetweenPoints(GamePoint point1, GamePoint point2)
+    {
+        if (linePrefab == null)
+        {
+            Debug.LogWarning("[GamePlayManager] linePrefab is null, cannot create line!");
+            return;
+        }
+        
+        // Instantiate line
+        GameObject lineObj = Instantiate(linePrefab);
+        
+        // Setup line renderer nếu có
+        LineRenderer lineRenderer = lineObj.GetComponent<LineRenderer>();
+        if (lineRenderer != null)
+        {
+            lineRenderer.positionCount = 2;
+            lineRenderer.SetPosition(0, point1.transform.position);
+            lineRenderer.SetPosition(1, point2.transform.position);
+            lineRenderer.useWorldSpace = true;
+        }
+        else
+        {
+            // Nếu không có LineRenderer, position line ở giữa 2 điểm
+            Vector3 midPoint = (point1.transform.position + point2.transform.position) * 0.5f;
+            lineObj.transform.position = midPoint;
+            
+            // Rotate line để hướng từ point1 đến point2
+            Vector3 direction = point2.transform.position - point1.transform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            lineObj.transform.rotation = Quaternion.Euler(0, 0, angle);
+            
+            // Scale theo khoảng cách
+            float distance = Vector3.Distance(point1.transform.position, point2.transform.position);
+            lineObj.transform.localScale = new Vector3(distance, lineObj.transform.localScale.y, lineObj.transform.localScale.z);
+        }
+        
+        // Track line
+        createdLines.Add(lineObj);
+        
+        Debug.Log($"[GamePlayManager] Created line between point {point1.pointId} and {point2.pointId}");
+    }
+    
+    void DestroyCreatedLines()
+    {
+        // Destroy tất cả các line đã tạo
+        for (int i = 0; i < createdLines.Count; i++)
+        {
+            if (createdLines[i] != null)
+            {
+                Destroy(createdLines[i]);
+            }
+        }
+        
+        createdLines.Clear();
+        Debug.Log($"[GamePlayManager] Destroyed all created lines");
+    }
+    
+    #endregion
+    
     #region Visual Feedback
     
     void UpdateSelectionVisual()
@@ -601,37 +705,26 @@ public class GamePlayManager : MonoBehaviour
             return;
         }
         
-        // Khi đang drag: hiển thị line từ các điểm đã chọn + ghost line đến cursor
-        if (isDragging)
+        // Chỉ hiển thị line từ điểm cuối cùng đến cursor (khi đang drag)
+        if (isDragging && selectedPoints.Count > 0)
         {
-            selectionLineRenderer.positionCount = selectedPoints.Count + 1;
-            for (int i = 0; i < selectedPoints.Count; i++)
-            {
-                Vector3 pos = selectedPoints[i].transform.position;
-                pos.z = 0; // Đảm bảo Z = 0 cho game 2D
-                selectionLineRenderer.SetPosition(i, pos);
-            }
-            // Position cuối cùng là cursor (ghost line)
+            // Chỉ 2 điểm: điểm cuối cùng + cursor
+            selectionLineRenderer.positionCount = 2;
+            
+            // Điểm cuối cùng đã chọn
+            Vector3 lastPointPos = selectedPoints[selectedPoints.Count - 1].transform.position;
+            lastPointPos.z = 0;
+            selectionLineRenderer.SetPosition(0, lastPointPos);
+            
+            // Cursor position (ghost line)
             Vector3 cursorPos = currentCursorPosition;
-            cursorPos.z = 0; // Đảm bảo Z = 0
-            selectionLineRenderer.SetPosition(selectedPoints.Count, cursorPos);
+            cursorPos.z = 0;
+            selectionLineRenderer.SetPosition(1, cursorPos);
         }
         else
         {
-            // Không drag: chỉ hiện line giữa các điểm đã chọn (nếu >= 2)
-            if (selectedPoints.Count < 2)
-            {
-                selectionLineRenderer.positionCount = 0;
-                return;
-            }
-            
-            selectionLineRenderer.positionCount = selectedPoints.Count;
-            for (int i = 0; i < selectedPoints.Count; i++)
-            {
-                Vector3 pos = selectedPoints[i].transform.position;
-                pos.z = 0; // Đảm bảo Z = 0 cho game 2D
-                selectionLineRenderer.SetPosition(i, pos);
-            }
+            // Không drag: không hiển thị line
+            selectionLineRenderer.positionCount = 0;
         }
     }
     
