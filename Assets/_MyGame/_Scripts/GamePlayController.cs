@@ -30,6 +30,7 @@ public class GamePlayManager : MonoBehaviour
     
     // Input tracking
     private bool isDragging = false;
+    private bool isClickMode = false; // True khi đang sử dụng click mode (click từng điểm)
     private bool ignoreInputUntilRelease = false; // Ignore input sau khi clear/complete cho đến khi touch up
     private Camera mainCamera;
     private GamePoint lastAddedPoint = null;
@@ -55,10 +56,13 @@ public class GamePlayManager : MonoBehaviour
     {
         if (inputManager != null)
         {
-            // Subscribe input events cho nối điểm
+            // Subscribe input events cho nối điểm (drag mode)
             inputManager.OnHoldStart.AddListener(OnTouchDown);
             inputManager.OnHoldUpdate.AddListener(OnTouchMove);
             inputManager.OnHoldEnd.AddListener(OnTouchUp);
+            
+            // Subscribe input event cho click mode
+            inputManager.OnTap.AddListener(OnClick);
         }
     }
     
@@ -70,6 +74,7 @@ public class GamePlayManager : MonoBehaviour
             inputManager.OnHoldStart.RemoveListener(OnTouchDown);
             inputManager.OnHoldUpdate.RemoveListener(OnTouchMove);
             inputManager.OnHoldEnd.RemoveListener(OnTouchUp);
+            inputManager.OnTap.RemoveListener(OnClick);
         }
     }
     
@@ -204,6 +209,7 @@ public class GamePlayManager : MonoBehaviour
         if (point != null && point.CanInteract())
         {
             isDragging = true;
+            isClickMode = false; // Khi bắt đầu drag, thoát khỏi click mode
             AddPointToSelection(point);
         }
     }
@@ -239,14 +245,52 @@ public class GamePlayManager : MonoBehaviour
     {
         isDragging = false;
         
-        // Nếu không đang ignore, validate và complete
-        if (!ignoreInputUntilRelease)
+        // Nếu không đang ignore và không phải click mode, validate và complete
+        if (!ignoreInputUntilRelease && !isClickMode)
         {
             ValidateAndCompleteSelection();
         }
         
-        // Reset ignore flag khi user thả tay ra
+        // Reset ignore flag khi user thả tay ra (nhưng giữ click mode nếu đang active)
         ignoreInputUntilRelease = false;
+    }
+    
+    void OnClick(Vector2 screenPos)
+    {
+        // Nếu đang ignore input, không xử lý gì
+        if (ignoreInputUntilRelease)
+        {
+            return;
+        }
+        
+        Vector2 worldPos = mainCamera.ScreenToWorldPoint(screenPos);
+        GamePoint point = GetPointAtPosition(worldPos);
+        
+        if (point != null && point.CanInteract())
+        {
+            // Bật click mode khi click điểm đầu tiên
+            isClickMode = true;
+            
+            // Nếu click vào điểm đầu tiên và đã có >= 3 điểm -> hoàn thành polygon
+            if (selectedPointIds.Count >= 3 && point.pointId == selectedPointIds[0])
+            {
+                // Thêm điểm đầu vào cuối để đóng polygon
+                AddPointToSelection(point);
+                ValidateAndCompleteSelection();
+                isClickMode = false; // Thoát click mode sau khi complete
+            }
+            else
+            {
+                // Click điểm mới -> thêm vào selection
+                AddPointToSelection(point);
+            }
+        }
+        else if (selectedPointIds.Count > 0)
+        {
+            // Click vào vùng trống khi đang có selection -> clear selection
+            ClearSelection();
+            isClickMode = false;
+        }
     }
     
     GamePoint GetPointAtPosition(Vector2 worldPos)
@@ -431,8 +475,12 @@ public class GamePlayManager : MonoBehaviour
         
         UpdateSelectionVisual();
         
-        // Ignore input tiếp theo cho đến khi user thả tay ra và touch down lại
-        ignoreInputUntilRelease = true;
+        // Trong click mode: không ignore input (cho phép click tiếp)
+        // Trong drag mode: ignore input cho đến khi thả tay
+        if (!isClickMode)
+        {
+            ignoreInputUntilRelease = true;
+        }
     }
     
     void ValidateAndCompleteSelection()
@@ -606,8 +654,12 @@ public class GamePlayManager : MonoBehaviour
         UpdateSelectionVisual();
         CheckLevelComplete();
         
-        // Ignore input tiếp theo cho đến khi user thả tay ra và touch down lại
-        ignoreInputUntilRelease = true;
+        // Trong click mode: không ignore input (cho phép click polygon tiếp theo)
+        // Trong drag mode: ignore input cho đến khi thả tay
+        if (!isClickMode)
+        {
+            ignoreInputUntilRelease = true;
+        }
     }
     
     void CheckLevelComplete()
