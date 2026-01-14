@@ -99,9 +99,9 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _EclipseAmount: 0
-    - _EclipseAngle: 0
-    - _EclipseSoftness: 0.3
+    - _EclipseAmount: 0.608
+    - _EclipseAngle: 124
+    - _EclipseSoftness: 1
     - _EllipseRotation: 0
     - _EllipseScaleX: 1
     - _EllipseScaleY: 1
@@ -113,9 +113,9 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
-    - _PulseAmount: 0.091
-    - _PulseMin: 0.146
-    - _PulseSpeed: 1.05
+    - _PulseAmount: 0.043
+    - _PulseMin: 0.102
+    - _PulseSpeed: 0
     - _QueueOffset: 0
     - _RainbowIntensity: 2
     - _RainbowOffset: 0.17
