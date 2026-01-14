@@ -199,10 +199,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81cb2586ecf9bcd49aa8db94d97a4b79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GamePlayController
-  currentLevel: {fileID: 11400000, guid: b8f109fdf5f3ac644bb3635b4a9ee4ff, type: 2}
-  pointPrefab: {fileID: 3737256275778047375, guid: dabc27db5b708474f822e32985a7bf45, type: 3}
-  polygonPrefab: {fileID: 6274260314055784019, guid: f695925e68f9b504194f4110fad85ec6, type: 3}
-  linePrefab: {fileID: 1047533639791154296, guid: 8aae7f2302fc93749a97fad5c8b46d88, type: 3}
+  currentLevel: {fileID: 0}
+  pointPrefab: {fileID: 0}
+  polygonPrefab: {fileID: 0}
+  linePrefab: {fileID: 0}
   inputManager: {fileID: 322890479}
   swipeDetectionRadius: 0.5
   showDebugLines: 1
@@ -300,7 +300,7 @@ GameObject:
   - component: {fileID: 406890503}
   - component: {fileID: 406890502}
   m_Layer: 0
-  m_Name: Quad
+  m_Name: Bright
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -319,11 +319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StarSparkleController
   targetRenderer: {fileID: 406890503}
-  coreColor:
-    r: 1
-    g: 1
-    b: 1
-    a: 1
+  coreColor: {r: 1, g: 1, b: 1, a: 1}
   coreIntensity: 0
   starSharpness: 8
   starPoints: 4
