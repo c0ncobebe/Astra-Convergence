@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using _MyGame._Scripts;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class GamePlayManager : MonoBehaviour
@@ -9,6 +11,8 @@ public class GamePlayManager : MonoBehaviour
     public GameObject polygonPrefab;
     public GameObject linePrefab; // Prefab cho line giữa các điểm hợp lệ
     [SerializeField] private InputManager inputManager;
+    [SerializeField] private PolygonMeshRenderer test;
+    [SerializeField] private List<Transform> spawnPoints;
     
     [Header("Settings")]
     public float swipeDetectionRadius = 0.5f;
@@ -25,6 +29,10 @@ public class GamePlayManager : MonoBehaviour
     private HashSet<int> possiblePolygons = new ();
     private List<GameObject> createdLines = new (10); // Track các line đã tạo trong selection hiện tại
     
+    // Edge tracking - để biết cạnh nào đã được nối
+    private HashSet<Edge> completedEdges = new (); // Global: tất cả cạnh đã hoàn thành
+    private HashSet<Edge> currentSelectionEdges = new (); // Temporary: cạnh trong selection hiện tại
+    
     // Edge validation cache
     private List<int> tempPolygonList = new (2); // Reuse để tránh allocation
     
@@ -38,7 +46,12 @@ public class GamePlayManager : MonoBehaviour
     // Visual feedback
     private LineRenderer selectionLineRenderer;
     private Vector2 currentCursorPosition;
-    
+
+    [Button]
+    public void Test()
+    {
+        test.BuildPolygon(spawnPoints,Color.deepPink);
+    }
     void Start()
     {
         mainCamera = Camera.main;
@@ -371,7 +384,6 @@ public class GamePlayManager : MonoBehaviour
             Debug.Log($"[AddPoint] ✓ Đóng polygon: Điểm {newPointId} là điểm đầu tiên, có {selectedPointIds.Count} điểm.");
         }
         
-        
         // Kiểm tra xem 2 điểm có tạo thành cạnh hợp lệ không
         // KHÔNG được Clear() tempPolygonList vì out parameter trả về reference từ cache
         bool isValidEdge = currentLevel.IsValidEdge(lastPointId, newPointId, out tempPolygonList);
@@ -381,8 +393,8 @@ public class GamePlayManager : MonoBehaviour
         
         if (!isValidEdge || tempPolygonList == null || tempPolygonList.Count == 0)
         {
-            // Không phải cạnh hợp lệ hoặc không thuộc polygon nào -> Clear selection
-            Debug.LogWarning($"[AddPoint] ❌ Edge không hợp lệ hoặc không thuộc polygon nào! Clearing selection");
+            // Không phải cạnh hợp lệ -> Clear selection
+            Debug.LogWarning($"[AddPoint] ❌ Edge không hợp lệ! Clearing selection");
             ClearSelection();
             return;
         }
@@ -441,13 +453,35 @@ public class GamePlayManager : MonoBehaviour
         selectedPoints.Add(point);
         point.SetState(PointState.Selected);
         
-        // Tạo line giữa lastAddedPoint và point hiện tại (nếu có 2 điểm trở lên)
-        if (lastAddedPoint != null && linePrefab != null)
+        // Track edge trong selection hiện tại
+        if (lastAddedPoint != null)
         {
-            CreateLineBetweenPoints(lastAddedPoint, point);
+            Edge newEdge = new Edge(lastAddedPoint.pointId, point.pointId);
+            
+            // Chỉ thêm vào currentSelectionEdges nếu chưa có (tránh duplicate)
+            if (!currentSelectionEdges.Contains(newEdge))
+            {
+                currentSelectionEdges.Add(newEdge);
+                Debug.Log($"[AddPoint] Added edge to current selection: ({newEdge.point1}, {newEdge.point2})");
+            }
+            
+            // Tạo line CHỈ KHI cạnh này CHƯA hoàn thành
+            bool isEdgeAlreadyCompleted = completedEdges.Contains(newEdge);
+            if (!isEdgeAlreadyCompleted && linePrefab != null)
+            {
+                CreateLineBetweenPoints(lastAddedPoint, point);
+                Debug.Log($"[AddPoint] Created new line for edge ({newEdge.point1}, {newEdge.point2})");
+            }
+            else if (isEdgeAlreadyCompleted)
+            {
+                Debug.Log($"[AddPoint] Skipped line creation - edge ({newEdge.point1}, {newEdge.point2}) already completed");
+            }
         }
         
         lastAddedPoint = point;
+        
+        // CHECK HOÀN THÀNH POLYGON NGAY SAU KHI THÊM ĐIỂM
+        CheckAndCompletePolygon();
         
         UpdateSelectionVisual();
     }
@@ -468,6 +502,7 @@ public class GamePlayManager : MonoBehaviour
         selectedPointIds.Clear();
         selectedPoints.Clear();
         possiblePolygons.Clear();
+        currentSelectionEdges.Clear(); // Clear edges của selection hiện tại
         lastAddedPoint = null;
         
         // Destroy tất cả các line đã tạo (vì không hợp lệ)
@@ -480,6 +515,40 @@ public class GamePlayManager : MonoBehaviour
         if (!isClickMode)
         {
             ignoreInputUntilRelease = true;
+        }
+    }
+    
+    // Kiểm tra và hoàn thành polygon nếu đủ cạnh
+    void CheckAndCompletePolygon()
+    {
+        if (selectedPointIds.Count == 0) return;
+        
+        Debug.Log($"[CheckAndCompletePolygon] Checking {possiblePolygons.Count} possible polygons");
+        
+        // Kiểm tra từng polygon trong possiblePolygons
+        foreach (var polygonId in possiblePolygons)
+        {
+            if (polygonsDict.TryGetValue(polygonId, out var polygon))
+            {
+                if (polygon.isCompleted) continue;
+                
+                // Kiểm tra polygon đã đủ cạnh chưa
+                bool isComplete = polygon.HasAllEdgesCompleted();
+                
+                // Nếu chưa đủ, kiểm tra với cả currentSelectionEdges
+                if (!isComplete)
+                {
+                    isComplete = IsValidPolygonCompletion(polygon);
+                }
+                
+                Debug.Log($"[CheckAndCompletePolygon] Polygon {polygonId} isComplete={isComplete}");
+                
+                if (isComplete)
+                {
+                    CompletePolygon(polygon);
+                    return;
+                }
+            }
         }
     }
     
@@ -517,95 +586,33 @@ public class GamePlayManager : MonoBehaviour
     
     bool IsValidPolygonCompletion(GamePolygon polygon)
     {
-        int selectedCount = selectedPointIds.Count;
-        int polygonCount = polygon.pointIds.Count;
+        // Kiểm tra xem tất cả các cạnh của polygon đã được nối chưa
+        // Cạnh có thể đã nối từ trước (polygon.completedEdges) hoặc đang nối trong selection này (currentSelectionEdges)
+        int totalEdges = polygon.edges.Count;
+        int completedCount = 0;
         
-        // BẮT BUỘC phải đóng vòng (điểm cuối = điểm đầu)
-        bool isClosedLoop = (selectedCount > polygonCount) && 
-                            (selectedPointIds[0] == selectedPointIds[selectedCount - 1]);
+        Debug.Log($"[IsValidPolygonCompletion] Checking polygon {polygon.polygonId}, total edges={totalEdges}");
         
-        if (!isClosedLoop)
+        foreach (var edge in polygon.edges)
         {
-            // Không đóng vòng -> Không cho phép hoàn thành
-            Debug.Log($"[IsValidPolygonCompletion] ❌ Chưa đóng vòng! selected={selectedCount}, polygon={polygonCount}, firstPoint={selectedPointIds[0]}, lastPoint={selectedPointIds[selectedCount - 1]}");
-            return false;
-        }
-        
-        // Trường hợp A→B→C→A: selectedCount=4, polygonCount=3
-        // Bỏ điểm cuối ra để so sánh
-        Debug.Log($"[IsValidPolygonCompletion] ✓ Detected closed loop: selected={selectedCount}, polygon={polygonCount}");
-        
-        if (selectedCount - 1 != polygonCount)
-        {
-            Debug.Log($"[IsValidPolygonCompletion] ❌ Số điểm không khớp: selectedCount-1={selectedCount - 1}, polygonCount={polygonCount}");
-            return false;
-        }
-        
-        // Check thứ tự (bỏ điểm cuối)
-        bool isValidSequence = IsValidSequence(polygon.pointIds, selectedPointIds, polygonCount) ||
-                               IsValidSequenceReversed(polygon.pointIds, selectedPointIds, polygonCount);
-        
-        Debug.Log($"[IsValidPolygonCompletion] isValidSequence={isValidSequence}");
-        return isValidSequence;
-    }
-    
-    bool IsValidSequence(List<int> polygonPoints, List<int> selectedPoints, int compareCount)
-    {
-        int n = polygonPoints.Count;
-        
-        // Tìm vị trí điểm đầu tiên trong polygon
-        int startIdx = -1;
-        for (int i = 0; i < n; i++)
-        {
-            if (polygonPoints[i] == selectedPoints[0])
+            bool isCompleted = polygon.IsEdgeCompleted(edge) || currentSelectionEdges.Contains(edge);
+            
+            if (isCompleted)
             {
-                startIdx = i;
-                break;
+                completedCount++;
+                string source = polygon.IsEdgeCompleted(edge) ? "already completed" : "current selection";
+                Debug.Log($"[IsValidPolygonCompletion] Edge ({edge.point1}, {edge.point2}) ✓ {source}");
+            }
+            else
+            {
+                Debug.Log($"[IsValidPolygonCompletion] Edge ({edge.point1}, {edge.point2}) ✗ not completed yet");
             }
         }
         
-        if (startIdx == -1) return false;
+        bool isComplete = (completedCount == totalEdges);
+        Debug.Log($"[IsValidPolygonCompletion] Result: {completedCount}/{totalEdges} edges completed = {isComplete}");
         
-        // Check thứ tự theo chiều thuận (chỉ so sánh compareCount điểm)
-        for (int i = 0; i < compareCount; i++)
-        {
-            int polygonIdx = (startIdx + i) % n;
-            if (polygonPoints[polygonIdx] != selectedPoints[i])
-            {
-                return false;
-            }
-        }
-        
-        return true;
-    }
-    
-    bool IsValidSequenceReversed(List<int> polygonPoints, List<int> selectedPoints, int compareCount)
-    {
-        int n = polygonPoints.Count;
-        
-        int startIdx = -1;
-        for (int i = 0; i < n; i++)
-        {
-            if (polygonPoints[i] == selectedPoints[0])
-            {
-                startIdx = i;
-                break;
-            }
-        }
-        
-        if (startIdx == -1) return false;
-        
-        // Check thứ tự ngược lại (chỉ so sánh compareCount điểm)
-        for (int i = 0; i < compareCount; i++)
-        {
-            int polygonIdx = (startIdx - i + n) % n;
-            if (polygonPoints[polygonIdx] != selectedPoints[i])
-            {
-                return false;
-            }
-        }
-        
-        return true;
+        return isComplete;
     }
     
     void CompletePolygon(GamePolygon polygon)
@@ -632,6 +639,24 @@ public class GamePlayManager : MonoBehaviour
         
         Debug.Log($"[CompletePolygon] Đã fill polygon {polygon.polygonId}");
         
+        // Thêm các cạnh từ selection hiện tại vào các polygon chứa nó
+        foreach (var edge in currentSelectionEdges)
+        {
+            // Thêm edge vào tất cả các polygon chứa cạnh này
+            foreach (var polyDict in polygonsDict.Values)
+            {
+                // Kiểm tra xem polygon có chứa cạnh này không
+                if (polyDict.edges.Contains(edge))
+                {
+                    polyDict.AddCompletedEdge(edge);
+                }
+            }
+            
+            // Cũng thêm vào completedEdges global để không tạo line trùng lặp
+            completedEdges.Add(edge);
+            Debug.Log($"[CompletePolygon] Added edge ({edge.point1}, {edge.point2}) to polygons and global completed");
+        }
+        
         // Cập nhật trạng thái điểm
         for (int i = 0; i < polygon.pointIds.Count; i++)
         {
@@ -645,6 +670,7 @@ public class GamePlayManager : MonoBehaviour
         selectedPointIds.Clear();
         selectedPoints.Clear();
         possiblePolygons.Clear();
+        currentSelectionEdges.Clear(); // Clear selection edges
         lastAddedPoint = null;
         
         // Giữ các line (không destroy) vì polygon hợp lệ
