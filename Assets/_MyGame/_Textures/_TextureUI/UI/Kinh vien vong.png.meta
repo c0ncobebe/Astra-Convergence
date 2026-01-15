@@ -1,0 +1,1547 @@
+fileFormatVersion: 2
+guid: 290faeaa135c28840b9db9634d570352
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1101342259128687083
+    second: Kinh vien vong_0
+  - first:
+      213: 105321685641545790
+    second: Kinh vien vong_1
+  - first:
+      213: -3656794590602663556
+    second: Kinh vien vong_2
+  - first:
+      213: -2075819604544854764
+    second: Kinh vien vong_3
+  - first:
+      213: 391334796454686276
+    second: Kinh vien vong_4
+  - first:
+      213: 6862738217395620124
+    second: Kinh vien vong_5
+  - first:
+      213: -1330922691175619965
+    second: Kinh vien vong_6
+  - first:
+      213: -6245493353213546198
+    second: Kinh vien vong_7
+  - first:
+      213: 2564820009524488794
+    second: Kinh vien vong_8
+  - first:
+      213: -4733063861465158733
+    second: Kinh vien vong_9
+  - first:
+      213: -2197030280527260797
+    second: Kinh vien vong_10
+  - first:
+      213: 232409493877988902
+    second: Kinh vien vong_11
+  - first:
+      213: 5268094107704569733
+    second: Kinh vien vong_12
+  - first:
+      213: -2526491004781040264
+    second: Kinh vien vong_13
+  - first:
+      213: 7859631605738838350
+    second: Kinh vien vong_14
+  - first:
+      213: -9217121266840778704
+    second: Kinh vien vong_15
+  - first:
+      213: 5731026697422392774
+    second: Kinh vien vong_16
+  - first:
+      213: -6625969360327211490
+    second: Kinh vien vong_17
+  - first:
+      213: 8796148738157272847
+    second: Kinh vien vong_18
+  - first:
+      213: -7193559793146509221
+    second: Kinh vien vong_19
+  - first:
+      213: 8723498409763044432
+    second: Kinh vien vong_20
+  - first:
+      213: 5073373743045615360
+    second: Kinh vien vong_21
+  - first:
+      213: -5711737941877752532
+    second: Kinh vien vong_22
+  - first:
+      213: -7095953276563506625
+    second: Kinh vien vong_23
+  - first:
+      213: 4885020885699797708
+    second: Kinh vien vong_24
+  - first:
+      213: -7426466030206936001
+    second: Kinh vien vong_25
+  - first:
+      213: -5355716252652624689
+    second: Kinh vien vong_26
+  - first:
+      213: -8660708221896576634
+    second: Kinh vien vong_27
+  - first:
+      213: 8995371710071303707
+    second: Kinh vien vong_28
+  - first:
+      213: 3255134214961692877
+    second: Kinh vien vong_29
+  - first:
+      213: -6440801398028095695
+    second: Kinh vien vong_30
+  - first:
+      213: -1769659024208722504
+    second: Kinh vien vong_31
+  - first:
+      213: -437017468921774556
+    second: Kinh vien vong_32
+  - first:
+      213: -2331964561371036711
+    second: Kinh vien vong_33
+  - first:
+      213: -341943799620526447
+    second: Kinh vien vong_34
+  - first:
+      213: -4242671880071650212
+    second: Kinh vien vong_35
+  - first:
+      213: -7206536005367232255
+    second: Kinh vien vong_36
+  - first:
+      213: 7165952365715513111
+    second: Kinh vien vong_37
+  - first:
+      213: 6234471534561593779
+    second: Kinh vien vong_38
+  - first:
+      213: -1649065487296286653
+    second: Kinh vien vong_39
+  - first:
+      213: -3035321618007353791
+    second: Kinh vien vong_40
+  - first:
+      213: -7186453733466311791
+    second: Kinh vien vong_41
+  - first:
+      213: 7785890169512223948
+    second: Kinh vien vong_42
+  - first:
+      213: -5566579426153321873
+    second: Kinh vien vong_43
+  - first:
+      213: -436461799961150611
+    second: Kinh vien vong_44
+  - first:
+      213: -8822259042049739583
+    second: Kinh vien vong_45
+  - first:
+      213: 6033489521036214095
+    second: Kinh vien vong_46
+  - first:
+      213: 2443697484033880823
+    second: Kinh vien vong_47
+  - first:
+      213: -8280054491042443604
+    second: Kinh vien vong_48
+  - first:
+      213: -4890686392325906877
+    second: Kinh vien vong_49
+  - first:
+      213: 2516269561760765812
+    second: Kinh vien vong_50
+  - first:
+      213: 7563046358228682175
+    second: Kinh vien vong_51
+  - first:
+      213: -4102096269404491785
+    second: Kinh vien vong_52
+  - first:
+      213: 606979214651927450
+    second: Kinh vien vong_53
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: 50
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Kinh vien vong_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 380
+        width: 85
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 516228cec0f37b0f0800000000000000
+      internalID: -1101342259128687083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_1
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 357
+        width: 330
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e384fcbd38d267100800000000000000
+      internalID: 105321685641545790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_2
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 436
+        width: 16
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c79ee82c1b4704dc0800000000000000
+      internalID: -3656794590602663556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_3
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 436
+        width: 19
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 415ef4d51153133e0800000000000000
+      internalID: -2075819604544854764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_4
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 436
+        width: 20
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44e6eea8cec4e6500800000000000000
+      internalID: 391334796454686276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_5
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 435
+        width: 13
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c190d526c085d3f50800000000000000
+      internalID: 6862738217395620124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_6
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 435
+        width: 19
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38268f82ddc978de0800000000000000
+      internalID: -1330922691175619965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_7
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 435
+        width: 31
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a21b4a2a2ec8359a0800000000000000
+      internalID: -6245493353213546198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_8
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 434
+        width: 33
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5a658ca532189320800000000000000
+      internalID: 2564820009524488794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 59
+        width: 363
+        height: 329
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bb612eae77c05eb0800000000000000
+      internalID: -4733063861465158733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_10
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 331
+        width: 7
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3835568a9949281e0800000000000000
+      internalID: -2197030280527260797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_11
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 315
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62e960d043fa93300800000000000000
+      internalID: 232409493877988902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 265
+        width: 64
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58f2f0deda70c1940800000000000000
+      internalID: 5268094107704569733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_13
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 257
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87d6ecb21d910fcd0800000000000000
+      internalID: -2526491004781040264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_14
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 161
+        width: 54
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e491f75ad45031d60800000000000000
+      internalID: 7859631605738838350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_15
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 239
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 038c14eca05361080800000000000000
+      internalID: -9217121266840778704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_16
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 234
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6cd4422ca62b88f40800000000000000
+      internalID: 5731026697422392774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_17
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 217
+        width: 23
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e16031109f3db04a0800000000000000
+      internalID: -6625969360327211490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_18
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 241
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0f5d516ca2321a70800000000000000
+      internalID: 8796148738157272847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_19
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 213
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5848f23b775b2c90800000000000000
+      internalID: -7193559793146509221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_20
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 221
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05c7c98a597101970800000000000000
+      internalID: 8723498409763044432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_21
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 215
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00f17071a8e386640800000000000000
+      internalID: 5073373743045615360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_22
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 201
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2d714c9a94dbb0b0800000000000000
+      internalID: -5711737941877752532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_23
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 199
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3ab9a7471c168d90800000000000000
+      internalID: -7095953276563506625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 184
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc220841d941bc340800000000000000
+      internalID: 4885020885699797708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_25
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 140
+        width: 12
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3c920d1e74efe890800000000000000
+      internalID: -7426466030206936001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_26
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 159
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc4aadaa17caca5b0800000000000000
+      internalID: -5355716252652624689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_27
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 164
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 681bc8232cbfec780800000000000000
+      internalID: -8660708221896576634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_28
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 153
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1ee56929eaf5dc70800000000000000
+      internalID: 8995371710071303707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_29
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 159
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc00303725f8c2d20800000000000000
+      internalID: 3255134214961692877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_30
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 156
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13f22b9d04dad96a0800000000000000
+      internalID: -6440801398028095695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_31
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 147
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b589785e78e077e0800000000000000
+      internalID: -1769659024208722504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_32
+      rect:
+        serializedVersion: 2
+        x: 369
+        y: 0
+        width: 72
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42ef64c6de66fe9f0800000000000000
+      internalID: -437017468921774556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_33
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 141
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d30ea2369233afd0800000000000000
+      internalID: -2331964561371036711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_34
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 114
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19e987a0deb214bf0800000000000000
+      internalID: -341943799620526447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_35
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 109
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c546ac957600f15c0800000000000000
+      internalID: -4242671880071650212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_36
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 45
+        width: 21
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 109060b5fad3dfb90800000000000000
+      internalID: -7206536005367232255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_37
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 92
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71fd7d3b5b3927360800000000000000
+      internalID: 7165952365715513111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_38
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 63
+        width: 26
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b904db34da458650800000000000000
+      internalID: 6234471534561593779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_39
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 72
+        width: 18
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 340395a2da75d19e0800000000000000
+      internalID: -1649065487296286653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_40
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 60
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1469b9bf11f50e5d0800000000000000
+      internalID: -3035321618007353791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_41
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 60
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 193f5f5a766944c90800000000000000
+      internalID: -7186453733466311791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_42
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 52
+        width: 115
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc46bf59bd90d0c60800000000000000
+      internalID: 7785890169512223948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_43
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 26
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6a222241898fb2b0800000000000000
+      internalID: -5566579426153321873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_44
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 0
+        width: 39
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6bb94f2e4061f9f0800000000000000
+      internalID: -436461799961150611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_45
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 0
+        width: 75
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c4b522c42a019580800000000000000
+      internalID: -8822259042049739583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_46
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 0
+        width: 59
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4fb769a0c24bb350800000000000000
+      internalID: 6033489521036214095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_47
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 0
+        width: 20
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f2fa5a1ae1c9e120800000000000000
+      internalID: 2443697484033880823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_48
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 7
+        width: 16
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cae898c5f46571d80800000000000000
+      internalID: -8280054491042443604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_49
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 0
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34ed39d53aac02cb0800000000000000
+      internalID: -4890686392325906877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_50
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 0
+        width: 17
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 477d0eba5d59be220800000000000000
+      internalID: 2516269561760765812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_51
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 0
+        width: 21
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb54802979655f860800000000000000
+      internalID: 7563046358228682175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_52
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 0
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ffa0b34d2d6217c0800000000000000
+      internalID: -4102096269404491785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kinh vien vong_53
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 0
+        width: 13
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9baf5b316c6c6800800000000000000
+      internalID: 606979214651927450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Kinh vien vong_0: -1101342259128687083
+      Kinh vien vong_1: 105321685641545790
+      Kinh vien vong_10: -2197030280527260797
+      Kinh vien vong_11: 232409493877988902
+      Kinh vien vong_12: 5268094107704569733
+      Kinh vien vong_13: -2526491004781040264
+      Kinh vien vong_14: 7859631605738838350
+      Kinh vien vong_15: -9217121266840778704
+      Kinh vien vong_16: 5731026697422392774
+      Kinh vien vong_17: -6625969360327211490
+      Kinh vien vong_18: 8796148738157272847
+      Kinh vien vong_19: -7193559793146509221
+      Kinh vien vong_2: -3656794590602663556
+      Kinh vien vong_20: 8723498409763044432
+      Kinh vien vong_21: 5073373743045615360
+      Kinh vien vong_22: -5711737941877752532
+      Kinh vien vong_23: -7095953276563506625
+      Kinh vien vong_24: 4885020885699797708
+      Kinh vien vong_25: -7426466030206936001
+      Kinh vien vong_26: -5355716252652624689
+      Kinh vien vong_27: -8660708221896576634
+      Kinh vien vong_28: 8995371710071303707
+      Kinh vien vong_29: 3255134214961692877
+      Kinh vien vong_3: -2075819604544854764
+      Kinh vien vong_30: -6440801398028095695
+      Kinh vien vong_31: -1769659024208722504
+      Kinh vien vong_32: -437017468921774556
+      Kinh vien vong_33: -2331964561371036711
+      Kinh vien vong_34: -341943799620526447
+      Kinh vien vong_35: -4242671880071650212
+      Kinh vien vong_36: -7206536005367232255
+      Kinh vien vong_37: 7165952365715513111
+      Kinh vien vong_38: 6234471534561593779
+      Kinh vien vong_39: -1649065487296286653
+      Kinh vien vong_4: 391334796454686276
+      Kinh vien vong_40: -3035321618007353791
+      Kinh vien vong_41: -7186453733466311791
+      Kinh vien vong_42: 7785890169512223948
+      Kinh vien vong_43: -5566579426153321873
+      Kinh vien vong_44: -436461799961150611
+      Kinh vien vong_45: -8822259042049739583
+      Kinh vien vong_46: 6033489521036214095
+      Kinh vien vong_47: 2443697484033880823
+      Kinh vien vong_48: -8280054491042443604
+      Kinh vien vong_49: -4890686392325906877
+      Kinh vien vong_5: 6862738217395620124
+      Kinh vien vong_50: 2516269561760765812
+      Kinh vien vong_51: 7563046358228682175
+      Kinh vien vong_52: -4102096269404491785
+      Kinh vien vong_53: 606979214651927450
+      Kinh vien vong_6: -1330922691175619965
+      Kinh vien vong_7: -6245493353213546198
+      Kinh vien vong_8: 2564820009524488794
+      Kinh vien vong_9: -4733063861465158733
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

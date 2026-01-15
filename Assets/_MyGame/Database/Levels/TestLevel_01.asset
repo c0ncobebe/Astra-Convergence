@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f144523efb9b1e42b3751f70d8321c8, type: 3}
+  m_Name: TestLevel_01
+  m_EditorClassIdentifier: Assembly-CSharp::LevelData
+  levelId: 1
+  points:
+  - pointId: 0
+    position: {x: -2, y: 0}
+    belongToPolygons: 0000000003000000
+  - pointId: 1
+    position: {x: -1, y: -1}
+    belongToPolygons: 0000000001000000
+  - pointId: 2
+    position: {x: 0, y: 0}
+    belongToPolygons: 0000000001000000020000000300000004000000
+  - pointId: 3
+    position: {x: 1, y: -1}
+    belongToPolygons: 0100000002000000
+  - pointId: 4
+    position: {x: 2, y: 0}
+    belongToPolygons: 0200000004000000
+  - pointId: 5
+    position: {x: 1, y: 1}
+    belongToPolygons: 0300000004000000
+  - pointId: 6
+    position: {x: -1, y: 1}
+    belongToPolygons: 03000000
+  polygons:
+  - polygonId: 0
+    pointIds: 000000000100000002000000
+    edges:
+    - point1: 0
+      point2: 1
+    - point1: 1
+      point2: 2
+    - point1: 0
+      point2: 2
+    sideCount: 3
+    centerPosition: {x: -1, y: -0.3}
+  - polygonId: 1
+    pointIds: 010000000300000002000000
+    edges:
+    - point1: 1
+      point2: 3
+    - point1: 2
+      point2: 3
+    - point1: 1
+      point2: 2
+    sideCount: 3
+    centerPosition: {x: 0, y: -0.7}
+  - polygonId: 2
+    pointIds: 020000000300000004000000
+    edges:
+    - point1: 2
+      point2: 3
+    - point1: 3
+      point2: 4
+    - point1: 2
+      point2: 4
+    sideCount: 3
+    centerPosition: {x: 1, y: -0.3}
+  - polygonId: 3
+    pointIds: 00000000020000000500000006000000
+    edges:
+    - point1: 0
+      point2: 2
+    - point1: 2
+      point2: 5
+    - point1: 5
+      point2: 6
+    - point1: 0
+      point2: 6
+    sideCount: 4
+    centerPosition: {x: -0.5, y: 0.5}
+  - polygonId: 4
+    pointIds: 020000000400000005000000
+    edges:
+    - point1: 2
+      point2: 4
+    - point1: 4
+      point2: 5
+    - point1: 2
+      point2: 5
+    sideCount: 3
+    centerPosition: {x: 1, y: 0.3}

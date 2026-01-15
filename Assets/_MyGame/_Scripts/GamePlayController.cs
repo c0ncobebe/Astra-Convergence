@@ -56,13 +56,82 @@ public class GamePlayManager : MonoBehaviour
     {
         mainCamera = Camera.main;
         SetupSelectionLineRenderer();
-        InitializeLevel();
         
         // Tự động tìm InputManager nếu chưa set
         if (inputManager == null)
         {
             inputManager = FindObjectOfType<InputManager>();
         }
+        
+        // Chỉ initialize level nếu có currentLevel được set sẵn
+        // (Trường hợp không dùng GameStateManager)
+        if (currentLevel != null)
+        {
+            InitializeLevel();
+        }
+    }
+    
+    /// <summary>
+    /// Load level mới - được gọi từ GameStateManager
+    /// </summary>
+    public void LoadLevel(LevelData levelData)
+    {
+        if (levelData == null)
+        {
+            Debug.LogError("[GamePlayManager] Cannot load null level data!");
+            return;
+        }
+        
+        // Clear level cũ nếu có
+        ClearLevel();
+        
+        // Set level mới
+        currentLevel = levelData;
+        
+        // Initialize level
+        InitializeLevel();
+        
+        Debug.Log($"[GamePlayManager] Loaded level: {levelData.levelId}");
+    }
+    
+    /// <summary>
+    /// Clear level hiện tại
+    /// </summary>
+    public void ClearLevel()
+    {
+        // Destroy all points
+        if (pointsDict != null)
+        {
+            foreach (var point in pointsDict.Values)
+            {
+                if (point != null && point.gameObject != null)
+                    Destroy(point.gameObject);
+            }
+            pointsDict.Clear();
+        }
+        
+        // Destroy all polygons
+        if (polygonsDict != null)
+        {
+            foreach (var polygon in polygonsDict.Values)
+            {
+                if (polygon != null && polygon.gameObject != null)
+                    Destroy(polygon.gameObject);
+            }
+            polygonsDict.Clear();
+        }
+        
+        // Clear lines
+        DestroyCreatedLines();
+        
+        // Clear selections
+        ClearSelection();
+        
+        // Clear edges
+        completedEdges.Clear();
+        currentSelectionEdges.Clear();
+        
+        Debug.Log("[GamePlayManager] Level cleared");
     }
     
     void OnEnable()
@@ -704,6 +773,33 @@ public class GamePlayManager : MonoBehaviour
         if (allCompleted)
         {
             Debug.Log("Level Complete!");
+            OnLevelComplete();
+        }
+    }
+    
+    /// <summary>
+    /// Được gọi khi level hoàn thành
+    /// </summary>
+    private void OnLevelComplete()
+    {
+        Debug.Log("[GamePlayManager] Level Complete!");
+        
+        // Lưu progress
+        int currentLevelIndex = LevelProgressManager.Instance.GetCurrentLevel();
+        LevelProgressManager.Instance.CompleteLevel(currentLevelIndex, 3);
+        
+        // Chuyển về Home Menu sau delay
+        StartCoroutine(ReturnToHomeMenuAfterDelay(2f));
+    }
+    
+    private System.Collections.IEnumerator ReturnToHomeMenuAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        
+        // Chuyển về home menu
+        if (GameStateManager.Instance != null)
+        {
+            GameStateManager.Instance.SwitchToHomeMenu();
         }
     }
     

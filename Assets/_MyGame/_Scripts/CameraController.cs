@@ -31,11 +31,19 @@ public class CameraController : MonoBehaviour
     private bool isPanning = false;
     private bool isZooming = false;
     
+    // Store initial state for reset
+    private Vector3 initialPosition;
+    private float initialOrthographicSize;
+    
     void Awake()
     {
         cam = GetComponent<Camera>();
         targetOrthographicSize = cam.orthographicSize;
         targetPosition = transform.position;
+        
+        // Store initial state
+        initialPosition = transform.position;
+        initialOrthographicSize = cam.orthographicSize;
         
         // Tự động tìm InputManager nếu chưa set
         if (inputManager == null)
@@ -331,6 +339,24 @@ public class CameraController : MonoBehaviour
     {
         SetPosition(position, true);
         SetZoom(orthographicSize, true);
+    }
+    
+    /// <summary>
+    /// Reset camera về initial state (cho Home Menu)
+    /// </summary>
+    public void ResetCamera()
+    {
+        SetPosition(initialPosition, true);
+        SetZoom(initialOrthographicSize, true);
+    }
+    
+    /// <summary>
+    /// Setup camera cho gameplay (có thể customize)
+    /// </summary>
+    public void SetupForGameplay()
+    {
+        // Có thể set zoom level khác cho gameplay
+        // hoặc để nguyên nếu muốn
     }
     
     #endregion

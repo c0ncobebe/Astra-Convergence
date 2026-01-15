@@ -16,6 +16,14 @@ public class Loading : MonoBehaviour
     
     private void Start()
     {
+        // Kiểm tra xem có scene target được set từ LevelSelection không
+        string targetScene = PlayerPrefs.GetString("TargetScene", "");
+        if (!string.IsNullOrEmpty(targetScene))
+        {
+            targetSceneName = targetScene;
+            PlayerPrefs.DeleteKey("TargetScene"); // Clear sau khi đã dùng
+        }
+        
         StartCoroutine(LoadSceneAsync());
     }
     
