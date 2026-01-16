@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d, type: 3}
-  m_Name: LevelInfo
+  m_Name: LevelInfo 4
   m_EditorClassIdentifier: Assembly-CSharp::LevelInfo
   serializationData:
     SerializedFormat: 2
@@ -24,5 +24,5 @@ MonoBehaviour:
   levelIndex: 0
   levelName: Level 1
   detail: 
-  thumbnailImage: {fileID: 21300000, guid: 290faeaa135c28840b9db9634d570352, type: 3}
+  thumbnailImage: {fileID: 21300000, guid: ed8a37713c7938f4ca4c51ddbec23480, type: 3}
   levelData: {fileID: 11400000, guid: b8f109fdf5f3ac644bb3635b4a9ee4ff, type: 2}

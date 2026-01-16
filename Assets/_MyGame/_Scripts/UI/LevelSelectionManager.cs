@@ -52,8 +52,7 @@ public class LevelSelectionManager : MonoBehaviour
         }
         levelButtons.Clear();
         
-        // Sắp xếp levels theo levelIndex
-        allLevels.Sort((a, b) => a.levelIndex.CompareTo(b.levelIndex));
+        // Không sort - thứ tự level được xác định bởi thứ tự trong list allLevels
         
         // Tạo buttons
         if (animateButtonSpawn)
@@ -102,10 +101,10 @@ public class LevelSelectionManager : MonoBehaviour
     private LevelButton CreateLevelButton(LevelInfo levelInfo, int index)
     {
         LevelButton button = Instantiate(levelButtonPrefab, levelButtonContainer);
-        button.name = $"LevelButton_{levelInfo.levelIndex}";
+        button.name = $"LevelButton_{index}_{levelInfo.levelName}";
         
-        // Kiểm tra level có mở khóa không
-        bool isUnlocked = IsLevelUnlocked(levelInfo);
+        // Kiểm tra level có mở khóa không (dựa trên vị trí trong list)
+        bool isUnlocked = IsLevelUnlocked(index);
         
         // Initialize button
         button.Initialize(levelInfo, isUnlocked, OnLevelSelected);
@@ -116,18 +115,21 @@ public class LevelSelectionManager : MonoBehaviour
     
     /// <summary>
     /// Kiểm tra level có được mở khóa không
-    /// Logic đơn giản: Level 0 luôn mở, các level sau mở khi level trước hoàn thành
+    /// Logic đơn giản: Level đầu tiên luôn mở, các level sau mở khi level trước hoàn thành
     /// </summary>
-    private bool IsLevelUnlocked(LevelInfo levelInfo)
+    /// <param name="positionInList">Vị trí của level trong list allLevels</param>
+    private bool IsLevelUnlocked(int positionInList)
     {
-        // Level đầu tiên (index 0) luôn mở
-        if (levelInfo.levelIndex == 0)
+        // Level đầu tiên (vị trí 0) luôn mở
+        if (positionInList == 0)
         {
             return true;
         }
         
-        // Các level khác: kiểm tra level trước đã hoàn thành chưa
-        return progressManager.IsLevelCompleted(levelInfo.levelIndex - 1);
+        // Các level khác: kiểm tra level trước (theo vị trí trong list) đã hoàn thành chưa
+        // Lấy levelIndex của level trước để check với save data
+        LevelInfo previousLevel = allLevels[positionInList - 1];
+        return progressManager.IsLevelCompleted(previousLevel.levelIndex);
     }
     
     /// <summary>
@@ -156,11 +158,10 @@ public class LevelSelectionManager : MonoBehaviour
     /// </summary>
     public void RefreshButtons()
     {
-        foreach (LevelButton button in levelButtons)
+        for (int i = 0; i < levelButtons.Count; i++)
         {
-            LevelInfo info = button.GetLevelInfo();
-            bool isUnlocked = IsLevelUnlocked(info);
-            button.SetUnlocked(isUnlocked);
+            bool isUnlocked = IsLevelUnlocked(i);
+            levelButtons[i].SetUnlocked(isUnlocked);
         }
     }
     

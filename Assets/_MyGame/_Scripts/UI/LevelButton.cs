@@ -12,8 +12,8 @@ public class LevelButton : MonoBehaviour, IPointerClickHandler
     [Header("UI References")]
     [SerializeField] private Image thumbnailImage;
     [SerializeField] private Image lockIcon;
-    [SerializeField] private TextMeshProUGUI levelNameText;
     [SerializeField] private GameObject lockedOverlay; // Dark overlay khi bị khóa
+    [SerializeField] private GameObject unlockedOverlay; // Dark overlay khi bị khóa
     [SerializeField] private Button button;
     
     [Header("Visual States")]
@@ -48,25 +48,14 @@ public class LevelButton : MonoBehaviour, IPointerClickHandler
         {
             thumbnailImage.sprite = levelInfo.thumbnailImage;
             thumbnailImage.color = isUnlocked ? unlockedColor : lockedColor;
+            thumbnailImage.SetNativeSize();
         }
         
-        // Set level name
-        if (levelNameText != null)
-        {
-            levelNameText.text = levelInfo.levelName;
-            levelNameText.color = isUnlocked ? Color.white : new Color(0.7f, 0.7f, 0.7f, 1f);
-        }
         
         // Show/hide lock icon
         if (lockIcon != null)
         {
             lockIcon.gameObject.SetActive(!isUnlocked);
-            
-            // Sử dụng icon khóa custom nếu có
-            if (!isUnlocked && levelInfo.lockedIcon != null)
-            {
-                lockIcon.sprite = levelInfo.lockedIcon;
-            }
         }
         
         // Show/hide locked overlay
@@ -74,7 +63,10 @@ public class LevelButton : MonoBehaviour, IPointerClickHandler
         {
             lockedOverlay.SetActive(!isUnlocked);
         }
-        
+        if (unlockedOverlay != null)
+        {
+            unlockedOverlay.SetActive(isUnlocked);
+        }
         // Enable/disable button
         if (button != null)
         {
