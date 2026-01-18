@@ -123,7 +123,6 @@ public class LevelData : ScriptableObject
     {
         var edge = new Edge(point1, point2);
         bool found = edgeToPolygonsCache.TryGetValue(edge, out polygonIds);
-        Debug.Log("sdsdsd " + polygonIds?.Count);
         if (found && polygonIds != null)
         {
             string polygonStr = "[";

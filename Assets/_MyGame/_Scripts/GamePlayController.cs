@@ -52,10 +52,6 @@ public class GamePlayManager : MonoBehaviour
         
         if (inputManager == null)
             inputManager = FindObjectOfType<InputManager>();
-        
-        // NOTE: Không tự động InitializeLevel ở đây nữa
-        // Level sẽ được load thông qua LoadLevel() từ GameStateManager hoặc code khác
-        // Điều này tránh duplicate spawning khi GameStateManager active object và gọi LoadLevel ngay sau
     }
     
     public void LoadLevel(LevelData levelData)
@@ -89,12 +85,31 @@ public class GamePlayManager : MonoBehaviour
         }
         
         DestroyCreatedLines();
-        ClearSelection();
-        completedEdges.Clear();
-        currentSelectionEdges.Clear();
         
-        // Reset flag để có thể initialize lại
+        // Clear selection without triggering ignore flag
+        for (int i = 0; i < selectedPoints.Count; i++)
+        {
+            var point = selectedPoints[i];
+            if (point != null && point.currentState == PointState.Selected)
+            {
+                point.SetState(PointState.Idle);
+            }
+        }
+        selectedPointIds.Clear();
+        selectedPoints.Clear();
+        possiblePolygons.Clear();
+        currentSelectionEdges.Clear();
+        lastAddedPoint = null;
+        
+        completedEdges.Clear();
+        
+        // Reset all flags
         isLevelInitialized = false;
+        isDragging = false;
+        isClickMode = false;
+        ignoreInputUntilRelease = false;
+        
+        UpdateSelectionVisual();
     }
     
     void OnEnable()
@@ -266,20 +281,27 @@ public class GamePlayManager : MonoBehaviour
     
     void OnTouchUp(Vector2 screenPos)
     {
-        isDragging = false;
+        if (ignoreInputUntilRelease)
+        {
+            Debug.Log("[OnTouchUp] Resetting ignoreInputUntilRelease flag");
+        }
         
-        if (!ignoreInputUntilRelease && !isClickMode)
+        if (!ignoreInputUntilRelease && isDragging && !isClickMode)
         {
             ValidateAndCompleteSelection();
         }
         
+        isDragging = false;
         ignoreInputUntilRelease = false;
     }
     
     void OnClick(Vector2 screenPos)
     {
         if (ignoreInputUntilRelease)
+        {
+            Debug.Log("[OnClick] Input ignored - waiting for release");
             return;
+        }
         
         Vector2 worldPos = mainCamera.ScreenToWorldPoint(screenPos);
         GamePoint point = GetPointAtPosition(worldPos);
@@ -427,6 +449,9 @@ public class GamePlayManager : MonoBehaviour
     
     void ClearSelection()
     {
+        // Chỉ set ignore flag nếu đang trong quá trình drag (có tương tác thực sự)
+        bool shouldIgnoreUntilRelease = isDragging && !isClickMode;
+        
         for (int i = 0; i < selectedPoints.Count; i++)
         {
             var point = selectedPoints[i];
@@ -446,8 +471,9 @@ public class GamePlayManager : MonoBehaviour
         
         UpdateSelectionVisual();
         
-        if (!isClickMode)
+        if (shouldIgnoreUntilRelease)
         {
+            Debug.Log("[ClearSelection] Setting ignoreInputUntilRelease = true due to failed drag interaction");
             ignoreInputUntilRelease = true;
         }
     }
