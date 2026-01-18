@@ -40,8 +40,9 @@ public class GamePlayManager : MonoBehaviour
     public void Test()
     {
         test.BuildPolygon(spawnPoints,Color.deepPink);
+        
     }
-    
+
     void Start()
     {
         mainCamera = Camera.main;

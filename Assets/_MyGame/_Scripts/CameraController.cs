@@ -1,3 +1,5 @@
+using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 /// <summary>
@@ -34,7 +36,14 @@ public class CameraController : MonoBehaviour
     // Store initial state for reset
     private Vector3 initialPosition;
     private float initialOrthographicSize;
-    
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+        }
+    }
+
     void Awake()
     {
         cam = GetComponent<Camera>();

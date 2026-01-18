@@ -16,17 +16,12 @@ public class GamePoint : MonoBehaviour
     public PointState currentState = PointState.Idle;
     public List<int> remainingPolygons;
     
-    private SpriteRenderer spriteRenderer;
-    private Color idleColor = Color.white;
-    private Color selectedColor = Color.yellow;
-    private Color doneColor = Color.gray;
-
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Color32 selectedColor;
+    [SerializeField] private Color32 idleColor;
     [SerializeField] private Text debugText;
-    
-    void Awake()
-    {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-    }
+    [SerializeField] private Transform enableVisual;
+    [SerializeField] private Transform disableVisual;
     
     public void Initialize(PointData data)
     {
@@ -51,6 +46,7 @@ public class GamePoint : MonoBehaviour
 
     public void SetState(PointState newState)
     {
+        Debug.Log("Set State " + newState);
         currentState = newState;
         UpdateVisual();
     }
@@ -78,18 +74,14 @@ public class GamePoint : MonoBehaviour
         {
             case PointState.Idle:
                 spriteRenderer.color = idleColor;
-                spriteRenderer.sortingOrder = 0;
-                transform.localScale = Vector3.one;
                 break;
             case PointState.Selected:
                 spriteRenderer.color = selectedColor;
-                spriteRenderer.sortingOrder = 1;
-                transform.localScale = Vector3.one * 1.2f;
                 break;
             case PointState.Done:
-                spriteRenderer.color = doneColor;
-                spriteRenderer.sortingOrder = -1;
-                transform.localScale = Vector3.one * 0.8f;
+                spriteRenderer.color = idleColor;
+                enableVisual.gameObject.SetActive(false);
+                disableVisual.gameObject.SetActive(true);
                 break;
         }
     }

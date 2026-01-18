@@ -852,7 +852,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Loading
   targetSceneName: Gameplay
-  minimumLoadingTime: 5
+  minimumLoadingTime: 1
   progressBar: {fileID: 163995914}
   loadingText: {fileID: 254012924}
   percentageText: {fileID: 49722110}

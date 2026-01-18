@@ -54,7 +54,7 @@ public class EditorTouchSimulator : MonoBehaviour
                 
                 if (showDebugInfo && Mathf.Abs(scroll) > 0.01f)
                 {
-                    Debug.Log($"[EditorTouchSimulator] Scroll wheel zoom: {currentSize:F2} → {newSize:F2}");
+                    // Debug.Log($"[EditorTouchSimulator] Scroll wheel zoom: {currentSize:F2} → {newSize:F2}");
                 }
             }
         }
@@ -73,7 +73,7 @@ public class EditorTouchSimulator : MonoBehaviour
             wasSimulatingZoom = false;
             if (showDebugInfo)
             {
-                Debug.Log("[EditorTouchSimulator] Pinch zoom simulation ended");
+                // Debug.Log("[EditorTouchSimulator] Pinch zoom simulation ended");
             }
         }
     }
@@ -104,7 +104,7 @@ public class EditorTouchSimulator : MonoBehaviour
             
             if (showDebugInfo)
             {
-                Debug.Log($"[EditorTouchSimulator] Started pinch zoom simulation.");
+                // Debug.Log($"[EditorTouchSimulator] Started pinch zoom simulation.");
             }
         }
         
