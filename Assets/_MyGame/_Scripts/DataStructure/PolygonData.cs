@@ -21,23 +21,24 @@ public class PolygonData
         sideCount = points.Count;
         centerPosition = Vector2.zero; // Sẽ được set từ ngoài hoặc tính sau
         
-        // Tự động tạo edges từ pointIds
+        // Tự động tạo edges từ pointIds với HashSet để tránh duplicate
         edges = new List<Edge>(sideCount);
-        var edgeSet = new HashSet<Edge>(); // Để detect duplicate
+        var edgeSet = new HashSet<Edge>(); // Để detect và prevent duplicate
         
         for (int i = 0; i < points.Count; i++)
         {
             int nextIndex = (i + 1) % points.Count;
             var edge = new Edge(points[i], points[nextIndex]);
             
-            if (edgeSet.Contains(edge))
-            {
-                Debug.LogWarning($"[PolygonData] DUPLICATE EDGE detected in polygon {id}: ({edge.point1}, {edge.point2})");
-            }
-            else
+            // CRITICAL: Chỉ thêm edge nếu chưa tồn tại
+            if (!edgeSet.Contains(edge))
             {
                 edgeSet.Add(edge);
                 edges.Add(edge);
+            }
+            else
+            {
+                Debug.LogError($"[PolygonData] PREVENTED DUPLICATE EDGE in polygon {id}: ({edge.point1}, {edge.point2})");
             }
         }
         

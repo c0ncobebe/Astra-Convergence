@@ -9,16 +9,23 @@ public class GamePolygon : MonoBehaviour
     public int sideCount;
     public bool isCompleted = false;
     
+    [Header("Number Display Settings")]
+    [SerializeField] private bool useSprite = true; // True = dùng sprite, False = dùng text
+    [SerializeField] private List<Sprite> numberSprites; // Sprite cho số 3, 4, 5, 6, 7, 8...
+    [SerializeField] private int startNumber = 3; // Số bắt đầu (mặc định 3)
+    
     // Lưu các cạnh đã được hoàn thành của polygon này
     private HashSet<Edge> completedEdges = new HashSet<Edge>();
     
     private LineRenderer lineRenderer;
     private TextMesh hintText;
+    private SpriteRenderer numberSpriteRenderer;
     
     void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
         hintText = GetComponentInChildren<TextMesh>();
+        numberSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
     
     public void Initialize(PolygonData data)
@@ -29,15 +36,40 @@ public class GamePolygon : MonoBehaviour
         sideCount = data.sideCount;
         completedEdges = new HashSet<Edge>();
         
-        // Setup hint text hiển thị số cạnh
-        if (hintText != null)
+        // Setup hiển thị số cạnh
+        if (useSprite)
         {
-            hintText.text = sideCount.ToString();
-            hintText.fontSize = 5;
-            hintText.color = Color.white;
-            hintText.anchor = TextAnchor.MiddleCenter;
-            hintText.alignment = TextAlignment.Center;
-            hintText.gameObject.SetActive(true);
+            // Dùng Sprite
+            if (numberSpriteRenderer != null)
+            {
+                SetNumberSprite(sideCount);
+                numberSpriteRenderer.gameObject.SetActive(true);
+            }
+            
+            // Tắt text nếu có
+            if (hintText != null)
+            {
+                hintText.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            // Dùng TextMesh
+            if (hintText != null)
+            {
+                hintText.text = sideCount.ToString();
+                hintText.fontSize = 5;
+                hintText.color = Color.white;
+                hintText.anchor = TextAnchor.MiddleCenter;
+                hintText.alignment = TextAlignment.Center;
+                hintText.gameObject.SetActive(true);
+            }
+            
+            // Tắt sprite nếu có
+            if (numberSpriteRenderer != null)
+            {
+                numberSpriteRenderer.gameObject.SetActive(false);
+            }
         }
         
         // Đặt position ở center của polygon
@@ -65,9 +97,15 @@ public class GamePolygon : MonoBehaviour
             lineRenderer.SetPosition(pointPositions.Count, pointPositions[0]);
         }
         
+        // Ẩn cả text và sprite khi complete
         if (hintText != null)
         {
             hintText.gameObject.SetActive(false);
+        }
+        
+        if (numberSpriteRenderer != null)
+        {
+            numberSpriteRenderer.gameObject.SetActive(false);
         }
     }
     
@@ -76,6 +114,28 @@ public class GamePolygon : MonoBehaviour
     {
         completedEdges.Add(edge);
         Debug.Log($"[Polygon {polygonId}] Added completed edge ({edge.point1}, {edge.point2}). Total: {completedEdges.Count}/{edges.Count}");
+    }
+    
+    /// <summary>
+    /// Gán sprite số tương ứng với số cạnh
+    /// </summary>
+    private void SetNumberSprite(int number)
+    {
+        if (numberSpriteRenderer == null || numberSprites == null || numberSprites.Count == 0)
+            return;
+        
+        // Tính index trong list sprite
+        // Ví dụ: nếu startNumber = 3, thì số 3 -> index 0, số 4 -> index 1, ...
+        int index = number - startNumber;
+        
+        if (index >= 0 && index < numberSprites.Count)
+        {
+            numberSpriteRenderer.sprite = numberSprites[index];
+        }
+        else
+        {
+            Debug.LogWarning($"[GamePolygon] Không tìm thấy sprite cho số {number}. Index: {index}, Sprite Count: {numberSprites.Count}");
+        }
     }
     
     // Thêm nhiều cạnh cùng lúc

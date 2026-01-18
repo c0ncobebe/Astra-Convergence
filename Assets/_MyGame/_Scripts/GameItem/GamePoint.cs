@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -73,16 +74,22 @@ public class GamePoint : MonoBehaviour
         switch (currentState)
         {
             case PointState.Idle:
-                spriteRenderer.color = idleColor;
+                spriteRenderer.material.color = idleColor;
                 break;
             case PointState.Selected:
-                spriteRenderer.color = selectedColor;
+                spriteRenderer.material.color = selectedColor;
                 break;
             case PointState.Done:
-                spriteRenderer.color = idleColor;
+                spriteRenderer.material.color = idleColor;
                 enableVisual.gameObject.SetActive(false);
                 disableVisual.gameObject.SetActive(true);
                 break;
         }
+    }
+
+    public void Animating()
+    {
+        transform.DOKill();
+        transform.DOScale(Vector3.one * 1.2f, 0.2f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine);
     }
 }

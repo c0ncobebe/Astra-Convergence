@@ -36,16 +36,34 @@ public class LevelData : ScriptableObject
                     Debug.Log($"[LevelData.Initialize] Polygon {polygon.polygonId} added edge ({edge.point1}, {edge.point2})");
                 }
             }
+            // Nếu edges đã có nhưng số lượng không khớp với pointIds, có thể bị lỗi - rebuild
+            else if (polygon.edges.Count != polygon.pointIds.Count)
+            {
+                Debug.LogWarning($"[LevelData.Initialize] Polygon {polygon.polygonId} có edges count không khớp ({polygon.edges.Count} vs {polygon.pointIds.Count}), rebuilding...");
+                polygon.edges.Clear();
+                polygon.edges = new List<Edge>(polygon.pointIds.Count);
+                for (int j = 0; j < polygon.pointIds.Count; j++)
+                {
+                    int nextIndex = (j + 1) % polygon.pointIds.Count;
+                    var edge = new Edge(polygon.pointIds[j], polygon.pointIds[nextIndex]);
+                    polygon.edges.Add(edge);
+                }
+            }
         }
         
         // Link points to polygons
+        // CRITICAL: Clear và rebuild hoàn toàn để tránh duplicate khi Initialize() được gọi nhiều lần
         // Build a dictionary for fast pointId -> PointData lookup to avoid repeated List.Find calls.
         var pointLookup = new Dictionary<int, PointData>(points.Count);
         for (int p = 0; p < points.Count; p++)
         {
-            pointLookup[points[p].pointId] = points[p];
+            var point = points[p];
+            pointLookup[point.pointId] = point;
+            // Clear list để tránh duplicate khi Initialize gọi lại
+            point.belongToPolygons.Clear();
         }
 
+        // Rebuild lại belongToPolygons từ đầu
         for (int i = 0; i < polygons.Count; i++)
         {
             var polygon = polygons[i];
@@ -54,10 +72,8 @@ public class LevelData : ScriptableObject
                 var pointId = polygon.pointIds[j];
                 if (pointLookup.TryGetValue(pointId, out var point))
                 {
-                    if (!point.belongToPolygons.Contains(polygon.polygonId))
-                    {
-                        point.belongToPolygons.Add(polygon.polygonId);
-                    }
+                    // Không cần check Contains nữa vì đã clear ở trên
+                    point.belongToPolygons.Add(polygon.polygonId);
                 }
             }
         }
@@ -73,6 +89,7 @@ public class LevelData : ScriptableObject
     
     private void BuildEdgeCache()
     {
+        // CRITICAL: Luôn tạo mới để tránh duplicate khi Initialize() được gọi nhiều lần
         allEdgesCache = new HashSet<Edge>();
         edgeToPolygonsCache = new Dictionary<Edge, List<int>>();
         

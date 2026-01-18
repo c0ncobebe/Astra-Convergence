@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using _MyGame._Scripts;
+using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -31,6 +32,7 @@ public class GamePlayManager : MonoBehaviour
     private bool isDragging = false;
     private bool isClickMode = false;
     private bool ignoreInputUntilRelease = false;
+    private bool isLevelInitialized = false;
     private Camera mainCamera;
     private GamePoint lastAddedPoint = null;
     private LineRenderer selectionLineRenderer;
@@ -51,8 +53,9 @@ public class GamePlayManager : MonoBehaviour
         if (inputManager == null)
             inputManager = FindObjectOfType<InputManager>();
         
-        if (currentLevel != null)
-            InitializeLevel();
+        // NOTE: Không tự động InitializeLevel ở đây nữa
+        // Level sẽ được load thông qua LoadLevel() từ GameStateManager hoặc code khác
+        // Điều này tránh duplicate spawning khi GameStateManager active object và gọi LoadLevel ngay sau
     }
     
     public void LoadLevel(LevelData levelData)
@@ -89,6 +92,9 @@ public class GamePlayManager : MonoBehaviour
         ClearSelection();
         completedEdges.Clear();
         currentSelectionEdges.Clear();
+        
+        // Reset flag để có thể initialize lại
+        isLevelInitialized = false;
     }
     
     void OnEnable()
@@ -121,6 +127,13 @@ public class GamePlayManager : MonoBehaviour
     
     void InitializeLevel()
     {
+        // CRITICAL: Prevent duplicate spawning nếu level đã được initialize
+        if (isLevelInitialized)
+        {
+            Debug.LogWarning("[GamePlayManager] InitializeLevel() called but level already initialized. Skipping to prevent duplicates.");
+            return;
+        }
+        
         currentLevel.Initialize();
         
         int pointCount = currentLevel.points.Count;
@@ -128,6 +141,8 @@ public class GamePlayManager : MonoBehaviour
         pointsArray = new GamePoint[pointCount];
         pointsDict = new Dictionary<int, GamePoint>(pointCount);
         polygonsDict = new Dictionary<int, GamePolygon>(currentLevel.polygons.Count);
+        
+        Debug.Log($"[GamePlayManager] Spawning {pointCount} points...");
         
         for (int i = 0; i < pointCount; i++)
         {
@@ -139,6 +154,8 @@ public class GamePlayManager : MonoBehaviour
             pointsDict[pointData.pointId] = gamePoint;
         }
         
+        Debug.Log($"[GamePlayManager] Spawning {currentLevel.polygons.Count} polygons...");
+        
         for (int i = 0; i < currentLevel.polygons.Count; i++)
         {
             var polygonData = currentLevel.polygons[i];
@@ -149,6 +166,10 @@ public class GamePlayManager : MonoBehaviour
         }
         
         SetupCameraBounds();
+        
+        // Set flag sau khi initialize xong
+        isLevelInitialized = true;
+        Debug.Log("[GamePlayManager] Level initialization complete.");
     }
     
     void SetupCameraBounds()
@@ -312,6 +333,8 @@ public class GamePlayManager : MonoBehaviour
     
     void AddPointToSelection(GamePoint point)
     {
+        point.Animating();
+        
         if (selectedPointIds.Count == 0)
         {
             possiblePolygons.Clear();
@@ -627,7 +650,6 @@ public class GamePlayManager : MonoBehaviour
     void UpdateSelectionVisual()
     {
         if (selectionLineRenderer == null) return;
-        
         if (selectedPoints.Count == 0)
         {
             selectionLineRenderer.positionCount = 0;
