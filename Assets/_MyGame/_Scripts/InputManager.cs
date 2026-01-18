@@ -19,6 +19,7 @@ public class InputManager : MonoBehaviour
     [Header("Detection Settings")]
     [SerializeField] private string dotTag = "Dot";
     [SerializeField] private LayerMask dotLayer = -1;
+    [SerializeField] private bool enablePanInHomeMenu = true; // Cho phép pan camera ở Home Menu
     
     [Header("Events")]
     public UnityEvent<Vector2> OnTap;
@@ -162,9 +163,16 @@ public class InputManager : MonoBehaviour
         
         isDotAtStartPosition = DetectDotAtScreenPosition(position) != null;
         
-        if (isDotAtStartPosition)
+        // Ở Home Menu, ưu tiên camera pan thay vì point connection
+        bool isInHomeMenu = GameStateManager.Instance != null && GameStateManager.Instance.IsInHomeMenu();
+        
+        if (isDotAtStartPosition && !isInHomeMenu)
         {
             currentMode = InputMode.PointConnection;
+        }
+        else if (isInHomeMenu && enablePanInHomeMenu)
+        {
+            currentMode = InputMode.CameraPan;
         }
     }
     
@@ -174,7 +182,26 @@ public class InputManager : MonoBehaviour
         float holdDuration = Time.time - pressStartTime;
         float dragDistance = Vector2.Distance(pressStartPosition, currentPosition);
         
-        if (isDotAtStartPosition)
+        bool isInHomeMenu = GameStateManager.Instance != null && GameStateManager.Instance.IsInHomeMenu();
+        
+        // Logic cho Home Menu: Ưu tiên camera pan
+        if (isInHomeMenu && enablePanInHomeMenu)
+        {
+            if (currentMode != InputMode.CameraPan && dragDistance > dragThreshold)
+            {
+                currentMode = InputMode.CameraPan;
+                OnCameraPanStart?.Invoke(position);
+            }
+            
+            if (currentMode == InputMode.CameraPan)
+            {
+                Vector2 delta = position - previousPanPosition;
+                OnCameraPanUpdate?.Invoke(delta);
+                previousPanPosition = position;
+            }
+        }
+        // Logic cho Gameplay: Phân biệt dot và camera pan
+        else if (isDotAtStartPosition)
         {
             currentMode = InputMode.PointConnection;
             
