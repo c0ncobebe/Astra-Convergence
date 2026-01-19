@@ -59,22 +59,31 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Vector1_5b4a459d58ef4a5698e0a9490925e4e7: -4.57
+    - PixelSnap: 0
+    - Vector1_5b4a459d58ef4a5698e0a9490925e4e7: 1.06
     - Vector1_a857941f911e4df4bf73133e50fdc93a: 7.5
-    - _BaseGradientPower: 0
+    - _BaseGradientPower: 1
+    - _ColorMask: 15
     - _EnableExternalAlpha: 0
-    - _NoiseRotation: 100
-    - _QueueControl: 0
-    - _QueueOffset: 0
+    - _NoiseRotation: 1.16
+    - _QueueControl: 1
+    - _QueueOffset: -1
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
     - _XRMotionVectorsPass: 0
     - _ZWrite: 0
     m_Colors:
     - Color_063e21ec65944a35be55a9110e60bcfb: {r: 4.759381, g: 4.759381, b: 4.759381, a: 1}
-    - Color_922ec08d649044c09a59fc2311821d5a: {r: 11.984315, g: 10.279466, b: 3.4509804, a: 1}
+    - Color_922ec08d649044c09a59fc2311821d5a: {r: 8.972549, g: 10.279466, b: 3.4509804, a: 0}
     - Vector2_c83df04f699a40a98932cd8306029fa4: {r: 3, g: 3, b: 0, a: 0}
-    - _BaseColor1: {r: 0.8490566, g: 0.3964934, b: 0.3964934, a: 1}
-    - _BaseColor2: {r: 0.8867924, g: 0.28025985, b: 0.28025985, a: 1}
+    - _BaseColor1: {r: 0.7924528, g: 0.5420078, b: 0.5420078, a: 0}
+    - _BaseColor2: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -8,11 +8,16 @@ namespace _MyGame._Scripts
     {
         Mesh mesh;
         [SerializeField] private MeshFilter meshFilter;
+        private MeshRenderer meshRenderer;
+        private MaterialPropertyBlock propertyBlock;
 
         void Awake()
         {
+            meshFilter = GetComponent<MeshFilter>();
+            meshRenderer = GetComponent<MeshRenderer>();
             mesh = new Mesh();
             meshFilter.mesh = mesh;
+            propertyBlock = new MaterialPropertyBlock();
         }
 
         // Gọi hàm này khi bạn có đủ điểm
@@ -43,6 +48,19 @@ namespace _MyGame._Scripts
             mesh.triangles = triangles;
             mesh.colors32 = colors;
             mesh.RecalculateBounds();
+            
+            // Set màu cho material sử dụng MaterialPropertyBlock
+            SetColor(color);
+        }
+        
+        // Set màu cho material mà không tạo instance mới
+        public void SetColor(Color color)
+        {
+            if (meshRenderer == null || propertyBlock == null) return;
+            
+            // Set property "_BaseColor1" cho ShaderGraph GlitterSkybox
+            propertyBlock.SetColor("_BaseColor1", color);
+            meshRenderer.SetPropertyBlock(propertyBlock);
         }
 
     }

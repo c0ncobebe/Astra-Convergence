@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,9 +13,7 @@ public class Loading : MonoBehaviour
     
     [Header("UI References (Optional)")]
     [SerializeField] private Slider progressBar;
-    [SerializeField] private Text loadingText;
-    [SerializeField] private Text percentageText;
-    [SerializeField] private List<Vector2> dadssad;
+    [SerializeField] private Transform xoay;
     
     private void Start()
     {
@@ -27,6 +26,7 @@ public class Loading : MonoBehaviour
         }
         
         StartCoroutine(LoadSceneAsync());
+        xoay.DORotate(360f * Vector3.forward, 1f, RotateMode.FastBeyond360).SetLoops(-1).SetEase(Ease.InOutSine);
     }
     
     private IEnumerator LoadSceneAsync()
@@ -52,17 +52,6 @@ public class Loading : MonoBehaviour
             }
             
             // Cập nhật percentage text
-            if (percentageText != null)
-            {
-                percentageText.text = $"{Mathf.RoundToInt(progress * 100)}%";
-            }
-            
-            // Cập nhật loading text
-            if (loadingText != null)
-            {
-                int dotCount = Mathf.FloorToInt(Time.time * 2) % 4;
-                loadingText.text = "Loading" + new string('.', dotCount);
-            }
             
             // Khi đã load xong (progress >= 0.9) và đã đủ thời gian tối thiểu
             if (operation.progress >= 0.9f)
@@ -73,10 +62,6 @@ public class Loading : MonoBehaviour
                 if (progressBar != null)
                 {
                     progressBar.value = 1f;
-                }
-                if (percentageText != null)
-                {
-                    percentageText.text = "100%";
                 }
                 
                 // Chờ đến khi đủ thời gian tối thiểu

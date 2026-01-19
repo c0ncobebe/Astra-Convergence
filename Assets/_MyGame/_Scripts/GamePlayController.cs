@@ -230,8 +230,8 @@ public class GamePlayManager : MonoBehaviour
         selectionLineRenderer.widthMultiplier = 1f;
         
         selectionLineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-        selectionLineRenderer.startColor = Color.yellow;
-        selectionLineRenderer.endColor = Color.yellow;
+        selectionLineRenderer.startColor = new Color(1,0.92f,0.7f,0.5f);
+        selectionLineRenderer.endColor = new Color(1,0.92f,0.7f,0.5f);
         
         selectionLineRenderer.sortingOrder = 5;
         selectionLineRenderer.positionCount = 0;
@@ -550,12 +550,14 @@ public class GamePlayManager : MonoBehaviour
     void CompletePolygon(GamePolygon polygon)
     {
         var pointPositions = new List<Vector2>(selectedPoints.Count);
+        var pointTransforms = new List<Transform>(selectedPoints.Count);
         for (int i = 0; i < selectedPoints.Count; i++)
         {
             pointPositions.Add(selectedPoints[i].transform.position);
+            pointTransforms.Add(selectedPoints[i].transform);
         }
         
-        polygon.Complete(pointPositions);
+        polygon.Complete(pointPositions, pointTransforms, polygon.color);
         
         foreach (var edge in currentSelectionEdges)
         {

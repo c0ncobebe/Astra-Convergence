@@ -62,6 +62,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 98976eb439e003648bcbf6dab15255a8, type: 3}
   - {fileID: 21300000, guid: aa218c80c4201664bafb20bcb65f6c12, type: 3}
   startNumber: 3
+  _meshRenderer: {fileID: 3148106887583952736}
 --- !u!1 &7055936766817029292
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,13 +207,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8936660791973918996, guid: 4fbe126bad692df418a282973376ba5b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4fbe126bad692df418a282973376ba5b, type: 3}
+--- !u!114 &3148106887583952736 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3595298737777195917, guid: 4fbe126bad692df418a282973376ba5b, type: 3}
+  m_PrefabInstance: {fileID: 1897497240461137133}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba3f665f8752765449979aff946ae221, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PolygonMeshRenderer
 --- !u!4 &8691353326858735136 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7118115556026964685, guid: 4fbe126bad692df418a282973376ba5b, type: 3}

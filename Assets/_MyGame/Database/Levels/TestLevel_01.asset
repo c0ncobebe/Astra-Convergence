@@ -46,7 +46,8 @@ MonoBehaviour:
     - point1: 0
       point2: 2
     sideCount: 3
-    centerPosition: {x: -1, y: -0.3}
+    centerPosition: {x: -1, y: -0.33333334}
+    color: {r: 1, g: 0.06132078, b: 0.06132078, a: 0}
   - polygonId: 1
     pointIds: 010000000300000002000000
     edges:
@@ -57,7 +58,8 @@ MonoBehaviour:
     - point1: 1
       point2: 2
     sideCount: 3
-    centerPosition: {x: 0, y: -0.7}
+    centerPosition: {x: 0, y: -0.6666667}
+    color: {r: 0.8270035, g: 0, b: 1, a: 0}
   - polygonId: 2
     pointIds: 020000000300000004000000
     edges:
@@ -68,7 +70,8 @@ MonoBehaviour:
     - point1: 2
       point2: 4
     sideCount: 3
-    centerPosition: {x: 1, y: -0.3}
+    centerPosition: {x: 1, y: -0.33333334}
+    color: {r: 0.72474456, g: 1, b: 0, a: 0}
   - polygonId: 3
     pointIds: 00000000020000000500000006000000
     edges:
@@ -82,6 +85,7 @@ MonoBehaviour:
       point2: 6
     sideCount: 4
     centerPosition: {x: -0.5, y: 0.5}
+    color: {r: 0, g: 1, b: 0.7105086, a: 0}
   - polygonId: 4
     pointIds: 020000000400000005000000
     edges:
@@ -92,4 +96,5 @@ MonoBehaviour:
     - point1: 2
       point2: 5
     sideCount: 3
-    centerPosition: {x: 1, y: 0.3}
+    centerPosition: {x: 1, y: 0.33333334}
+    color: {r: 0, g: 0.52315855, b: 1, a: 0}

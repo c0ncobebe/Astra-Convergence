@@ -23,6 +23,7 @@ public class GamePoint : MonoBehaviour
     [SerializeField] private Text debugText;
     [SerializeField] private Transform enableVisual;
     [SerializeField] private Transform disableVisual;
+    [SerializeField] private ParticleSystem effect;
     
     public void Initialize(PointData data)
     {
@@ -90,6 +91,7 @@ public class GamePoint : MonoBehaviour
     public void Animating()
     {
         transform.DOKill();
-        transform.DOScale(Vector3.one * 1.2f, 0.2f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine);
+        effect.Play();
+        transform.DOScale(Vector3.one * 1.5f, 0.1f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine);
     }
 }

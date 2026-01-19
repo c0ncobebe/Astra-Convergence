@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using _MyGame._Scripts;
 using UnityEngine;
 
 public class GamePolygon : MonoBehaviour
@@ -8,11 +9,13 @@ public class GamePolygon : MonoBehaviour
     public List<Edge> edges;
     public int sideCount;
     public bool isCompleted = false;
+    public Color32 color; // Màu sắc của polygon
     
     [Header("Number Display Settings")]
     [SerializeField] private bool useSprite = true; // True = dùng sprite, False = dùng text
     [SerializeField] private List<Sprite> numberSprites; // Sprite cho số 3, 4, 5, 6, 7, 8...
     [SerializeField] private int startNumber = 3; // Số bắt đầu (mặc định 3)
+    [SerializeField] private PolygonMeshRenderer _meshRenderer; // Mesh renderer cho polygon
     
     // Lưu các cạnh đã được hoàn thành của polygon này
     private HashSet<Edge> completedEdges = new HashSet<Edge>();
@@ -34,6 +37,7 @@ public class GamePolygon : MonoBehaviour
         pointIds = new List<int>(data.pointIds);
         edges = new List<Edge>(data.edges);
         sideCount = data.sideCount;
+        color = data.color; // Lưu màu sắc từ data
         completedEdges = new HashSet<Edge>();
         
         // Setup hiển thị số cạnh
@@ -83,7 +87,7 @@ public class GamePolygon : MonoBehaviour
         }
     }
     
-    public void Complete(List<Vector2> pointPositions)
+    public void Complete(List<Vector2> pointPositions, List<Transform> pointTransforms, Color32 color)
     {
         isCompleted = true;
         
@@ -95,6 +99,17 @@ public class GamePolygon : MonoBehaviour
                 lineRenderer.SetPosition(i, pointPositions[i]);
             }
             lineRenderer.SetPosition(pointPositions.Count, pointPositions[0]);
+        }
+        
+        // Gọi BuildPolygon để tạo mesh
+        if (_meshRenderer != null && pointTransforms != null && pointTransforms.Count >= 3)
+        {
+            _meshRenderer.BuildPolygon(pointTransforms, color);
+            Debug.Log($"[GamePolygon {polygonId}] BuildPolygon called with {pointTransforms.Count} points, color: {color}");
+        }
+        else
+        {
+            Debug.LogWarning($"[GamePolygon {polygonId}] Cannot build polygon mesh: _meshRenderer={_meshRenderer}, points={pointTransforms?.Count}");
         }
         
         // Ẩn cả text và sprite khi complete
