@@ -13,6 +13,7 @@ public class PolygonData
     public List<Edge> edges; // Các cạnh của đa giác
     public int sideCount;
     public Vector2 centerPosition;
+    public Color color = Color.white;
     
     public PolygonData(int id, List<int> points)
     {
