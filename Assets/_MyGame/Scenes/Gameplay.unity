@@ -631,7 +631,7 @@ MonoBehaviour:
   backgroundPrefab: {fileID: 0}
   backgroundSprite: {fileID: 0}
   backgroundColor: {r: 0.2, g: 0.2, b: 0.3, a: 1}
-  backgroundScale: {x: 10, y: 10, z: 10}
+  backgroundScale: {x: 20, y: 20, z: 20}
 --- !u!114 &597199370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5805,6 +5805,7 @@ MonoBehaviour:
   dotLayer:
     serializedVersion: 2
     m_Bits: 55
+  enablePanInHomeMenu: 1
   OnTap:
     m_PersistentCalls:
       m_Calls: []
@@ -6625,9 +6626,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 327a5fd8dd7b75346be1f476efc2a442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnergyWarpController
-  warpMaterial: {fileID: 2100000, guid: 85d51323e2b07764eb36dc52d89377b1, type: 2}
-  triggerKey: 32
-  duration: 0.7
 --- !u!4 &1679585794
 Transform:
   m_ObjectHideFlags: 0
