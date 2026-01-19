@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -13,6 +14,7 @@ public class Loading : MonoBehaviour
     [SerializeField] private Slider progressBar;
     [SerializeField] private Text loadingText;
     [SerializeField] private Text percentageText;
+    [SerializeField] private List<Vector2> dadssad;
     
     private void Start()
     {

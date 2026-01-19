@@ -856,6 +856,12 @@ MonoBehaviour:
   progressBar: {fileID: 163995914}
   loadingText: {fileID: 254012924}
   percentageText: {fileID: 49722110}
+  dadssad:
+  - {x: 0, y: 0}
+  - {x: 1, y: 0}
+  - {x: 0, y: 1}
+  - {x: 1, y: 1}
+  - {x: 0, y: 0}
 --- !u!1 &1384584439
 GameObject:
   m_ObjectHideFlags: 0

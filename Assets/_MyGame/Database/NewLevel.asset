@@ -16,11 +16,46 @@ MonoBehaviour:
   points:
   - pointId: 0
     position: {x: -2.96, y: 0.27}
-    belongToPolygons: 
+    belongToPolygons: 0000000001000000
   - pointId: 1
     position: {x: -1.26, y: 1.65}
-    belongToPolygons: 
+    belongToPolygons: 00000000
   - pointId: 2
     position: {x: 1.18, y: -0.67}
-    belongToPolygons: 
-  polygons: []
+    belongToPolygons: 00000000
+  - pointId: 3
+    position: {x: -2.42, y: -2.11}
+    belongToPolygons: 01000000
+  - pointId: 4
+    position: {x: -0.8, y: -3.34}
+    belongToPolygons: 01000000
+  - pointId: 5
+    position: {x: 0.84, y: -2.49}
+    belongToPolygons: 01000000
+  polygons:
+  - polygonId: 0
+    pointIds: 000000000200000001000000
+    edges:
+    - point1: 0
+      point2: 2
+    - point1: 1
+      point2: 2
+    - point1: 0
+      point2: 1
+    sideCount: 3
+    centerPosition: {x: -1.0133333, y: 0.41666666}
+    color: {r: 0.4110788, g: 0.70798934, b: 0.53987217, a: 1}
+  - polygonId: 1
+    pointIds: 03000000040000000500000000000000
+    edges:
+    - point1: 3
+      point2: 4
+    - point1: 4
+      point2: 5
+    - point1: 0
+      point2: 5
+    - point1: 0
+      point2: 3
+    sideCount: 4
+    centerPosition: {x: -1.335, y: -1.9174999}
+    color: {r: 0.57994175, g: 0.4807416, b: 0.6369794, a: 1}

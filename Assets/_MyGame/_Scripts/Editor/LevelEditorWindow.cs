@@ -22,6 +22,7 @@ public class LevelEditorWindow : EditorWindow
     private bool isCreatingPoint = false;
     private bool isCreatingPolygon = false;
     private List<int> selectedPointsForPolygon = new List<int>();
+    private int hoveredPointIndex = -1;
     
     [MenuItem("Tools/Level Editor/Open Level Editor")]
     static void ShowWindow()
@@ -100,6 +101,14 @@ public class LevelEditorWindow : EditorWindow
             {
                 levelData.Initialize();
                 Repaint();
+            }
+            
+            EditorGUILayout.Space(10);
+            EditorGUILayout.LabelField("Import/Export", EditorStyles.boldLabel);
+            
+            if (GUILayout.Button("Import Points from List"))
+            {
+                ImportPointsWindow.ShowWindow(levelData, () => Repaint());
             }
             
             EditorGUILayout.Space(10);
@@ -208,7 +217,8 @@ public class LevelEditorWindow : EditorWindow
         {
             for (int i = 0; i < levelData.points.Count; i++)
             {
-                DrawPoint(levelData.points[i], i, i == selectedPointIndex);
+                bool isHovered = (i == hoveredPointIndex && !isCreatingPoint);
+                DrawPoint(levelData.points[i], i, i == selectedPointIndex, isHovered);
             }
         }
         
@@ -216,14 +226,22 @@ public class LevelEditorWindow : EditorWindow
         Handles.EndGUI();
     }
     
-    void DrawPoint(PointData point, int index, bool isSelected)
+    void DrawPoint(PointData point, int index, bool isSelected, bool isHovered = false)
     {
         Vector3 worldPos = new Vector3(point.position.x, point.position.y, 0);
         
         bool isSelectedForPolygon = selectedPointsForPolygon.Contains(point.pointId);
         Color color = isSelected ? selectedColor : (isSelectedForPolygon ? Color.green : pointColor);
+        
+        if (isHovered && !isSelected && !isSelectedForPolygon)
+        {
+            color = Color.yellow;
+        }
+        
+        float size = isHovered ? pointSize * 1.2f : pointSize;
+        
         Handles.color = color;
-        Handles.DrawSolidDisc(worldPos, Vector3.forward, pointSize);
+        Handles.DrawSolidDisc(worldPos, Vector3.forward, size);
         
         Handles.color = Color.black;
         Handles.DrawWireDisc(worldPos, Vector3.forward, pointSize);
@@ -288,6 +306,13 @@ public class LevelEditorWindow : EditorWindow
         
         if (previewRect.Contains(e.mousePosition))
         {
+            if (e.type == EventType.MouseMove)
+            {
+                Vector2 worldPos = ScreenToWorld(e.mousePosition);
+                hoveredPointIndex = FindPointAtPosition(worldPos);
+                Repaint();
+            }
+            
             if (e.type == EventType.ScrollWheel)
             {
                 float delta = -e.delta.y;
@@ -359,18 +384,24 @@ public class LevelEditorWindow : EditorWindow
     
     int FindPointAtPosition(Vector2 worldPos)
     {
-        float threshold = 0.5f / previewZoom;
+        float threshold = Mathf.Max(0.5f, 20f / previewZoom);
+        
+        int closestIndex = -1;
+        float closestDist = float.MaxValue;
         
         for (int i = 0; i < levelData.points.Count; i++)
         {
             Vector2 pointPos = levelData.points[i].position;
-            if (Vector2.Distance(pointPos, worldPos) < threshold)
+            float dist = Vector2.Distance(pointPos, worldPos);
+            
+            if (dist < threshold && dist < closestDist)
             {
-                return i;
+                closestDist = dist;
+                closestIndex = i;
             }
         }
         
-        return -1;
+        return closestIndex;
     }
     
     int FindPolygonAtPosition(Vector2 worldPos)
@@ -737,5 +768,117 @@ public class LevelEditorWindow : EditorWindow
             
             return angle1.CompareTo(angle2);
         });
+    }
+}
+
+public class ImportPointsWindow : EditorWindow
+{
+    [SerializeField]
+    private List<Vector2> vectorList = new List<Vector2>();
+    private LevelData targetLevel;
+    private System.Action onComplete;
+    private Vector2 scrollPos;
+    private SerializedObject serializedObject;
+    private SerializedProperty vectorListProperty;
+    
+    public static void ShowWindow(LevelData level, System.Action callback)
+    {
+        var window = GetWindow<ImportPointsWindow>("Import Points");
+        window.minSize = new Vector2(400, 300);
+        window.targetLevel = level;
+        window.onComplete = callback;
+        window.vectorList = new List<Vector2>();
+    }
+    
+    void OnEnable()
+    {
+        serializedObject = new SerializedObject(this);
+        vectorListProperty = serializedObject.FindProperty("vectorList");
+    }
+    
+    void OnGUI()
+    {
+        EditorGUILayout.LabelField("Import Points from Vector2 List", EditorStyles.boldLabel);
+        EditorGUILayout.Space();
+        
+        EditorGUILayout.HelpBox("Copy List<Vector2> from Inspector and paste here using Ctrl+V", MessageType.Info);
+        
+        EditorGUILayout.Space();
+        
+        if (serializedObject == null || vectorListProperty == null)
+        {
+            serializedObject = new SerializedObject(this);
+            vectorListProperty = serializedObject.FindProperty("vectorList");
+        }
+        
+        serializedObject.Update();
+        
+        scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Height(250));
+        EditorGUILayout.PropertyField(vectorListProperty, true);
+        EditorGUILayout.EndScrollView();
+        
+        serializedObject.ApplyModifiedProperties();
+        
+        EditorGUILayout.Space();
+        
+        if (vectorList != null && vectorList.Count > 0)
+        {
+            EditorGUILayout.HelpBox($"Ready to import {vectorList.Count} points", MessageType.Info);
+        }
+        
+        EditorGUILayout.Space();
+        
+        EditorGUILayout.BeginHorizontal();
+        
+        if (GUILayout.Button("Import", GUILayout.Height(30)))
+        {
+            ImportPoints();
+        }
+        
+        if (GUILayout.Button("Cancel", GUILayout.Height(30)))
+        {
+            Close();
+        }
+        
+        EditorGUILayout.EndHorizontal();
+    }
+    
+    void ImportPoints()
+    {
+        if (targetLevel == null)
+        {
+            EditorUtility.DisplayDialog("Error", "No target level data!", "OK");
+            return;
+        }
+        
+        if (vectorList == null || vectorList.Count == 0)
+        {
+            EditorUtility.DisplayDialog("Error", "No points to import!", "OK");
+            return;
+        }
+        
+        Undo.RecordObject(targetLevel, "Import Points");
+        
+        int startId = 0;
+        if (targetLevel.points.Count > 0)
+        {
+            startId = targetLevel.points[targetLevel.points.Count - 1].pointId + 1;
+        }
+        
+        for (int i = 0; i < vectorList.Count; i++)
+        {
+            PointData newPoint = new PointData(startId + i, vectorList[i]);
+            targetLevel.points.Add(newPoint);
+        }
+        
+        EditorUtility.SetDirty(targetLevel);
+        AssetDatabase.SaveAssets();
+        
+        EditorUtility.DisplayDialog("Success", $"Imported {vectorList.Count} points successfully!", "OK");
+        
+        if (onComplete != null)
+            onComplete();
+        
+        Close();
     }
 }
