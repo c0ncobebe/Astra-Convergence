@@ -1,0 +1,1240 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f144523efb9b1e42b3751f70d8321c8, type: 3}
+  m_Name: Level_2
+  m_EditorClassIdentifier: Assembly-CSharp::LevelData
+  levelId: 2
+  points:
+  - pointId: 0
+    position: {x: -4.61, y: 3.33}
+    belongToPolygons: 00000000
+  - pointId: 1
+    position: {x: -4.08, y: 2.75}
+    belongToPolygons: 06000000
+  - pointId: 2
+    position: {x: -3.57, y: 2.97}
+    belongToPolygons: 000000000100000006000000
+  - pointId: 3
+    position: {x: -2.49, y: 2.59}
+    belongToPolygons: 0600000008000000090000004600000047000000
+  - pointId: 4
+    position: {x: -2.83, y: 2.36}
+    belongToPolygons: 0600000008000000
+  - pointId: 5
+    position: {x: -3.45, y: 2.23}
+    belongToPolygons: 0a000000
+  - pointId: 6
+    position: {x: -3.75, y: 2.18}
+    belongToPolygons: 0a000000
+  - pointId: 7
+    position: {x: -3.82, y: 1.91}
+    belongToPolygons: 0a000000
+  - pointId: 8
+    position: {x: -3.51, y: 1.96}
+    belongToPolygons: 0a000000
+  - pointId: 9
+    position: {x: -1.69, y: 2.18}
+    belongToPolygons: 080000000900000019000000390000003a0000004600000047000000
+  - pointId: 10
+    position: {x: -2.04, y: 1.99}
+    belongToPolygons: 0800000019000000
+  - pointId: 11
+    position: {x: -2.42, y: 1.86}
+    belongToPolygons: 0b000000
+  - pointId: 12
+    position: {x: -2.66, y: 1.82}
+    belongToPolygons: 0b000000
+  - pointId: 13
+    position: {x: -2.71, y: 1.59}
+    belongToPolygons: 0b000000
+  - pointId: 14
+    position: {x: -2.47, y: 1.64}
+    belongToPolygons: 0b000000
+  - pointId: 15
+    position: {x: -1.97, y: 1.17}
+    belongToPolygons: 0c000000
+  - pointId: 16
+    position: {x: -1.65, y: 1.21}
+    belongToPolygons: 0c000000
+  - pointId: 17
+    position: {x: -1.69, y: 0.92}
+    belongToPolygons: 0c000000
+  - pointId: 18
+    position: {x: -2.11, y: 0.78}
+    belongToPolygons: 0c000000
+  - pointId: 19
+    position: {x: -1.3, y: 1.42}
+    belongToPolygons: 190000001a000000
+  - pointId: 20
+    position: {x: -0.91, y: 1.54}
+    belongToPolygons: 190000001a0000001b0000003a000000
+  - pointId: 21
+    position: {x: -0.16, y: 0.92}
+    belongToPolygons: 1a0000001b00000036000000
+  - pointId: 22
+    position: {x: -0.53, y: 0.78}
+    belongToPolygons: 1a000000
+  - pointId: 23
+    position: {x: -1.42, y: 3.72}
+    belongToPolygons: 0000000001000000
+  - pointId: 24
+    position: {x: -1.11, y: 3.33}
+    belongToPolygons: 0100000046000000
+  - pointId: 25
+    position: {x: -0.91, y: 2.97}
+    belongToPolygons: 4600000047000000
+  - pointId: 26
+    position: {x: -0.68, y: 2.69}
+    belongToPolygons: 0900000047000000
+  - pointId: 27
+    position: {x: 0.29, y: 3.65}
+    belongToPolygons: 0100000002000000
+  - pointId: 28
+    position: {x: 1.24, y: 3.5}
+    belongToPolygons: 0200000029000000
+  - pointId: 29
+    position: {x: 0.68, y: 2.97}
+    belongToPolygons: 0100000002000000040000004600000047000000
+  - pointId: 30
+    position: {x: 1.63, y: 2.87}
+    belongToPolygons: 020000000400000029000000
+  - pointId: 31
+    position: {x: -0.53, y: 2.37}
+    belongToPolygons: 0900000039000000
+  - pointId: 32
+    position: {x: 0.85, y: 2.27}
+    belongToPolygons: 04000000090000002f00000039000000
+  - pointId: 33
+    position: {x: -0.35, y: 2.06}
+    belongToPolygons: 390000003a000000
+  - pointId: 34
+    position: {x: -0.11, y: 1.66}
+    belongToPolygons: 3a000000
+  - pointId: 35
+    position: {x: 1.72, y: 2.19}
+    belongToPolygons: 04000000290000002a0000002f000000
+  - pointId: 36
+    position: {x: 0.93, y: 1.6}
+    belongToPolygons: 2f00000030000000390000003a000000
+  - pointId: 37
+    position: {x: 1.72, y: 1.42}
+    belongToPolygons: 2a0000002b0000002f00000030000000
+  - pointId: 38
+    position: {x: 0.06, y: 1.36}
+    belongToPolygons: 1b000000
+  - pointId: 39
+    position: {x: 0.24, y: 0.97}
+    belongToPolygons: 1b000000
+  - pointId: 40
+    position: {x: 0.99, y: 0.87}
+    belongToPolygons: 1b0000003000000031000000
+  - pointId: 41
+    position: {x: 1.63, y: 0.72}
+    belongToPolygons: 2b0000002c0000003000000031000000
+  - pointId: 42
+    position: {x: 0.39, y: 0.67}
+    belongToPolygons: 36000000
+  - pointId: 43
+    position: {x: 0.29, y: 0.28}
+    belongToPolygons: 340000003500000036000000
+  - pointId: 44
+    position: {x: 0.93, y: 0.21}
+    belongToPolygons: 31000000320000003500000036000000
+  - pointId: 45
+    position: {x: 1.42, y: 0.13}
+    belongToPolygons: 2c0000002d0000003100000032000000
+  - pointId: 46
+    position: {x: 0.74, y: -0.44}
+    belongToPolygons: 32000000330000003400000035000000
+  - pointId: 47
+    position: {x: 0.44, y: -0.45}
+    belongToPolygons: 34000000
+  - pointId: 48
+    position: {x: 0.39, y: -1.19}
+    belongToPolygons: 100000003300000034000000
+  - pointId: 49
+    position: {x: 0.68, y: -1.19}
+    belongToPolygons: 10000000110000002e00000033000000
+  - pointId: 50
+    position: {x: 1.18, y: -0.45}
+    belongToPolygons: 2d0000002e0000003200000033000000
+  - pointId: 51
+    position: {x: 2.1, y: -0.01}
+    belongToPolygons: 260000002c0000002d000000
+  - pointId: 52
+    position: {x: 1.67, y: -0.45}
+    belongToPolygons: 27000000280000002d0000002e000000
+  - pointId: 53
+    position: {x: 1.06, y: -1.11}
+    belongToPolygons: 1100000012000000270000002e000000
+  - pointId: 54
+    position: {x: 0.87, y: -1.8}
+    belongToPolygons: 1200000013000000280000003c000000
+  - pointId: 55
+    position: {x: -0.08, y: -2.24}
+    belongToPolygons: 10000000110000001200000013000000
+  - pointId: 56
+    position: {x: -0.22, y: -2.38}
+    belongToPolygons: 18000000
+  - pointId: 57
+    position: {x: -0.75, y: -2.77}
+    belongToPolygons: 18000000
+  - pointId: 58
+    position: {x: -0.36, y: -2.65}
+    belongToPolygons: 18000000
+  - pointId: 59
+    position: {x: -0.22, y: -3.12}
+    belongToPolygons: 18000000
+  - pointId: 60
+    position: {x: -0.48, y: -2.85}
+    belongToPolygons: 17000000
+  - pointId: 61
+    position: {x: -0.97, y: -3.02}
+    belongToPolygons: 17000000
+  - pointId: 62
+    position: {x: -0.65, y: -3.02}
+    belongToPolygons: 17000000
+  - pointId: 63
+    position: {x: -0.63, y: -3.41}
+    belongToPolygons: 17000000
+  - pointId: 64
+    position: {x: -0.83, y: -3.19}
+    belongToPolygons: 16000000
+  - pointId: 65
+    position: {x: -1.35, y: -3.26}
+    belongToPolygons: 16000000
+  - pointId: 66
+    position: {x: -1.04, y: -3.33}
+    belongToPolygons: 16000000
+  - pointId: 67
+    position: {x: -1.11, y: -3.72}
+    belongToPolygons: 16000000
+  - pointId: 68
+    position: {x: 2.54, y: 0.46}
+    belongToPolygons: 25000000260000002b0000002c000000
+  - pointId: 69
+    position: {x: 3, y: 0.97}
+    belongToPolygons: 24000000250000002a0000002b000000
+  - pointId: 70
+    position: {x: 3.64, y: 1.59}
+    belongToPolygons: 2300000024000000290000002a000000
+  - pointId: 71
+    position: {x: 4.52, y: 2.45}
+    belongToPolygons: 29000000
+  - pointId: 72
+    position: {x: 4.42, y: 0.78}
+    belongToPolygons: 
+  - pointId: 73
+    position: {x: 3.88, y: 1.23}
+    belongToPolygons: 2200000023000000
+  - pointId: 74
+    position: {x: 4.1, y: 0.72}
+    belongToPolygons: 2100000022000000
+  - pointId: 75
+    position: {x: 4.34, y: 0.13}
+    belongToPolygons: 2000000021000000
+  - pointId: 76
+    position: {x: 4.61, y: -0.52}
+    belongToPolygons: 2000000044000000
+  - pointId: 77
+    position: {x: 4.18, y: -0.51}
+    belongToPolygons: 20000000210000004300000044000000
+  - pointId: 78
+    position: {x: 3.75, y: -0.56}
+    belongToPolygons: 21000000220000004200000043000000
+  - pointId: 79
+    position: {x: 3.3, y: -0.71}
+    belongToPolygons: 22000000230000004100000042000000
+  - pointId: 80
+    position: {x: 2.88, y: -0.87}
+    belongToPolygons: 23000000240000004000000041000000
+  - pointId: 81
+    position: {x: 2.47, y: -1.05}
+    belongToPolygons: 24000000250000003f00000040000000
+  - pointId: 82
+    position: {x: 2.17, y: -1.19}
+    belongToPolygons: 25000000260000003e0000003f000000
+  - pointId: 83
+    position: {x: 1.81, y: -1.37}
+    belongToPolygons: 26000000270000003d0000003e000000
+  - pointId: 84
+    position: {x: 1.42, y: -1.56}
+    belongToPolygons: 27000000280000003b0000003c0000003d000000
+  - pointId: 85
+    position: {x: 0.98, y: -2.01}
+    belongToPolygons: 130000001c0000003c000000
+  - pointId: 86
+    position: {x: 0.87, y: -2.25}
+    belongToPolygons: 1c000000
+  - pointId: 87
+    position: {x: 1.51, y: -1.96}
+    belongToPolygons: 1c0000001d0000003b0000003c0000003d000000
+  - pointId: 88
+    position: {x: 1.42, y: -2.18}
+    belongToPolygons: 1c0000001d000000
+  - pointId: 89
+    position: {x: 1.94, y: -1.66}
+    belongToPolygons: 3b0000003d0000003e000000
+  - pointId: 90
+    position: {x: 2.17, y: -1.6}
+    belongToPolygons: 3e0000003f000000
+  - pointId: 91
+    position: {x: 2.56, y: -1.52}
+    belongToPolygons: 3f00000040000000
+  - pointId: 92
+    position: {x: 2.81, y: -1.47}
+    belongToPolygons: 4000000041000000
+  - pointId: 93
+    position: {x: 3.26, y: -1.42}
+    belongToPolygons: 4100000042000000
+  - pointId: 94
+    position: {x: 3.59, y: -1.42}
+    belongToPolygons: 4200000043000000
+  - pointId: 95
+    position: {x: 3.95, y: -1.47}
+    belongToPolygons: 4300000044000000
+  - pointId: 96
+    position: {x: 1.99, y: -2.08}
+    belongToPolygons: 1d0000001e000000
+  - pointId: 97
+    position: {x: 1.87, y: -2.3}
+    belongToPolygons: 1d0000001e000000
+  - pointId: 98
+    position: {x: 2.43, y: -2.3}
+    belongToPolygons: 1e0000001f000000
+  - pointId: 99
+    position: {x: 2.29, y: -2.53}
+    belongToPolygons: 1e0000001f000000
+  - pointId: 100
+    position: {x: 2.81, y: -2.84}
+    belongToPolygons: 1f00000045000000
+  - pointId: 101
+    position: {x: 2.65, y: -3.09}
+    belongToPolygons: 1f00000045000000
+  - pointId: 102
+    position: {x: 2.88, y: -3.6}
+    belongToPolygons: 45000000
+  - pointId: 103
+    position: {x: 2.33, y: -3.09}
+    belongToPolygons: 15000000
+  - pointId: 104
+    position: {x: 1.72, y: -2.5}
+    belongToPolygons: 14000000
+  - pointId: 105
+    position: {x: 1.55, y: -2.58}
+    belongToPolygons: 14000000
+  - pointId: 106
+    position: {x: 1.81, y: -2.67}
+    belongToPolygons: 14000000
+  - pointId: 107
+    position: {x: 1.58, y: -2.88}
+    belongToPolygons: 14000000
+  - pointId: 108
+    position: {x: 2.1, y: -3.19}
+    belongToPolygons: 15000000
+  - pointId: 109
+    position: {x: 2.38, y: -3.32}
+    belongToPolygons: 15000000
+  - pointId: 110
+    position: {x: 2.11, y: -3.52}
+    belongToPolygons: 15000000
+  polygons:
+  - polygonId: 0
+    pointIds: 000000000200000017000000
+    edges:
+    - point1: 0
+      point2: 2
+    - point1: 2
+      point2: 23
+    - point1: 0
+      point2: 23
+    sideCount: 3
+    centerPosition: {x: -3.2, y: 3.3400002}
+    color: {r: 0.14901961, g: 0.098039225, b: 0.25490198, a: 1}
+  - polygonId: 1
+    pointIds: 02000000170000001b0000001d00000018000000
+    edges:
+    - point1: 2
+      point2: 23
+    - point1: 23
+      point2: 27
+    - point1: 27
+      point2: 29
+    - point1: 24
+      point2: 29
+    - point1: 2
+      point2: 24
+    sideCount: 5
+    centerPosition: {x: -0.97017556, y: 3.3833663}
+    color: {r: 0.054901965, g: 0.19607845, b: 0.32941177, a: 1}
+  - polygonId: 2
+    pointIds: 1d0000001e0000001c0000001b000000
+    edges:
+    - point1: 29
+      point2: 30
+    - point1: 28
+      point2: 30
+    - point1: 27
+      point2: 28
+    - point1: 27
+      point2: 29
+    sideCount: 4
+    centerPosition: {x: 0.9545481, y: 3.2465065}
+    color: {r: 0.18039216, g: 0.13333334, b: 0.29803923, a: 1}
+  - polygonId: 4
+    pointIds: 20000000230000001e0000001d000000
+    edges:
+    - point1: 32
+      point2: 35
+    - point1: 30
+      point2: 35
+    - point1: 29
+      point2: 30
+    - point1: 29
+      point2: 32
+    sideCount: 4
+    centerPosition: {x: 1.2177212, y: 2.5800414}
+    color: {r: 0.07450981, g: 0.1764706, b: 0.4156863, a: 1}
+  - polygonId: 6
+    pointIds: 04000000030000000200000001000000
+    edges:
+    - point1: 3
+      point2: 4
+    - point1: 2
+      point2: 3
+    - point1: 1
+      point2: 2
+    - point1: 1
+      point2: 4
+    sideCount: 4
+    centerPosition: {x: -3.2583039, y: 2.6696825}
+    color: {r: 0.5647059, g: 0.1254902, b: 0.2392157, a: 1}
+  - polygonId: 8
+    pointIds: 0a000000090000000300000004000000
+    edges:
+    - point1: 9
+      point2: 10
+    - point1: 3
+      point2: 9
+    - point1: 3
+      point2: 4
+    - point1: 4
+      point2: 10
+    sideCount: 4
+    centerPosition: {x: -2.2671146, y: 2.2839303}
+    color: {r: 0.1137255, g: 0.30980393, b: 0.41960788, a: 1}
+  - polygonId: 9
+    pointIds: 090000001f000000200000001a00000003000000
+    edges:
+    - point1: 9
+      point2: 31
+    - point1: 31
+      point2: 32
+    - point1: 26
+      point2: 32
+    - point1: 3
+      point2: 26
+    - point1: 3
+      point2: 9
+    sideCount: 5
+    centerPosition: {x: -1.0733868, y: 2.457671}
+    color: {r: 0.24705884, g: 0.1764706, b: 0.34509805, a: 1}
+  - polygonId: 10
+    pointIds: 07000000080000000500000006000000
+    edges:
+    - point1: 7
+      point2: 8
+    - point1: 5
+      point2: 8
+    - point1: 5
+      point2: 6
+    - point1: 6
+      point2: 7
+    sideCount: 4
+    centerPosition: {x: -3.6325269, y: 2.0692594}
+    color: {r: 0.627451, g: 0.44705886, b: 0.14509805, a: 1}
+  - polygonId: 11
+    pointIds: 0d0000000e0000000b0000000c000000
+    edges:
+    - point1: 13
+      point2: 14
+    - point1: 11
+      point2: 14
+    - point1: 11
+      point2: 12
+    - point1: 12
+      point2: 13
+    sideCount: 4
+    centerPosition: {x: -2.5658867, y: 1.7275074}
+    color: {r: 0.5803922, g: 0.5647059, b: 0.21568629, a: 1}
+  - polygonId: 12
+    pointIds: 1200000011000000100000000f000000
+    edges:
+    - point1: 17
+      point2: 18
+    - point1: 16
+      point2: 17
+    - point1: 15
+      point2: 16
+    - point1: 15
+      point2: 18
+    sideCount: 4
+    centerPosition: {x: -1.8639277, y: 1.0121977}
+    color: {r: 0.5921569, g: 0.27450982, b: 0.14509805, a: 1}
+  - polygonId: 16
+    pointIds: 370000003100000030000000
+    edges:
+    - point1: 49
+      point2: 55
+    - point1: 48
+      point2: 49
+    - point1: 48
+      point2: 55
+    sideCount: 3
+    centerPosition: {x: 0.33, y: -1.5400002}
+    color: {r: 0.28235295, g: 0.1137255, b: 0.2627451, a: 1}
+  - polygonId: 17
+    pointIds: 370000003500000031000000
+    edges:
+    - point1: 53
+      point2: 55
+    - point1: 49
+      point2: 53
+    - point1: 49
+      point2: 55
+    sideCount: 3
+    centerPosition: {x: 0.5533331, y: -1.5133332}
+    color: {r: 0.5254902, g: 0.13725491, b: 0.30980393, a: 1}
+  - polygonId: 18
+    pointIds: 370000003600000035000000
+    edges:
+    - point1: 54
+      point2: 55
+    - point1: 53
+      point2: 54
+    - point1: 53
+      point2: 55
+    sideCount: 3
+    centerPosition: {x: 0.61666673, y: -1.7166663}
+    color: {r: 0.31941032, g: 0.90434504, b: 0.7295154, a: 1}
+  - polygonId: 19
+    pointIds: 370000005500000036000000
+    edges:
+    - point1: 55
+      point2: 85
+    - point1: 54
+      point2: 85
+    - point1: 54
+      point2: 55
+    sideCount: 3
+    centerPosition: {x: 0.5899999, y: -2.0166662}
+    color: {r: 0.47058827, g: 0.427451, b: 0.10196079, a: 1}
+  - polygonId: 20
+    pointIds: 6b0000006a0000006800000069000000
+    edges:
+    - point1: 106
+      point2: 107
+    - point1: 104
+      point2: 106
+    - point1: 104
+      point2: 105
+    - point1: 105
+      point2: 107
+    sideCount: 4
+    centerPosition: {x: 1.6617882, y: -2.6689508}
+    color: {r: 0.454902, g: 0.21960786, b: 0.1254902, a: 1}
+  - polygonId: 21
+    pointIds: 6e0000006d000000670000006c000000
+    edges:
+    - point1: 109
+      point2: 110
+    - point1: 103
+      point2: 109
+    - point1: 103
+      point2: 108
+    - point1: 108
+      point2: 110
+    sideCount: 4
+    centerPosition: {x: 2.225162, y: -3.2876353}
+    color: {r: 0.45098042, g: 0.32156864, b: 0.12941177, a: 1}
+  - polygonId: 22
+    pointIds: 43000000400000004100000042000000
+    edges:
+    - point1: 64
+      point2: 67
+    - point1: 64
+      point2: 65
+    - point1: 65
+      point2: 66
+    - point1: 66
+      point2: 67
+    sideCount: 4
+    centerPosition: {x: -1.0290323, y: -3.3449113}
+    color: {r: 0.39607847, g: 0.16078432, b: 0.14901961, a: 1}
+  - polygonId: 23
+    pointIds: 3f0000003c0000003d0000003e000000
+    edges:
+    - point1: 60
+      point2: 63
+    - point1: 60
+      point2: 61
+    - point1: 61
+      point2: 62
+    - point1: 62
+      point2: 63
+    sideCount: 4
+    centerPosition: {x: -0.6363475, y: -3.0363479}
+    color: {r: 0.39607847, g: 0.16470589, b: 0.15294118, a: 1}
+  - polygonId: 24
+    pointIds: 390000003a0000003b00000038000000
+    edges:
+    - point1: 57
+      point2: 58
+    - point1: 58
+      point2: 59
+    - point1: 56
+      point2: 59
+    - point1: 56
+      point2: 57
+    sideCount: 4
+    centerPosition: {x: -0.34805638, y: -2.6629193}
+    color: {r: 0.39607847, g: 0.15686275, b: 0.14901961, a: 1}
+  - polygonId: 25
+    pointIds: 1300000014000000090000000a000000
+    edges:
+    - point1: 19
+      point2: 20
+    - point1: 9
+      point2: 20
+    - point1: 9
+      point2: 10
+    - point1: 10
+      point2: 19
+    sideCount: 4
+    centerPosition: {x: -1.4874789, y: 1.7879931}
+    color: {r: 0.3019608, g: 0.121568635, b: 0.29803923, a: 1}
+  - polygonId: 26
+    pointIds: 16000000150000001400000013000000
+    edges:
+    - point1: 21
+      point2: 22
+    - point1: 20
+      point2: 21
+    - point1: 19
+      point2: 20
+    - point1: 19
+      point2: 22
+    sideCount: 4
+    centerPosition: {x: -0.7254681, y: 1.1642696}
+    color: {r: 0.6431373, g: 0.4666667, b: 0.15294118, a: 1}
+  - polygonId: 27
+    pointIds: 1500000027000000280000002600000014000000
+    edges:
+    - point1: 21
+      point2: 39
+    - point1: 39
+      point2: 40
+    - point1: 38
+      point2: 40
+    - point1: 20
+      point2: 38
+    - point1: 20
+      point2: 21
+    sideCount: 5
+    centerPosition: {x: -0.034536198, y: 1.176104}
+    color: {r: 0.54006875, g: 0.8652595, b: 0.60433704, a: 1}
+  - polygonId: 28
+    pointIds: 56000000580000005700000055000000
+    edges:
+    - point1: 86
+      point2: 88
+    - point1: 87
+      point2: 88
+    - point1: 85
+      point2: 87
+    - point1: 85
+      point2: 86
+    sideCount: 4
+    centerPosition: {x: 1.1911621, y: -2.100828}
+    color: {r: 0.4431373, g: 0.14901961, b: 0.09411766, a: 1}
+  - polygonId: 29
+    pointIds: 58000000610000006000000057000000
+    edges:
+    - point1: 88
+      point2: 97
+    - point1: 96
+      point2: 97
+    - point1: 87
+      point2: 96
+    - point1: 87
+      point2: 88
+    sideCount: 4
+    centerPosition: {x: 1.6992164, y: -2.1292598}
+    color: {r: 0.2509804, g: 0.10588236, b: 0.24313727, a: 1}
+  - polygonId: 30
+    pointIds: 63000000620000006000000061000000
+    edges:
+    - point1: 98
+      point2: 99
+    - point1: 96
+      point2: 98
+    - point1: 96
+      point2: 97
+    - point1: 97
+      point2: 99
+    sideCount: 4
+    centerPosition: {x: 2.1477783, y: -2.3033333}
+    color: {r: 0.07058824, g: 0.14509805, b: 0.32941177, a: 1}
+  - polygonId: 31
+    pointIds: 65000000640000006200000063000000
+    edges:
+    - point1: 100
+      point2: 101
+    - point1: 98
+      point2: 100
+    - point1: 98
+      point2: 99
+    - point1: 99
+      point2: 101
+    sideCount: 4
+    centerPosition: {x: 2.5484428, y: -2.694713}
+    color: {r: 0.37254903, g: 0.07450981, b: 0.10196079, a: 1}
+  - polygonId: 32
+    pointIds: 4d0000004c0000004b000000
+    edges:
+    - point1: 76
+      point2: 77
+    - point1: 75
+      point2: 76
+    - point1: 75
+      point2: 77
+    sideCount: 3
+    centerPosition: {x: 4.376666, y: -0.29999983}
+    color: {r: 0.5372549, g: 0.48627454, b: 0.11764707, a: 1}
+  - polygonId: 33
+    pointIds: 4e0000004d0000004b0000004a000000
+    edges:
+    - point1: 77
+      point2: 78
+    - point1: 75
+      point2: 77
+    - point1: 74
+      point2: 75
+    - point1: 74
+      point2: 78
+    sideCount: 4
+    centerPosition: {x: 4.0724573, y: -0.04362266}
+    color: {r: 0.6914753, g: 0.920899, b: 0.6811811, a: 1}
+  - polygonId: 34
+    pointIds: 4f0000004e0000004a00000049000000
+    edges:
+    - point1: 78
+      point2: 79
+    - point1: 74
+      point2: 78
+    - point1: 73
+      point2: 74
+    - point1: 73
+      point2: 79
+    sideCount: 4
+    centerPosition: {x: 3.741794, y: 0.16266707}
+    color: {r: 0.5764706, g: 0.60784316, b: 0.11764707, a: 1}
+  - polygonId: 35
+    pointIds: 500000004f0000004900000046000000
+    edges:
+    - point1: 79
+      point2: 80
+    - point1: 73
+      point2: 79
+    - point1: 70
+      point2: 73
+    - point1: 70
+      point2: 80
+    sideCount: 4
+    centerPosition: {x: 3.4150736, y: 0.30098805}
+    color: {r: 0.83921576, g: 0.83921576, b: 0.3254902, a: 1}
+  - polygonId: 36
+    pointIds: 46000000450000005100000050000000
+    edges:
+    - point1: 69
+      point2: 70
+    - point1: 69
+      point2: 81
+    - point1: 80
+      point2: 81
+    - point1: 70
+      point2: 80
+    sideCount: 4
+    centerPosition: {x: 3.017673, y: 0.21210022}
+    color: {r: 0.5647059, g: 0.54901963, b: 0.12941177, a: 1}
+  - polygonId: 37
+    pointIds: 45000000440000005200000051000000
+    edges:
+    - point1: 68
+      point2: 69
+    - point1: 68
+      point2: 82
+    - point1: 81
+      point2: 82
+    - point1: 69
+      point2: 81
+    sideCount: 4
+    centerPosition: {x: 2.5587409, y: -0.16287509}
+    color: {r: 0.5647059, g: 0.5019608, b: 0.13333334, a: 1}
+  - polygonId: 38
+    pointIds: 44000000330000005300000052000000
+    edges:
+    - point1: 51
+      point2: 68
+    - point1: 51
+      point2: 83
+    - point1: 82
+      point2: 83
+    - point1: 68
+      point2: 82
+    sideCount: 4
+    centerPosition: {x: 2.162437, y: -0.51631206}
+    color: {r: 0.54901963, g: 0.5803922, b: 0.10980393, a: 1}
+  - polygonId: 39
+    pointIds: 54000000530000003400000035000000
+    edges:
+    - point1: 83
+      point2: 84
+    - point1: 52
+      point2: 83
+    - point1: 52
+      point2: 53
+    - point1: 53
+      point2: 84
+    sideCount: 4
+    centerPosition: {x: 1.4906869, y: -1.0772158}
+    color: {r: 0.69679934, g: 0.77836794, b: 0.62478614, a: 1}
+  - polygonId: 40
+    pointIds: 360000005400000034000000
+    edges:
+    - point1: 54
+      point2: 84
+    - point1: 52
+      point2: 84
+    - point1: 52
+      point2: 54
+    sideCount: 3
+    centerPosition: {x: 1.3200002, y: -1.27}
+    color: {r: 0.92446184, g: 0.97788566, b: 0.43202764, a: 1}
+  - polygonId: 41
+    pointIds: 2300000046000000470000001c0000001e000000
+    edges:
+    - point1: 35
+      point2: 70
+    - point1: 70
+      point2: 71
+    - point1: 28
+      point2: 71
+    - point1: 28
+      point2: 30
+    - point1: 30
+      point2: 35
+    sideCount: 5
+    centerPosition: {x: 2.8306658, y: 2.467543}
+    color: {r: 0.5647059, g: 0.098039225, b: 0.23137257, a: 1}
+  - polygonId: 42
+    pointIds: 25000000450000004600000023000000
+    edges:
+    - point1: 37
+      point2: 69
+    - point1: 69
+      point2: 70
+    - point1: 35
+      point2: 70
+    - point1: 35
+      point2: 37
+    sideCount: 4
+    centerPosition: {x: 2.540267, y: 1.5615166}
+    color: {r: 0.627451, g: 0.11764707, b: 0.27450982, a: 1}
+  - polygonId: 43
+    pointIds: 29000000440000004500000025000000
+    edges:
+    - point1: 41
+      point2: 68
+    - point1: 68
+      point2: 69
+    - point1: 37
+      point2: 69
+    - point1: 37
+      point2: 41
+    sideCount: 4
+    centerPosition: {x: 2.2216165, y: 0.9137986}
+    color: {r: 0.5921569, g: 0.121568635, b: 0.34901962, a: 1}
+  - polygonId: 44
+    pointIds: 2d000000330000004400000029000000
+    edges:
+    - point1: 45
+      point2: 51
+    - point1: 51
+      point2: 68
+    - point1: 41
+      point2: 68
+    - point1: 41
+      point2: 45
+    sideCount: 4
+    centerPosition: {x: 1.9247307, y: 0.3413046}
+    color: {r: 0.4901961, g: 0.10196079, b: 0.13725491, a: 1}
+  - polygonId: 45
+    pointIds: 3200000034000000330000002d000000
+    edges:
+    - point1: 50
+      point2: 52
+    - point1: 51
+      point2: 52
+    - point1: 45
+      point2: 51
+    - point1: 45
+      point2: 50
+    sideCount: 4
+    centerPosition: {x: 1.5945827, y: -0.17476489}
+    color: {r: 0.67058825, g: 0.21960786, b: 0.29411766, a: 1}
+  - polygonId: 46
+    pointIds: 31000000350000003400000032000000
+    edges:
+    - point1: 49
+      point2: 53
+    - point1: 52
+      point2: 53
+    - point1: 50
+      point2: 52
+    - point1: 49
+      point2: 50
+    sideCount: 4
+    centerPosition: {x: 1.1623554, y: -0.7753771}
+    color: {r: 0.5294118, g: 0.10980393, b: 0.21568629, a: 1}
+  - polygonId: 47
+    pointIds: 24000000250000002300000020000000
+    edges:
+    - point1: 36
+      point2: 37
+    - point1: 35
+      point2: 37
+    - point1: 32
+      point2: 35
+    - point1: 32
+      point2: 36
+    sideCount: 4
+    centerPosition: {x: 1.3155586, y: 1.8745309}
+    color: {r: 0.29803923, g: 0.10588236, b: 0.29411766, a: 1}
+  - polygonId: 48
+    pointIds: 28000000290000002500000024000000
+    edges:
+    - point1: 40
+      point2: 41
+    - point1: 37
+      point2: 41
+    - point1: 36
+      point2: 37
+    - point1: 36
+      point2: 40
+    sideCount: 4
+    centerPosition: {x: 1.3181447, y: 1.1649035}
+    color: {r: 0.5803922, g: 0.25490198, b: 0.10588236, a: 1}
+  - polygonId: 49
+    pointIds: 2c0000002d0000002900000028000000
+    edges:
+    - point1: 44
+      point2: 45
+    - point1: 41
+      point2: 45
+    - point1: 40
+      point2: 41
+    - point1: 40
+      point2: 44
+    sideCount: 4
+    centerPosition: {x: 1.2428012, y: 0.4976599}
+    color: {r: 0.61960787, g: 0.43921572, b: 0.09411766, a: 1}
+  - polygonId: 50
+    pointIds: 2e000000320000002d0000002c000000
+    edges:
+    - point1: 46
+      point2: 50
+    - point1: 45
+      point2: 50
+    - point1: 44
+      point2: 45
+    - point1: 44
+      point2: 46
+    sideCount: 4
+    centerPosition: {x: 1.0663043, y: -0.1291764}
+    color: {r: 0.5529412, g: 0.5372549, b: 0.12941177, a: 1}
+  - polygonId: 51
+    pointIds: 31000000320000002e00000030000000
+    edges:
+    - point1: 49
+      point2: 50
+    - point1: 46
+      point2: 50
+    - point1: 46
+      point2: 48
+    - point1: 48
+      point2: 49
+    sideCount: 4
+    centerPosition: {x: 0.7621693, y: -0.79121697}
+    color: {r: 0.09019608, g: 0.21960786, b: 0.3529412, a: 1}
+  - polygonId: 52
+    pointIds: 300000002e0000002b0000002f000000
+    edges:
+    - point1: 46
+      point2: 48
+    - point1: 43
+      point2: 46
+    - point1: 43
+      point2: 47
+    - point1: 47
+      point2: 48
+    sideCount: 4
+    centerPosition: {x: 0.50670433, y: -0.44888768}
+    color: {r: 0.2784314, g: 0.21568629, b: 0.35686275, a: 1}
+  - polygonId: 53
+    pointIds: 2e0000002c0000002b000000
+    edges:
+    - point1: 44
+      point2: 46
+    - point1: 43
+      point2: 44
+    - point1: 43
+      point2: 46
+    sideCount: 3
+    centerPosition: {x: 0.65333337, y: 0.016666668}
+    color: {r: 0.1137255, g: 0.30980393, b: 0.4156863, a: 1}
+  - polygonId: 54
+    pointIds: 2b0000002c0000002a00000015000000
+    edges:
+    - point1: 43
+      point2: 44
+    - point1: 42
+      point2: 44
+    - point1: 21
+      point2: 42
+    - point1: 21
+      point2: 43
+    sideCount: 4
+    centerPosition: {x: 0.36126187, y: 0.5009212}
+    color: {r: 0.20392159, g: 0.14901961, b: 0.3019608, a: 1}
+  - polygonId: 57
+    pointIds: 2100000024000000200000001f00000009000000
+    edges:
+    - point1: 33
+      point2: 36
+    - point1: 32
+      point2: 36
+    - point1: 31
+      point2: 32
+    - point1: 9
+      point2: 31
+    - point1: 9
+      point2: 33
+    sideCount: 5
+    centerPosition: {x: 0.030654222, y: 2.0963686}
+    color: {r: 0.5137532, g: 0.5105567, b: 0.37154236, a: 1}
+  - polygonId: 58
+    pointIds: 1400000022000000240000002100000009000000
+    edges:
+    - point1: 20
+      point2: 34
+    - point1: 34
+      point2: 36
+    - point1: 33
+      point2: 36
+    - point1: 9
+      point2: 33
+    - point1: 9
+      point2: 20
+    sideCount: 5
+    centerPosition: {x: -0.55971646, y: 1.8460819}
+    color: {r: 0.393928, g: 0.44788682, b: 0.70801353, a: 1}
+  - polygonId: 59
+    pointIds: 570000005900000054000000
+    edges:
+    - point1: 87
+      point2: 89
+    - point1: 84
+      point2: 89
+    - point1: 84
+      point2: 87
+    sideCount: 3
+    centerPosition: {x: 1.6233337, y: -1.726667}
+    color: {r: 0.56337667, g: 0.933408, b: 0.69244254, a: 1}
+  - polygonId: 60
+    pointIds: 55000000570000005400000036000000
+    edges:
+    - point1: 85
+      point2: 87
+    - point1: 84
+      point2: 87
+    - point1: 54
+      point2: 84
+    - point1: 54
+      point2: 85
+    sideCount: 4
+    centerPosition: {x: 1.2188691, y: -1.8222175}
+    color: {r: 0.72085613, g: 0.5046674, b: 0.82746685, a: 1}
+  - polygonId: 61
+    pointIds: 57000000590000005300000054000000
+    edges:
+    - point1: 87
+      point2: 89
+    - point1: 83
+      point2: 89
+    - point1: 83
+      point2: 84
+    - point1: 84
+      point2: 87
+    sideCount: 4
+    centerPosition: {x: 1.6642481, y: -1.6462017}
+    color: {r: 0.4156183, g: 0.36655453, b: 0.6319386, a: 1}
+  - polygonId: 62
+    pointIds: 590000005a0000005200000053000000
+    edges:
+    - point1: 89
+      point2: 90
+    - point1: 82
+      point2: 90
+    - point1: 82
+      point2: 83
+    - point1: 83
+      point2: 89
+    sideCount: 4
+    centerPosition: {x: 2.0242836, y: -1.4392183}
+    color: {r: 0.6657806, g: 0.4446134, b: 0.47020644, a: 1}
+  - polygonId: 63
+    pointIds: 5a0000005b0000005100000052000000
+    edges:
+    - point1: 90
+      point2: 91
+    - point1: 81
+      point2: 91
+    - point1: 81
+      point2: 82
+    - point1: 82
+      point2: 90
+    sideCount: 4
+    centerPosition: {x: 2.3489954, y: -1.3468424}
+    color: {r: 0.4183159, g: 0.42963114, b: 0.9956057, a: 1}
+  - polygonId: 64
+    pointIds: 5b0000005c0000005000000051000000
+    edges:
+    - point1: 91
+      point2: 92
+    - point1: 80
+      point2: 92
+    - point1: 80
+      point2: 81
+    - point1: 81
+      point2: 91
+    sideCount: 4
+    centerPosition: {x: 2.683383, y: -1.2043757}
+    color: {r: 0.45313025, g: 0.88236654, b: 0.9027587, a: 1}
+  - polygonId: 65
+    pointIds: 5c0000005d0000004f00000050000000
+    edges:
+    - point1: 92
+      point2: 93
+    - point1: 79
+      point2: 93
+    - point1: 79
+      point2: 80
+    - point1: 80
+      point2: 92
+    sideCount: 4
+    centerPosition: {x: 3.0687006, y: -1.1209265}
+    color: {r: 0.3638804, g: 0.34246993, b: 0.7588175, a: 1}
+  - polygonId: 66
+    pointIds: 5d0000005e0000004e0000004f000000
+    edges:
+    - point1: 93
+      point2: 94
+    - point1: 78
+      point2: 94
+    - point1: 78
+      point2: 79
+    - point1: 79
+      point2: 93
+    sideCount: 4
+    centerPosition: {x: 3.4825964, y: -1.009116}
+    color: {r: 0.6935099, g: 0.82235634, b: 0.8897027, a: 1}
+  - polygonId: 67
+    pointIds: 5e0000005f0000004d0000004e000000
+    edges:
+    - point1: 94
+      point2: 95
+    - point1: 77
+      point2: 95
+    - point1: 77
+      point2: 78
+    - point1: 78
+      point2: 94
+    sideCount: 4
+    centerPosition: {x: 3.8731153, y: -0.98067546}
+    color: {r: 0.9175438, g: 0.409123, b: 0.7235554, a: 1}
+  - polygonId: 68
+    pointIds: 5f0000004c0000004d000000
+    edges:
+    - point1: 76
+      point2: 95
+    - point1: 76
+      point2: 77
+    - point1: 77
+      point2: 95
+    sideCount: 3
+    centerPosition: {x: 4.2466674, y: -0.83333343}
+    color: {r: 0.39510256, g: 0.553542, b: 0.52807164, a: 1}
+  - polygonId: 69
+    pointIds: 660000006400000065000000
+    edges:
+    - point1: 100
+      point2: 102
+    - point1: 100
+      point2: 101
+    - point1: 101
+      point2: 102
+    sideCount: 3
+    centerPosition: {x: 2.78, y: -3.1766684}
+    color: {r: 0.45731008, g: 0.31474844, b: 0.3874118, a: 1}
+  - polygonId: 70
+    pointIds: 03000000090000001d0000001900000018000000
+    edges:
+    - point1: 3
+      point2: 9
+    - point1: 9
+      point2: 29
+    - point1: 25
+      point2: 29
+    - point1: 24
+      point2: 25
+    - point1: 3
+      point2: 24
+    sideCount: 5
+    centerPosition: {x: -1.1876962, y: 2.7224193}
+    color: {r: 0.47110438, g: 0.78939396, b: 0.60475695, a: 1}
+  - polygonId: 71
+    pointIds: 03000000090000001a0000001d00000019000000
+    edges:
+    - point1: 3
+      point2: 9
+    - point1: 9
+      point2: 26
+    - point1: 26
+      point2: 29
+    - point1: 25
+      point2: 29
+    - point1: 3
+      point2: 25
+    sideCount: 5
+    centerPosition: {x: -1.2171689, y: 2.6609154}
+    color: {r: 0.698133, g: 0.8137741, b: 0.95564294, a: 1}
