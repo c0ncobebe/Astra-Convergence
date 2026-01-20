@@ -372,10 +372,10 @@ public class GamePlayManager : MonoBehaviour
             lastAddedPoint.ResetGlow();
         }
         
-        point.Animating();
-        
         if (selectedPointIds.Count == 0)
         {
+            point.Animating();
+            
             possiblePolygons.Clear();
             for (int i = 0; i < point.remainingPolygons.Count; i++)
             {
@@ -461,6 +461,40 @@ public class GamePlayManager : MonoBehaviour
         }
         
         lastAddedPoint = point;
+        
+        // Kiểm tra xem có hoàn thành polygon không
+        bool willCompletePolygon = false;
+        foreach (var polygonId in possiblePolygons)
+        {
+            if (polygonsDict.TryGetValue(polygonId, out var polygon))
+            {
+                if (polygon.isCompleted) continue;
+                
+                bool isComplete = polygon.HasAllEdgesCompleted();
+                
+                if (!isComplete)
+                {
+                    isComplete = IsValidPolygonCompletion(polygon);
+                }
+                
+                if (isComplete)
+                {
+                    willCompletePolygon = true;
+                    break;
+                }
+            }
+        }
+        
+        // Animating và tự động reset về trắng sau 1s nếu hoàn thành polygon
+        point.Animating();
+        if (willCompletePolygon)
+        {
+            DOVirtual.DelayedCall(0.5f, () => 
+            {
+                if (point != null)
+                    point.ResetGlow();
+            });
+        }
         
         CheckAndCompletePolygon();
         
