@@ -341,9 +341,13 @@ public class CameraController : MonoBehaviour
     /// </summary>
     public void ZoomCameraToMax(bool immediate = false, float duration = 1.5f)
     {
+        // Cập nhật targetOrthographicSize để tránh bị kéo về bởi smooth damping
+        targetOrthographicSize = maxOrthographicSize;
+        
         if (immediate)
         {
-            SetZoom(maxOrthographicSize, true);
+            cam.orthographicSize = maxOrthographicSize;
+            zoomVelocity = 0;
         }
         else
         {
