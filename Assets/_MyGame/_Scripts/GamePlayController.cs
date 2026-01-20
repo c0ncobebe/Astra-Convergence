@@ -86,9 +86,7 @@ public class GamePlayManager : MonoBehaviour
     {
         if (cameraController != null)
         {
-            // Lấy max zoom từ CameraController (maxOrthographicSize)
-            // SetZoom với immediate = false sẽ tự động tween smooth
-            Camera.main.DOOrthoSize(15, 1.5f).SetEase(Ease.OutQuad);
+            cameraController.ZoomCameraToMax(immediate: false, duration: 1.5f);
         }
     }
     public void ClearLevel()

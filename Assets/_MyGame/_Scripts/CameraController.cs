@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -332,6 +333,21 @@ public class CameraController : MonoBehaviour
         {
             cam.orthographicSize = targetOrthographicSize;
             zoomVelocity = 0;
+        }
+    }
+    
+    /// <summary>
+    /// Zoom camera to maximum orthographic size (zoom out to max)
+    /// </summary>
+    public void ZoomCameraToMax(bool immediate = false, float duration = 1.5f)
+    {
+        if (immediate)
+        {
+            SetZoom(maxOrthographicSize, true);
+        }
+        else
+        {
+            cam.DOOrthoSize(maxOrthographicSize, duration).SetEase(Ease.OutQuad);
         }
     }
     
