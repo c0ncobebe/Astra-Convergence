@@ -6,8 +6,8 @@ namespace AstraNexus.Audio
     {
         None,
         ButtonClick,
-        ItemCollect,
-        ItemPlace,
+        MatchFail,
+        Meow,
         ItemMatch,
         StarCollect,
         LevelComplete,

@@ -75,11 +75,11 @@ namespace AstraNexus.Audio
             // Initialize Music sources for cross-fading
             musicAudioSource1 = gameObject.AddComponent<AudioSource>();
             musicAudioSource1.playOnAwake = false;
-            musicAudioSource1.loop = true;
+            musicAudioSource1.loop = false;
 
             musicAudioSource2 = gameObject.AddComponent<AudioSource>();
             musicAudioSource2.playOnAwake = false;
-            musicAudioSource2.loop = true;
+            musicAudioSource2.loop = false;
 
             currentMusicSource = musicAudioSource1;
             nextMusicSource = musicAudioSource2;
@@ -94,7 +94,7 @@ namespace AstraNexus.Audio
         {
             if (soundDatabase == null) return;
 
-            SoundData soundData = soundDatabase.GetSound(soundType);
+            SoundData soundData = soundDatabase.GetRandomSound(soundType);
             if (soundData == null || soundData.audioClip == null) return;
 
             AudioSource availableSource = GetAvailableAudioSource();
@@ -115,7 +115,7 @@ namespace AstraNexus.Audio
         {
             if (soundDatabase == null) return;
 
-            SoundData soundData = soundDatabase.GetSound(soundType);
+            SoundData soundData = soundDatabase.GetRandomSound(soundType);
             if (soundData == null || soundData.audioClip == null) return;
 
             AudioSource availableSource = GetAvailableAudioSource();
@@ -136,7 +136,7 @@ namespace AstraNexus.Audio
         {
             if (soundDatabase == null) return;
 
-            SoundData soundData = soundDatabase.GetSound(soundType);
+            SoundData soundData = soundDatabase.GetRandomSound(soundType);
             if (soundData == null || soundData.audioClip == null) return;
 
             AudioSource.PlayClipAtPoint(soundData.audioClip, position, soundData.volume * sfxVolume * masterVolume);
@@ -202,6 +202,10 @@ namespace AstraNexus.Audio
             {
                 PlayMusicImmediate(musicData);
             }
+            
+            // Start auto-play manager for menu music
+            StopCoroutine(nameof(MenuMusicAutoPlay));
+            StartCoroutine(MenuMusicAutoPlay());
         }
 
         /// <summary>
@@ -225,6 +229,10 @@ namespace AstraNexus.Audio
             {
                 PlayMusicImmediate(musicData);
             }
+            
+            // Start auto-play manager for ingame music
+            StopCoroutine(nameof(IngameMusicAutoPlay));
+            StartCoroutine(IngameMusicAutoPlay());
         }
 
         /// <summary>
@@ -296,6 +304,52 @@ namespace AstraNexus.Audio
                 }
 
                 StartCoroutine(CrossFadeMusic(currentPlaylist[currentPlaylistIndex]));
+            }
+        }
+
+        private IEnumerator MenuMusicAutoPlay()
+        {
+            while (true)
+            {
+                // Wait for current track to finish
+                while (currentMusicSource.isPlaying)
+                {
+                    yield return new WaitForSeconds(0.5f);
+                }
+
+                // Play another random menu music
+                MusicData nextMusic = soundDatabase.GetRandomMenuMusic();
+                if (nextMusic != null)
+                {
+                    PlayMusicImmediate(nextMusic);
+                }
+                else
+                {
+                    yield break;
+                }
+            }
+        }
+
+        private IEnumerator IngameMusicAutoPlay()
+        {
+            while (true)
+            {
+                // Wait for current track to finish
+                while (currentMusicSource.isPlaying)
+                {
+                    yield return new WaitForSeconds(0.5f);
+                }
+
+                // Play another random ingame music
+                MusicData nextMusic = soundDatabase.GetRandomIngameMusic();
+                if (nextMusic != null)
+                {
+                    PlayMusicImmediate(nextMusic);
+                }
+                else
+                {
+                    yield break;
+                }
             }
         }
 

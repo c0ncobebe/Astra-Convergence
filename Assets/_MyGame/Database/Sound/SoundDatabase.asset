@@ -12,7 +12,82 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3571a045a5bbf64bb57d2c0b965b432, type: 3}
   m_Name: SoundDatabase
   m_EditorClassIdentifier: Assembly-CSharp::AstraNexus.Audio.SoundDatabase
-  soundEffects: []
+  soundEffects:
+  - soundType: 5
+    audioClip: {fileID: 8300000, guid: 1f0a58b137201f54eab2fc3d48d77e70, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+  - soundType: 5
+    audioClip: {fileID: 8300000, guid: 792950c8468b5eb4cbc597b1d021f7ad, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+  - soundType: 5
+    audioClip: {fileID: 8300000, guid: 085a60cb25fa5ea4d9e52c7f3eb42c34, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+  - soundType: 5
+    audioClip: {fileID: 8300000, guid: d9cb77c5069015a479d2268f8b85f711, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+  - soundType: 5
+    audioClip: {fileID: 8300000, guid: 65ba46d73287ef64284240538aa7a4da, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+  - soundType: 4
+    audioClip: {fileID: 8300000, guid: 7224a0234e5487f4f87605372b4e209d, type: 3}
+    volume: 0.302
+    pitch: 1
+    loop: 0
+  - soundType: 3
+    audioClip: {fileID: 8300000, guid: a9bab77f05352d648a0afb958389014b, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+  - soundType: 3
+    audioClip: {fileID: 8300000, guid: d81104b9a0f6719408392791f96cd5da, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+  - soundType: 3
+    audioClip: {fileID: 8300000, guid: 80de360c1322fef488ea7e3d13b1a043, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+  - soundType: 3
+    audioClip: {fileID: 8300000, guid: 56d640119d7d46142978f2e1f352ffab, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+  - soundType: 3
+    audioClip: {fileID: 8300000, guid: b9c463faaf63a7f47b4cdc96bbb60445, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+  - soundType: 3
+    audioClip: {fileID: 8300000, guid: 8f7e52d8e4b6f1e429547bbf5239a620, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+  - soundType: 3
+    audioClip: {fileID: 8300000, guid: 2134906555723bb45a074a4146622287, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+  - soundType: 3
+    audioClip: {fileID: 8300000, guid: 1a7165793af16334fa284ee50da822fa, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+  - soundType: 2
+    audioClip: {fileID: 8300000, guid: c20095883f6d9bd42b737aed6ad02d64, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
   menuMusicTracks:
   - musicType: 1
     audioClip: {fileID: 8300000, guid: b620524c510a2414e89c171e75d50342, type: 3}
@@ -23,4 +98,4 @@ MonoBehaviour:
   ingameMusicTracks:
   - musicType: 2
     audioClip: {fileID: 8300000, guid: c59603bca6ecf8c46b7b561de60f108e, type: 3}
-    volume: 0.5
+    volume: 0.31

@@ -1,7 +1,10 @@
 using System;
 using System.Collections;
+using AstraNexus.Audio;
 using ChocDino.UIFX;
 using Febucci.UI;
+using KienNT;
+using MoreMountains.NiceVibrations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -87,6 +90,8 @@ public class NarratorController : MonoBehaviour
     /// </summary>
     public void ShowText(string text)
     {
+        VibrationController.Instance.HapticPulse(HapticTypes.MediumImpact);
+        SoundManager.Instance.PlaySound(SoundType.Meow);
         StopAllCoroutines();
         if (autoHideCoroutine != null)
         {

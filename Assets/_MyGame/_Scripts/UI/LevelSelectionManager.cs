@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AstraNexus.Audio;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -101,6 +102,7 @@ public class LevelSelectionManager : MonoBehaviour
         progressManager.SetCurrentLevel(levelInfo.levelIndex);
         
         GameStateManager.Instance.SwitchToGameplay(levelInfo);
+        SoundManager.Instance.PlaySound(SoundType.Pop);
     }
     
     public void RefreshButtons()

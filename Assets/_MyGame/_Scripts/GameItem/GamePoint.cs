@@ -87,6 +87,7 @@ public class GamePoint : MonoBehaviour
         if (remainingPolygons.Count == 0)
         {
             SetState(PointState.Done);
+            AnimateBrightRing(); // Chạy animation khi điểm hoàn thành tất cả polygon
         }
     }
     
@@ -112,9 +113,9 @@ public class GamePoint : MonoBehaviour
 
     public void Animating()
     {
-        transform.DOKill();
+        enableVisual.DOKill();
         effect.Play();
-        transform.DOScale(Vector3.one * 1.5f, 0.1f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine);
+        enableVisual.DOScale(Vector3.one * 0.75f, 0.1f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine);
         
         if (spriteRenderer != null && spriteRenderer.material.HasProperty("_GlowColor"))
         {
@@ -139,7 +140,6 @@ public class GamePoint : MonoBehaviour
             seq.Append(spriteRenderer.material.DOColor(Color.white, "_GlowColor", 0.2f).SetEase(Ease.InQuad));
         }
     }
-    [Button]
     public void AnimateBrightRing()
     {
         StartCoroutine(ShowAnim());

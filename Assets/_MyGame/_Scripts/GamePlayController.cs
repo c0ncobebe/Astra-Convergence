@@ -1,7 +1,10 @@
+using System.Collections;
 using System.Collections.Generic;
 using _MyGame._Scripts;
 using AstraNexus.Audio;
 using DG.Tweening;
+using KienNT;
+using MoreMountains.NiceVibrations;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -37,6 +40,7 @@ public class GamePlayManager : MonoBehaviour
     private bool isClickMode = false;
     private bool ignoreInputUntilRelease = false;
     private bool isLevelInitialized = false;
+    private bool hasPlayedCompletionSound = false;
     private Camera mainCamera;
     private GamePoint lastAddedPoint = null;
     private LineRenderer selectionLineRenderer;
@@ -376,6 +380,8 @@ public class GamePlayManager : MonoBehaviour
         {
             point.Animating();
             
+            hasPlayedCompletionSound = false;
+            
             possiblePolygons.Clear();
             for (int i = 0; i < point.remainingPolygons.Count; i++)
             {
@@ -386,6 +392,13 @@ public class GamePlayManager : MonoBehaviour
             selectedPoints.Add(point);
             point.SetState(PointState.Selected);
             lastAddedPoint = point;
+            
+            // Play sound when point is selected
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlaySound(SoundType.StarCollect);
+                VibrationController.Instance.HapticPulse(HapticTypes.MediumImpact);
+            }
             
             UpdateSelectionVisual();
             return;
@@ -410,8 +423,23 @@ public class GamePlayManager : MonoBehaviour
         if (!isValidEdge || tempPolygonList == null || tempPolygonList.Count == 0)
         {
             point.ShowErrorGlow();
+            
+            // Play sound when match fails
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlaySound(SoundType.MatchFail);
+                VibrationController.Instance.StartCoroutine(Delay());
+            }   
+            
             ClearSelection(true);
             return;
+
+            IEnumerator Delay()
+            {
+                VibrationController.Instance.HapticPulse(HapticTypes.MediumImpact);
+                yield return new WaitForSeconds(0.1f);
+                VibrationController.Instance.HapticPulse(HapticTypes.MediumImpact);
+            }
         }
         
         bool foundCommonPolygon = false;
@@ -427,8 +455,23 @@ public class GamePlayManager : MonoBehaviour
         if (!foundCommonPolygon)
         {
             point.ShowErrorGlow();
+            
+            // Play sound when match fails
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlaySound(SoundType.MatchFail);
+                VibrationController.Instance.StartCoroutine(Delay());
+            }
+            
             ClearSelection(true);
             return;
+            IEnumerator Delay()
+            {
+                VibrationController.Instance.HapticPulse(HapticTypes.MediumImpact);
+                yield return new WaitForSeconds(0.1f);
+                VibrationController.Instance.HapticPulse(HapticTypes.MediumImpact);
+            }
+            
         }
         
         possiblePolygons.IntersectWith(tempPolygonList);
@@ -436,13 +479,33 @@ public class GamePlayManager : MonoBehaviour
         if (possiblePolygons.Count == 0)
         {
             point.ShowErrorGlow();
+            
+            // Play sound when match fails
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlaySound(SoundType.MatchFail);
+                VibrationController.Instance.StartCoroutine(Delay());
+            }
+            
             ClearSelection(true);
             return;
-        }
+            IEnumerator Delay()
+            {
+                VibrationController.Instance.HapticPulse(HapticTypes.MediumImpact);
+                yield return new WaitForSeconds(0.1f);
+                VibrationController.Instance.HapticPulse(HapticTypes.MediumImpact);
+            }}
         
         selectedPointIds.Add(point.pointId);
         selectedPoints.Add(point);
         point.SetState(PointState.Selected);
+        
+        // Play sound when point is selected
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySound(SoundType.StarCollect);
+            VibrationController.Instance.HapticPulse(HapticTypes.MediumImpact);
+        }
         
         if (lastAddedPoint != null)
         {
@@ -612,6 +675,14 @@ public class GamePlayManager : MonoBehaviour
     
     void CompletePolygon(GamePolygon polygon)
     {
+        // Play sound when polygon is matched successfully (only once per selection)
+        if (!hasPlayedCompletionSound && SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySound(SoundType.ItemMatch);
+            VibrationController.Instance.HapticPulse(HapticTypes.HeavyImpact);
+            hasPlayedCompletionSound = true;
+        }
+        
         // Lấy TẤT CẢ các điểm của polygon theo đúng thứ tự từ pointIds
         var pointPositions = new List<Vector2>(polygon.pointIds.Count);
         var pointTransforms = new List<Transform>(polygon.pointIds.Count);

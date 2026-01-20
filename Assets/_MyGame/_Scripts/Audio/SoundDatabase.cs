@@ -14,18 +14,22 @@ namespace AstraNexus.Audio
         [SerializeField] private List<MusicData> menuMusicTracks = new List<MusicData>();
         [SerializeField] private List<MusicData> ingameMusicTracks = new List<MusicData>();
 
-        private Dictionary<SoundType, SoundData> soundDictionary;
+        private Dictionary<SoundType, List<SoundData>> soundDictionary;
         private Dictionary<MusicType, MusicData> musicDictionary;
 
         public void Initialize()
         {
             // Build sound effects dictionary
-            soundDictionary = new Dictionary<SoundType, SoundData>();
+            soundDictionary = new Dictionary<SoundType, List<SoundData>>();
             foreach (var sound in soundEffects)
             {
-                if (sound.soundType != SoundType.None && !soundDictionary.ContainsKey(sound.soundType))
+                if (sound.soundType != SoundType.None)
                 {
-                    soundDictionary.Add(sound.soundType, sound);
+                    if (!soundDictionary.ContainsKey(sound.soundType))
+                    {
+                        soundDictionary.Add(sound.soundType, new List<SoundData>());
+                    }
+                    soundDictionary[sound.soundType].Add(sound);
                 }
             }
 
@@ -48,9 +52,28 @@ namespace AstraNexus.Audio
                 Initialize();
             }
 
-            if (soundDictionary.TryGetValue(soundType, out SoundData soundData))
+            if (soundDictionary.TryGetValue(soundType, out List<SoundData> soundList) && soundList.Count > 0)
             {
-                return soundData;
+                // Return first sound for backward compatibility
+                return soundList[0];
+            }
+
+            Debug.LogWarning($"Sound {soundType} not found in database!");
+            return null;
+        }
+
+        public SoundData GetRandomSound(SoundType soundType)
+        {
+            if (soundDictionary == null)
+            {
+                Initialize();
+            }
+
+            if (soundDictionary.TryGetValue(soundType, out List<SoundData> soundList) && soundList.Count > 0)
+            {
+                // Randomly select one sound from the list
+                int randomIndex = Random.Range(0, soundList.Count);
+                return soundList[randomIndex];
             }
 
             Debug.LogWarning($"Sound {soundType} not found in database!");
