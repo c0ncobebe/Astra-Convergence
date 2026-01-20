@@ -687,8 +687,15 @@ public class GamePlayManager : MonoBehaviour
     
     private void OnLevelComplete()
     {
-        int currentLevelIndex = LevelProgressManager.Instance.GetCurrentLevel();
-        LevelProgressManager.Instance.CompleteLevel(currentLevelIndex, 3);
+        // Chỉ lưu progress nếu không phải đang trong tutorial
+        bool isInTutorial = GameStateManager.Instance != null && 
+                           GameStateManager.Instance.IsPlayingTutorial();
+        
+        if (!isInTutorial)
+        {
+            int currentLevelIndex = LevelProgressManager.Instance.GetCurrentLevel();
+            LevelProgressManager.Instance.CompleteLevel(currentLevelIndex, 3);
+        }
         
         if (backButton != null)
             backButton.SetActive(false);

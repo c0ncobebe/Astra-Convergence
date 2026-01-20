@@ -109,6 +109,7 @@ public class GameStateManager : MonoBehaviour
             PlayerPrefs.SetInt(FIRST_TIME_KEY, 1);
             PlayerPrefs.Save();
             
+            isInTutorial = true;
             SwitchToGameplay(levelTutorial);
             narratorController.gameObject.SetActive(true);
             if (narratorController != null)
@@ -230,6 +231,11 @@ public class GameStateManager : MonoBehaviour
     public LevelInfo GetCurrentLevelInfo()
     {
         return currentLevelInfo;
+    }
+    
+    public bool IsPlayingTutorial()
+    {
+        return isInTutorial;
     }
     
     public void OnBackButton()

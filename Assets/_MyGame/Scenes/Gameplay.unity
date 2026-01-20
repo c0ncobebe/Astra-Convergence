@@ -271,7 +271,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &178408594
 Transform:
   m_ObjectHideFlags: 0
@@ -559,7 +559,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &466727888
 Transform:
   m_ObjectHideFlags: 0
@@ -7594,11 +7594,6 @@ MonoBehaviour:
   levelTutorial: {fileID: 11400000, guid: 31c246b7e2f0e044499a33a172744f51, type: 2}
   narratorController: {fileID: 80073133}
   tutorialCameraSize: 10
-  tutorialMessages: []
-  tutorialMessages2:
-  - "Ng\u01B0\u01A1i l\xE0m t\u1ED1t l\u1EAFm!"
-  - "Gi\u1EDD th\xEC h\xE3y \u0111\u1EBFn v\u1EDBi nh\u1EEFng th\u1EED th\xE1ch kh\xF3
-    h\u01A1n!."
   OnEnterHomeMenu:
     m_PersistentCalls:
       m_Calls: []
