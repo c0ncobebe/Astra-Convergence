@@ -1,6 +1,9 @@
+using System.Collections;
 using AstraNexus.Audio;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -61,6 +64,12 @@ public class GameStateManager : MonoBehaviour
         "Ngươi làm tốt lắm!",
         "Giờ thì hãy đến với những thử thách khó hơn!.",
     };
+    [Header("Transition")]
+    [SerializeField] private GameObject volume;
+    [SerializeField] private ParticleSystem transitionEffect;
+    [SerializeField] private ParticleSystemRenderer  mainMaterialEffect;
+    [SerializeField] private Image  overlayImage;
+    private MaterialPropertyBlock mpb;
     
     [Header("Events")]
     public UnityEvent OnEnterHomeMenu;
@@ -123,6 +132,65 @@ public class GameStateManager : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Hàm trung gian để chuyển từ Gameplay về Home với loading
+    /// </summary>
+    public IEnumerator SwitchToGameplayWithLoading(LevelInfo levelInfo)
+    {
+        transitionEffect.Play(true);
+        
+        volume.SetActive(true);
+        mpb = new MaterialPropertyBlock();
+        
+        // Tăng _GlowIntensity từ giá trị hiện tại lên 100 trong 1 giây
+        mainMaterialEffect.GetPropertyBlock(mpb);
+        float startValue = mpb.GetFloat("_GlowIntensity");
+        DOTween.To(() => startValue, x => 
+        {
+            mainMaterialEffect.GetPropertyBlock(mpb);
+            mpb.SetFloat("_GlowIntensity", x);
+            mainMaterialEffect.SetPropertyBlock(mpb);
+        }, 1f, 0f);
+        yield return new WaitForSeconds(0.5f);
+
+        DOTween.To(() => startValue, x => 
+        {
+            mainMaterialEffect.GetPropertyBlock(mpb);
+            mpb.SetFloat("_GlowIntensity", x);
+            mainMaterialEffect.SetPropertyBlock(mpb);
+        }, 100f, 1f);
+        
+        yield return new WaitForSeconds(0.5f);
+        overlayImage.DOColor(Color.white, 0.5f);
+        yield return new WaitForSeconds(0.5f);
+        SwitchToGameplay(levelInfo);
+        Camera.main.orthographicSize = 10;
+        // Giảm _GlowIntensity từ 100 về 0 trong 1 giây
+        DOTween.To(() => startValue, x => 
+        {
+            mainMaterialEffect.GetPropertyBlock(mpb);
+            mpb.SetFloat("_GlowIntensity", x);
+            mainMaterialEffect.SetPropertyBlock(mpb);
+        }, 0f, 0f);
+        
+        overlayImage.DOColor(Color.clear, 1f);
+        yield return new WaitForSeconds(0.75f);
+        Camera.main.DOOrthoSize(15,2f).SetEase(Ease.OutQuad);
+        
+    }
+    
+    /// <summary>
+    /// Hàm trung gian để chuyển từ Home vào Gameplay với loading
+    /// </summary>
+    public IEnumerator SwitchToHomeWithLoading()
+    {
+        overlayImage.DOColor(Color.white, 1f);
+        yield return new WaitForSeconds(2f);
+        SwitchToHomeMenu();
+        volume.SetActive(false);
+        overlayImage.DOColor(Color.clear, 1f);
+    }
+    
     public void SwitchToHomeMenu()
     {
         if (currentState == GameState.HomeMenu) return;
@@ -162,6 +230,7 @@ public class GameStateManager : MonoBehaviour
             SoundManager.Instance.PlayRandomMenuMusic();
         
         OnEnterHomeMenu?.Invoke();
+        
     }
     
     public void SwitchToGameplay(LevelInfo levelInfo)
@@ -242,7 +311,7 @@ public class GameStateManager : MonoBehaviour
     {
         if (currentState == GameState.Gameplay)
         {
-            SwitchToHomeMenu();
+            StartCoroutine(SwitchToHomeWithLoading());
         }
     }
     

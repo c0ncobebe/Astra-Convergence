@@ -101,7 +101,7 @@ public class LevelSelectionManager : MonoBehaviour
     {
         progressManager.SetCurrentLevel(levelInfo.levelIndex);
         
-        GameStateManager.Instance.SwitchToGameplay(levelInfo);
+        SoundManager.Instance.StartCoroutine(GameStateManager.Instance.SwitchToGameplayWithLoading(levelInfo)) ;
         SoundManager.Instance.PlaySound(SoundType.Pop);
     }
     
