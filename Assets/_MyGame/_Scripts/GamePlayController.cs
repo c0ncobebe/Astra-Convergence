@@ -22,6 +22,7 @@ public class GamePlayManager : MonoBehaviour
     [SerializeField] private GameObject backButton;
     [SerializeField] private GameObject levelCompletePanel;
     [SerializeField] private NarratorController narrator;
+    [SerializeField] private CameraController cameraController;
     [Header("Settings")]
     public float swipeDetectionRadius = 0.5f;
     public bool showDebugLines = true;
@@ -80,7 +81,16 @@ public class GamePlayManager : MonoBehaviour
         if (SoundManager.Instance != null)
             SoundManager.Instance.PlayRandomIngameMusic();
     }
-    
+    [Button]
+    private void ZoomCameraToMax()
+    {
+        if (cameraController != null)
+        {
+            // Lấy max zoom từ CameraController (maxOrthographicSize)
+            // SetZoom với immediate = false sẽ tự động tween smooth
+            Camera.main.DOOrthoSize(15, 1.5f).SetEase(Ease.OutQuad);
+        }
+    }
     public void ClearLevel()
     {
         if (levelContainer != null)
@@ -779,7 +789,8 @@ public class GamePlayManager : MonoBehaviour
         {
             GameStateManager.Instance.OnTutorialLevelComplete();
         }
-        
+
+        ZoomCameraToMax();
         // StartCoroutine(ReturnToHomeMenuAfterDelay(2f));
     }
     
