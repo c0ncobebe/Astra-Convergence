@@ -41,8 +41,29 @@ public class LevelEditorWindow : EditorWindow
         
         EditorGUILayout.EndHorizontal();
         
+        HandleKeyboardInput();
+        
         if (Event.current.type == EventType.MouseDown)
             Repaint();
+    }
+    
+    void HandleKeyboardInput()
+    {
+        Event e = Event.current;
+        
+        if (e.type == EventType.KeyDown && e.keyCode == KeyCode.Delete)
+        {
+            if (selectedPointIndex >= 0 && selectedPointIndex < levelData.points.Count)
+            {
+                DeleteSelectedPoint();
+                e.Use();
+            }
+            else if (selectedPolygonIndex >= 0 && selectedPolygonIndex < levelData.polygons.Count)
+            {
+                DeleteSelectedPolygon();
+                e.Use();
+            }
+        }
     }
     
     void DrawLeftPanel()
@@ -559,6 +580,20 @@ public class LevelEditorWindow : EditorWindow
             menu.ShowAsContext();
         }
         
+        EditorGUILayout.Space(10);
+        
+        GUI.backgroundColor = new Color(1f, 0.5f, 0.5f);
+        if (GUILayout.Button("Delete Point (Del)", GUILayout.Height(30)))
+        {
+            if (EditorUtility.DisplayDialog("Delete Point", 
+                $"Are you sure you want to delete Point {point.pointId}?\n\nThis will also remove it from {point.belongToPolygons.Count} polygon(s).", 
+                "Delete", "Cancel"))
+            {
+                DeleteSelectedPoint();
+            }
+        }
+        GUI.backgroundColor = Color.white;
+        
         if (EditorGUI.EndChangeCheck())
         {
             Repaint();
@@ -653,6 +688,20 @@ public class LevelEditorWindow : EditorWindow
             
             menu.ShowAsContext();
         }
+        
+        EditorGUILayout.Space(10);
+        
+        GUI.backgroundColor = new Color(1f, 0.5f, 0.5f);
+        if (GUILayout.Button("Delete Polygon (Del)", GUILayout.Height(30)))
+        {
+            if (EditorUtility.DisplayDialog("Delete Polygon", 
+                $"Are you sure you want to delete Polygon {polygon.polygonId}?\n\nThis polygon has {polygon.pointIds.Count} point(s).", 
+                "Delete", "Cancel"))
+            {
+                DeleteSelectedPolygon();
+            }
+        }
+        GUI.backgroundColor = Color.white;
         
         if (EditorGUI.EndChangeCheck())
         {
@@ -768,6 +817,77 @@ public class LevelEditorWindow : EditorWindow
             
             return angle1.CompareTo(angle2);
         });
+    }
+    
+    void DeleteSelectedPoint()
+    {
+        if (levelData == null || selectedPointIndex < 0 || selectedPointIndex >= levelData.points.Count)
+            return;
+        
+        PointData pointToDelete = levelData.points[selectedPointIndex];
+        int pointId = pointToDelete.pointId;
+        
+        Undo.RecordObject(levelData, "Delete Point");
+        
+        // Remove point from all polygons it belongs to
+        foreach (int polyId in pointToDelete.belongToPolygons.ToArray())
+        {
+            PolygonData poly = levelData.polygons.Find(p => p.polygonId == polyId);
+            if (poly != null)
+            {
+                poly.pointIds.Remove(pointId);
+            }
+        }
+        
+        // Remove the point itself
+        levelData.points.RemoveAt(selectedPointIndex);
+        
+        // Clean up any invalid polygons (with less than 3 points)
+        levelData.polygons.RemoveAll(p => p.pointIds.Count < 3);
+        
+        EditorUtility.SetDirty(levelData);
+        AssetDatabase.SaveAssets();
+        
+        levelData.Initialize();
+        
+        selectedPointIndex = -1;
+        Repaint();
+        
+        Debug.Log($"Deleted Point {pointId}");
+    }
+    
+    void DeleteSelectedPolygon()
+    {
+        if (levelData == null || selectedPolygonIndex < 0 || selectedPolygonIndex >= levelData.polygons.Count)
+            return;
+        
+        PolygonData polygonToDelete = levelData.polygons[selectedPolygonIndex];
+        int polygonId = polygonToDelete.polygonId;
+        
+        Undo.RecordObject(levelData, "Delete Polygon");
+        
+        // Remove polygon reference from all its points
+        foreach (int pointId in polygonToDelete.pointIds)
+        {
+            PointData point = levelData.points.Find(p => p.pointId == pointId);
+            if (point != null)
+            {
+                point.belongToPolygons.Remove(polygonId);
+            }
+        }
+        
+        // Remove the polygon itself
+        levelData.polygons.RemoveAt(selectedPolygonIndex);
+        
+        EditorUtility.SetDirty(levelData);
+        AssetDatabase.SaveAssets();
+        
+        levelData.Initialize();
+        
+        selectedPolygonIndex = -1;
+        Repaint();
+        
+        Debug.Log($"Deleted Polygon {polygonId}");
     }
 }
 
