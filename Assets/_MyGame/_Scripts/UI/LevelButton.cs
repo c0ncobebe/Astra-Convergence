@@ -77,7 +77,7 @@ public class LevelButton : MonoBehaviour, IPointerClickHandler
     {
         if (lockIcon != null)
         {
-            lockIcon.transform.DOKill();
+            lockIcon.transform.DOComplete();
             lockIcon.transform.DOShakeRotation(0.3f, new Vector3(0, 0, 15f), 10, 90f);
         }
     }

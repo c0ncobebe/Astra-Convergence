@@ -1,3 +1,4 @@
+using AstraNexus.Audio;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -110,6 +111,9 @@ public class GameStateManager : MonoBehaviour
         {
             cameraController.ResetCamera();
         }
+        
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.PlayRandomMenuMusic();
         
         OnEnterHomeMenu?.Invoke();
     }

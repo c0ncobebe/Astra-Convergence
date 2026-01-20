@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3571a045a5bbf64bb57d2c0b965b432, type: 3}
+  m_Name: SoundDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::AstraNexus.Audio.SoundDatabase
+  soundEffects: []
+  menuMusicTracks:
+  - musicType: 1
+    audioClip: {fileID: 8300000, guid: b620524c510a2414e89c171e75d50342, type: 3}
+    volume: 0.5
+  - musicType: 1
+    audioClip: {fileID: 8300000, guid: e05383e426478964baa612347cc959d7, type: 3}
+    volume: 0.5
+  ingameMusicTracks:
+  - musicType: 2
+    audioClip: {fileID: 8300000, guid: c59603bca6ecf8c46b7b561de60f108e, type: 3}
+    volume: 0.5

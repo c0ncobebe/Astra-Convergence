@@ -25,8 +25,6 @@ namespace AstraNexus.Audio
     {
         None,
         Menu,
-        GameLevel1,
-        GameLevel2,
-        GameLevel3
+        Gameplay
     }
 }

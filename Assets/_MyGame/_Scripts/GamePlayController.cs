@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using _MyGame._Scripts;
+using AstraNexus.Audio;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -14,6 +15,9 @@ public class GamePlayManager : MonoBehaviour
     [SerializeField] private InputManager inputManager;
     [SerializeField] private PolygonMeshRenderer test;
     [SerializeField] private List<Transform> spawnPoints;
+    [SerializeField] private Transform levelContainer;
+    [SerializeField] private GameObject backButton;
+    [SerializeField] private GameObject levelCompletePanel;
     
     [Header("Settings")]
     public float swipeDetectionRadius = 0.5f;
@@ -62,25 +66,34 @@ public class GamePlayManager : MonoBehaviour
         ClearLevel();
         currentLevel = levelData;
         InitializeLevel();
+        
+        if (backButton != null)
+            backButton.SetActive(true);
+        
+        if (levelCompletePanel != null)
+            levelCompletePanel.SetActive(false);
+        
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.PlayRandomIngameMusic();
     }
     
     public void ClearLevel()
     {
+        if (levelContainer != null)
+        {
+            for (int i = levelContainer.childCount - 1; i >= 0; i--)
+            {
+                Destroy(levelContainer.GetChild(i).gameObject);
+            }
+        }
+        
         if (pointsDict != null)
         {
-            foreach (var point in pointsDict.Values)
-            {
-                Destroy(point.gameObject);
-            }
             pointsDict.Clear();
         }
         
         if (polygonsDict != null)
         {
-            foreach (var polygon in polygonsDict.Values)
-            {
-                Destroy(polygon.gameObject);
-            }
             polygonsDict.Clear();
         }
         
@@ -142,7 +155,6 @@ public class GamePlayManager : MonoBehaviour
     
     void InitializeLevel()
     {
-        // CRITICAL: Prevent duplicate spawning nếu level đã được initialize
         if (isLevelInitialized)
         {
             Debug.LogWarning("[GamePlayManager] InitializeLevel() called but level already initialized. Skipping to prevent duplicates.");
@@ -162,7 +174,7 @@ public class GamePlayManager : MonoBehaviour
         for (int i = 0; i < pointCount; i++)
         {
             var pointData = currentLevel.points[i];
-            var pointObj = Instantiate(pointPrefab);
+            var pointObj = Instantiate(pointPrefab, levelContainer);
             var gamePoint = pointObj.GetComponent<GamePoint>();
             gamePoint.Initialize(pointData);
             pointsArray[i] = gamePoint;
@@ -174,7 +186,7 @@ public class GamePlayManager : MonoBehaviour
         for (int i = 0; i < currentLevel.polygons.Count; i++)
         {
             var polygonData = currentLevel.polygons[i];
-            var polygonObj = Instantiate(polygonPrefab);
+            var polygonObj = Instantiate(polygonPrefab, levelContainer);
             var gamePolygon = polygonObj.GetComponent<GamePolygon>();
             gamePolygon.Initialize(polygonData);
             polygonsDict[polygonData.polygonId] = gamePolygon;
@@ -638,7 +650,13 @@ public class GamePlayManager : MonoBehaviour
         int currentLevelIndex = LevelProgressManager.Instance.GetCurrentLevel();
         LevelProgressManager.Instance.CompleteLevel(currentLevelIndex, 3);
         
-        StartCoroutine(ReturnToHomeMenuAfterDelay(2f));
+        if (backButton != null)
+            backButton.SetActive(false);
+        
+        if (levelCompletePanel != null)
+            levelCompletePanel.SetActive(true);
+        
+        // StartCoroutine(ReturnToHomeMenuAfterDelay(2f));
     }
     
     private System.Collections.IEnumerator ReturnToHomeMenuAfterDelay(float delay)
@@ -653,7 +671,7 @@ public class GamePlayManager : MonoBehaviour
     
     void CreateLineBetweenPoints(GamePoint point1, GamePoint point2)
     {
-        GameObject lineObj = Instantiate(linePrefab);
+        GameObject lineObj = Instantiate(linePrefab, levelContainer);
         
         LineRenderer lineRenderer = lineObj.GetComponent<LineRenderer>();
         if (lineRenderer != null)

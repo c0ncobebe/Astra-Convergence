@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace AstraNexus.Audio
 {
@@ -52,6 +54,11 @@ namespace AstraNexus.Audio
             {
                 Debug.LogError("SoundDatabase is not assigned to SoundManager!");
             }
+        }
+
+        private void Start()
+        {
+            PlayRandomMenuMusic();
         }
 
         private void InitializeAudioSources()

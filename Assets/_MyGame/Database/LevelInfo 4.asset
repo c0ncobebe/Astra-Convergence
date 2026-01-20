@@ -21,7 +21,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  levelIndex: 0
+  levelIndex: 4
   levelName: Level 1
   detail: 
   thumbnailImage: {fileID: 21300000, guid: ed8a37713c7938f4ca4c51ddbec23480, type: 3}

@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,6 +26,7 @@ public class GamePoint : MonoBehaviour
     [SerializeField] private Transform enableVisual;
     [SerializeField] private Transform disableVisual;
     [SerializeField] private ParticleSystem effect;
+    [SerializeField] private Renderer brightRenderer;
     
     public void Initialize(PointData data)
     {
@@ -115,6 +118,34 @@ public class GamePoint : MonoBehaviour
             Sequence seq = DOTween.Sequence();
             seq.Append(spriteRenderer.material.DOColor(Color.red, "_GlowColor", 0.15f).SetEase(Ease.OutQuad));
             seq.Append(spriteRenderer.material.DOColor(Color.white, "_GlowColor", 0.2f).SetEase(Ease.InQuad));
+        }
+    }
+    [Button]
+    public void AnimateBrightRing()
+    {
+        StartCoroutine(ShowAnim());
+        IEnumerator ShowAnim()
+        {
+            brightRenderer.gameObject.SetActive(true);
+            if (brightRenderer != null && brightRenderer.material.HasProperty("_RainbowIntensity"))
+            {
+                brightRenderer.material.SetFloat("_RainbowIntensity", 0f);
+                brightRenderer.material.DOFloat(2f, "_RainbowIntensity", 0.5f) .SetEase(Ease.InOutSine);
+                yield return new WaitForSeconds(0.5f);
+                brightRenderer.material.SetFloat("_RainbowIntensity", 2f);
+                brightRenderer.material.DOFloat(1.5f, "_RainbowIntensity", 0.5f)
+                    .SetLoops(-1, LoopType.Yoyo)
+                    .SetEase(Ease.InOutSine);
+                yield return new WaitForSeconds(5f);
+                brightRenderer.material.DOKill();
+                brightRenderer.material.DOFloat(0f, "_RainbowIntensity", 0.5f)
+                    .SetEase(Ease.InOutSine);
+                yield return new WaitForSeconds(0.5f);
+                brightRenderer.gameObject.SetActive(false);
+                
+            }
+        
+            
         }
     }
 }
