@@ -140,6 +140,7 @@ public class GameStateManager : MonoBehaviour
         transitionEffect.Play(true);
         SoundManager.Instance.PlaySound(SoundType.Powerup);
         mpb = new MaterialPropertyBlock();
+        volume.SetActive(true);
         
         yield return new WaitForSeconds(1.5f);
         // Tăng _GlowIntensity từ giá trị hiện tại lên 100 trong 1 giây
