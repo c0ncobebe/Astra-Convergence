@@ -8,6 +8,8 @@ using UnityEngine;
 [System.Serializable]
 public class PointPosition : ScriptableObject
 {
+#if  UNITY_EDITOR
+    
     [SerializeField] public List<Vector2> _positions;
     [SerializeField] public DefaultAsset _folderPath;
     [Button]
@@ -47,4 +49,6 @@ public class PointPosition : ScriptableObject
     {
         
     }
+#endif
+    
 }

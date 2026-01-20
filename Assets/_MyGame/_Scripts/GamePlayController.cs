@@ -578,12 +578,18 @@ public class GamePlayManager : MonoBehaviour
     
     void CompletePolygon(GamePolygon polygon)
     {
-        var pointPositions = new List<Vector2>(selectedPoints.Count);
-        var pointTransforms = new List<Transform>(selectedPoints.Count);
-        for (int i = 0; i < selectedPoints.Count; i++)
+        // Lấy TẤT CẢ các điểm của polygon theo đúng thứ tự từ pointIds
+        var pointPositions = new List<Vector2>(polygon.pointIds.Count);
+        var pointTransforms = new List<Transform>(polygon.pointIds.Count);
+        
+        for (int i = 0; i < polygon.pointIds.Count; i++)
         {
-            pointPositions.Add(selectedPoints[i].transform.position);
-            pointTransforms.Add(selectedPoints[i].transform);
+            int pointId = polygon.pointIds[i];
+            if (pointsDict.TryGetValue(pointId, out var point))
+            {
+                pointPositions.Add(point.transform.position);
+                pointTransforms.Add(point.transform);
+            }
         }
         
         polygon.Complete(pointPositions, pointTransforms, polygon.color);
