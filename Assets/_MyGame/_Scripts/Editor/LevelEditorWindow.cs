@@ -900,11 +900,12 @@ public class ImportPointsWindow : EditorWindow
     private Vector2 scrollPos;
     private SerializedObject serializedObject;
     private SerializedProperty vectorListProperty;
+    private PointPosition pointPositionAsset;
     
     public static void ShowWindow(LevelData level, System.Action callback)
     {
         var window = GetWindow<ImportPointsWindow>("Import Points");
-        window.minSize = new Vector2(400, 300);
+        window.minSize = new Vector2(400, 400);
         window.targetLevel = level;
         window.onComplete = callback;
         window.vectorList = new List<Vector2>();
@@ -933,11 +934,29 @@ public class ImportPointsWindow : EditorWindow
         
         serializedObject.Update();
         
-        scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Height(250));
+        scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Height(200));
         EditorGUILayout.PropertyField(vectorListProperty, true);
         EditorGUILayout.EndScrollView();
         
         serializedObject.ApplyModifiedProperties();
+        
+        EditorGUILayout.Space();
+        EditorGUILayout.LabelField("Or Import from PointPosition Asset", EditorStyles.boldLabel);
+        
+        pointPositionAsset = EditorGUILayout.ObjectField("PointPosition Asset", pointPositionAsset, typeof(PointPosition), false) as PointPosition;
+        
+        if (pointPositionAsset != null && GUILayout.Button("Load Points from Asset"))
+        {
+            if (pointPositionAsset._positions != null && pointPositionAsset._positions.Count > 0)
+            {
+                vectorList = new List<Vector2>(pointPositionAsset._positions);
+                EditorUtility.DisplayDialog("Success", $"Loaded {vectorList.Count} points from PointPosition asset", "OK");
+            }
+            else
+            {
+                EditorUtility.DisplayDialog("Error", "PointPosition asset has no positions!", "OK");
+            }
+        }
         
         EditorGUILayout.Space();
         
