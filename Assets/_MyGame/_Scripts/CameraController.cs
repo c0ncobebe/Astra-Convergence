@@ -376,10 +376,12 @@ public class CameraController : MonoBehaviour
     /// <summary>
     /// Setup camera cho gameplay (có thể customize)
     /// </summary>
-    public void SetupForGameplay()
+    public void SetupForGameplay(float? customZoom = null)
     {
-        // Có thể set zoom level khác cho gameplay
-        // hoặc để nguyên nếu muốn
+        if (customZoom.HasValue)
+        {
+            SetZoom(customZoom.Value, true);
+        }
     }
     
     #endregion

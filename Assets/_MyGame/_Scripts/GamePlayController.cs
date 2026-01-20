@@ -18,7 +18,7 @@ public class GamePlayManager : MonoBehaviour
     [SerializeField] private Transform levelContainer;
     [SerializeField] private GameObject backButton;
     [SerializeField] private GameObject levelCompletePanel;
-    
+    [SerializeField] private NarratorController narrator;
     [Header("Settings")]
     public float swipeDetectionRadius = 0.5f;
     public bool showDebugLines = true;
@@ -695,6 +695,12 @@ public class GamePlayManager : MonoBehaviour
         
         if (levelCompletePanel != null)
             levelCompletePanel.SetActive(true);
+        
+        // Check if tutorial level completed
+        if (GameStateManager.Instance != null)
+        {
+            GameStateManager.Instance.OnTutorialLevelComplete();
+        }
         
         // StartCoroutine(ReturnToHomeMenuAfterDelay(2f));
     }

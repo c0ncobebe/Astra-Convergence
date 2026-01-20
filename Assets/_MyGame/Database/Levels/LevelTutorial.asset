@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f144523efb9b1e42b3751f70d8321c8, type: 3}
+  m_Name: LevelTutorial
+  m_EditorClassIdentifier: Assembly-CSharp::LevelData
+  levelId: 1016482039
+  points:
+  - pointId: 0
+    position: {x: -1.09, y: 1}
+    belongToPolygons: 00000000
+  - pointId: 1
+    position: {x: -0.49, y: 3.5}
+    belongToPolygons: 00000000
+  - pointId: 2
+    position: {x: 2, y: 1.73}
+    belongToPolygons: 00000000
+  polygons:
+  - polygonId: 0
+    pointIds: 010000000200000000000000
+    edges:
+    - point1: 1
+      point2: 2
+    - point1: 0
+      point2: 2
+    - point1: 0
+      point2: 1
+    sideCount: 3
+    centerPosition: {x: -0.38666672, y: 0.56333333}
+    color: {r: 1, g: 0.95985556, b: 0, a: 1}
