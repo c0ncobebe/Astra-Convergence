@@ -45,42 +45,42 @@ MonoBehaviour:
     loop: 0
   - soundType: 3
     audioClip: {fileID: 8300000, guid: a9bab77f05352d648a0afb958389014b, type: 3}
-    volume: 0.3
+    volume: 0.1
     pitch: 1
     loop: 0
   - soundType: 3
     audioClip: {fileID: 8300000, guid: d81104b9a0f6719408392791f96cd5da, type: 3}
-    volume: 0.3
+    volume: 0.1
     pitch: 1
     loop: 0
   - soundType: 3
     audioClip: {fileID: 8300000, guid: 80de360c1322fef488ea7e3d13b1a043, type: 3}
-    volume: 0.3
+    volume: 0.1
     pitch: 1
     loop: 0
   - soundType: 3
     audioClip: {fileID: 8300000, guid: 56d640119d7d46142978f2e1f352ffab, type: 3}
-    volume: 0.3
+    volume: 0.1
     pitch: 1
     loop: 0
   - soundType: 3
     audioClip: {fileID: 8300000, guid: b9c463faaf63a7f47b4cdc96bbb60445, type: 3}
-    volume: 0.3
+    volume: 0.1
     pitch: 1
     loop: 0
   - soundType: 3
     audioClip: {fileID: 8300000, guid: 8f7e52d8e4b6f1e429547bbf5239a620, type: 3}
-    volume: 0.3
+    volume: 0.1
     pitch: 1
     loop: 0
   - soundType: 3
     audioClip: {fileID: 8300000, guid: 2134906555723bb45a074a4146622287, type: 3}
-    volume: 0.3
+    volume: 0.1
     pitch: 1
     loop: 0
   - soundType: 3
     audioClip: {fileID: 8300000, guid: 1a7165793af16334fa284ee50da822fa, type: 3}
-    volume: 0.3
+    volume: 0.1
     pitch: 1
     loop: 0
   - soundType: 2
@@ -90,7 +90,7 @@ MonoBehaviour:
     loop: 0
   - soundType: 13
     audioClip: {fileID: 8300000, guid: f296ba4bc2d59ad438b40cbea86cc404, type: 3}
-    volume: 0.5
+    volume: 0.25
     pitch: 1
     loop: 0
   menuMusicTracks:

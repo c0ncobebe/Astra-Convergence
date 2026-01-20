@@ -9,6 +9,10 @@ public class LevelCompleteHandler : MonoBehaviour
     [SerializeField] private string levelSelectionSceneName = "LevelSelection";
     [SerializeField] private bool autoLoadNextLevel = false;
     
+    [Header("Camera Settings")]
+    [SerializeField] private bool zoomCameraToMaxOnComplete = true;
+    [SerializeField] private float cameraZoomDelay = 0.5f; // Delay trước khi zoom
+    
     [Header("UI (Optional)")]
     [SerializeField] private GameObject winPanel;
     
@@ -16,6 +20,16 @@ public class LevelCompleteHandler : MonoBehaviour
     [SerializeField] private AudioClip winSound;
     
     private bool levelCompleted = false;
+    private CameraController cameraController;
+    
+    private void Start()
+    {
+        // Tìm CameraController
+        if (cameraController == null)
+        {
+            cameraController = Camera.main?.GetComponent<CameraController>();
+        }
+    }
     
     public void OnLevelComplete()
     {
@@ -33,9 +47,28 @@ public class LevelCompleteHandler : MonoBehaviour
             winPanel.SetActive(true);
         }
         
+        // Zoom camera về max
+        if (zoomCameraToMaxOnComplete)
+        {
+            StartCoroutine(ZoomCameraToMax());
+        }
+        
         SaveLevelProgress();
         
         StartCoroutine(TransitionToNextScene());
+    }
+    [Button]
+    private IEnumerator ZoomCameraToMax()
+    {
+        // Chờ một chút trước khi zoom
+        yield return new WaitForSeconds(cameraZoomDelay);
+        
+        if (cameraController != null)
+        {
+            // Lấy max zoom từ CameraController (maxOrthographicSize)
+            // SetZoom với immediate = false sẽ tự động tween smooth
+            cameraController.SetZoom(12f, false); // 12f là giá trị max default
+        }
     }
     
     private void SaveLevelProgress()

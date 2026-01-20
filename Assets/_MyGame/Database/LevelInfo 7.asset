@@ -25,4 +25,4 @@ MonoBehaviour:
   levelName: Level 1
   detail: 
   thumbnailImage: {fileID: 21300000, guid: 83cd8450c273160469455f96255eb81a, type: 3}
-  levelData: {fileID: 11400000, guid: b8f109fdf5f3ac644bb3635b4a9ee4ff, type: 2}
+  levelData: {fileID: 11400000, guid: 2772af7227c91b54ea5c3e99e0ee62ed, type: 2}
