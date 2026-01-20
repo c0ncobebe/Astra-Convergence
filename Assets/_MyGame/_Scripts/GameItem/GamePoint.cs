@@ -93,5 +93,28 @@ public class GamePoint : MonoBehaviour
         transform.DOKill();
         effect.Play();
         transform.DOScale(Vector3.one * 1.5f, 0.1f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine);
+        
+        if (spriteRenderer != null && spriteRenderer.material.HasProperty("_GlowColor"))
+        {
+            spriteRenderer.material.DOColor(Color.yellow, "_GlowColor", 0.1f).SetEase(Ease.OutQuad);
+        }
+    }
+    
+    public void ResetGlow()
+    {
+        if (spriteRenderer != null && spriteRenderer.material.HasProperty("_GlowColor"))
+        {
+            spriteRenderer.material.DOColor(Color.white, "_GlowColor", 0.2f).SetEase(Ease.OutQuad);
+        }
+    }
+    
+    public void ShowErrorGlow()
+    {
+        if (spriteRenderer != null && spriteRenderer.material.HasProperty("_GlowColor"))
+        {
+            Sequence seq = DOTween.Sequence();
+            seq.Append(spriteRenderer.material.DOColor(Color.red, "_GlowColor", 0.15f).SetEase(Ease.OutQuad));
+            seq.Append(spriteRenderer.material.DOColor(Color.white, "_GlowColor", 0.2f).SetEase(Ease.InQuad));
+        }
     }
 }

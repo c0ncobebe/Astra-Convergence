@@ -355,6 +355,11 @@ public class GamePlayManager : MonoBehaviour
     
     void AddPointToSelection(GamePoint point)
     {
+        if (lastAddedPoint != null)
+        {
+            lastAddedPoint.ResetGlow();
+        }
+        
         point.Animating();
         
         if (selectedPointIds.Count == 0)
@@ -392,7 +397,8 @@ public class GamePlayManager : MonoBehaviour
         
         if (!isValidEdge || tempPolygonList == null || tempPolygonList.Count == 0)
         {
-            ClearSelection();
+            point.ShowErrorGlow();
+            ClearSelection(true);
             return;
         }
         
@@ -408,7 +414,8 @@ public class GamePlayManager : MonoBehaviour
         
         if (!foundCommonPolygon)
         {
-            ClearSelection();
+            point.ShowErrorGlow();
+            ClearSelection(true);
             return;
         }
         
@@ -416,7 +423,8 @@ public class GamePlayManager : MonoBehaviour
         
         if (possiblePolygons.Count == 0)
         {
-            ClearSelection();
+            point.ShowErrorGlow();
+            ClearSelection(true);
             return;
         }
         
@@ -447,7 +455,7 @@ public class GamePlayManager : MonoBehaviour
         UpdateSelectionVisual();
     }
     
-    void ClearSelection()
+    void ClearSelection(bool isError = false)
     {
         // Chỉ set ignore flag nếu đang trong quá trình drag (có tương tác thực sự)
         bool shouldIgnoreUntilRelease = isDragging && !isClickMode;
@@ -458,6 +466,15 @@ public class GamePlayManager : MonoBehaviour
             if (point.currentState == PointState.Selected)
             {
                 point.SetState(PointState.Idle);
+                
+                if (isError)
+                {
+                    point.ShowErrorGlow();
+                }
+                else
+                {
+                    point.ResetGlow();
+                }
             }
         }
 
