@@ -138,10 +138,10 @@ public class GameStateManager : MonoBehaviour
     public IEnumerator SwitchToGameplayWithLoading(LevelInfo levelInfo)
     {
         transitionEffect.Play(true);
-        
-        volume.SetActive(true);
+        SoundManager.Instance.PlaySound(SoundType.Powerup);
         mpb = new MaterialPropertyBlock();
         
+        yield return new WaitForSeconds(1.5f);
         // Tăng _GlowIntensity từ giá trị hiện tại lên 100 trong 1 giây
         mainMaterialEffect.GetPropertyBlock(mpb);
         float startValue = mpb.GetFloat("_GlowIntensity");
@@ -187,7 +187,6 @@ public class GameStateManager : MonoBehaviour
         overlayImage.DOColor(Color.white, 1f);
         yield return new WaitForSeconds(2f);
         SwitchToHomeMenu();
-        volume.SetActive(false);
         overlayImage.DOColor(Color.clear, 1f);
     }
     
@@ -228,7 +227,8 @@ public class GameStateManager : MonoBehaviour
         
         if (SoundManager.Instance != null)
             SoundManager.Instance.PlayRandomMenuMusic();
-        
+        volume.SetActive(false);
+
         OnEnterHomeMenu?.Invoke();
         
     }
@@ -278,7 +278,7 @@ public class GameStateManager : MonoBehaviour
         }
         
         LevelProgressManager.Instance.SetCurrentLevel(levelInfo.levelIndex);
-        
+        volume.SetActive(true);
         OnEnterGameplay?.Invoke();
     }
     

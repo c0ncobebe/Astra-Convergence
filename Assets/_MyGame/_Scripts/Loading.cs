@@ -10,6 +10,7 @@ public class Loading : MonoBehaviour
     [Header("Loading Settings")]
     [SerializeField] private string targetSceneName = "Home";
     [SerializeField] private float minimumLoadingTime = 1f; // Thời gian loading tối thiểu (giây)
+    [SerializeField] private float loadingBarFillDuration = 2f; // Thời gian fill thanh loading (giây)
     
     [Header("UI References (Optional)")]
     [SerializeField] private Slider progressBar;
@@ -39,46 +40,46 @@ public class Loading : MonoBehaviour
         // Không tự động chuyển scene khi load xong (để có thể hiển thị 100% progress)
         operation.allowSceneActivation = false;
         
-        // Cập nhật UI trong khi loading
-        while (!operation.isDone)
+        // Fill thanh loading theo thời gian
+        float fillElapsedTime = 0f;
+        bool sceneLoaded = false;
+        
+        while (!sceneLoaded || fillElapsedTime < loadingBarFillDuration)
         {
-            // Progress từ 0 đến 0.9 khi đang load
-            float progress = Mathf.Clamp01(operation.progress / 0.9f);
+            fillElapsedTime += Time.deltaTime;
             
-            // Cập nhật progress bar
+            // Tính progress dựa trên thời gian (fill dần theo thời gian)
+            float timeBasedProgress = Mathf.Clamp01(fillElapsedTime / loadingBarFillDuration);
+            
+            // Cập nhật progress bar với giá trị smooth
             if (progressBar != null)
             {
-                progressBar.value = progress;
+                progressBar.value = timeBasedProgress;
             }
             
-            // Cập nhật percentage text
-            
-            // Khi đã load xong (progress >= 0.9) và đã đủ thời gian tối thiểu
+            // Kiểm tra xem scene đã load xong chưa
             if (operation.progress >= 0.9f)
             {
-                float elapsedTime = Time.time - startTime;
-                
-                // Đảm bảo hiển thị 100% trước khi chuyển scene
-                if (progressBar != null)
-                {
-                    progressBar.value = 1f;
-                }
-                
-                // Chờ đến khi đủ thời gian tối thiểu
-                if (elapsedTime >= minimumLoadingTime)
-                {
-                    // Kích hoạt scene
-                    operation.allowSceneActivation = true;
-                }
-                else
-                {
-                    // Chờ thêm thời gian còn lại
-                    yield return new WaitForSeconds(minimumLoadingTime - elapsedTime);
-                    operation.allowSceneActivation = true;
-                }
+                sceneLoaded = true;
             }
             
             yield return null;
         }
+        
+        // Đảm bảo thanh loading đã full 100%
+        if (progressBar != null)
+        {
+            progressBar.value = 1f;
+        }
+        
+        // Đảm bảo đã đủ thời gian loading tối thiểu
+        float totalElapsedTime = Time.time - startTime;
+        if (totalElapsedTime < minimumLoadingTime)
+        {
+            yield return new WaitForSeconds(minimumLoadingTime - totalElapsedTime);
+        }
+        
+        // Kích hoạt scene
+        operation.allowSceneActivation = true;
     }
 }

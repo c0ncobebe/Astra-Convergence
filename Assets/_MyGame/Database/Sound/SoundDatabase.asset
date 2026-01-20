@@ -88,6 +88,11 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     loop: 0
+  - soundType: 13
+    audioClip: {fileID: 8300000, guid: f296ba4bc2d59ad438b40cbea86cc404, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
   menuMusicTracks:
   - musicType: 1
     audioClip: {fileID: 8300000, guid: b620524c510a2414e89c171e75d50342, type: 3}

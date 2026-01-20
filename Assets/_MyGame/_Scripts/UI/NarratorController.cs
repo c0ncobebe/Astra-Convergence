@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using AstraNexus.Audio;
 using ChocDino.UIFX;
+using DG.Tweening;
 using Febucci.UI;
 using KienNT;
 using MoreMountains.NiceVibrations;
@@ -32,6 +33,7 @@ public class NarratorController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI tmpText;
     [SerializeField] private GlowFilter frameGlowFilter;
     [SerializeField] private Button nextButton;
+    [SerializeField] private Transform meow;
     public GameObject tutorialCanvas;
     
     [Header("Appearance Settings")]
@@ -73,7 +75,7 @@ public class NarratorController : MonoBehaviour
     
     void Start()
     {
-        // frameGlowFilter.Color
+        meow.DOMoveY(0.25f, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine).SetRelative(true);
     }
     
     void Update()
