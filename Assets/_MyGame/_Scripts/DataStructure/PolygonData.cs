@@ -48,35 +48,64 @@ public class PolygonData
     
     /// <summary>
     /// Tính centerPosition từ vị trí các điểm (gọi sau khi có point positions)
+    /// Sử dụng polygon centroid để hỗ trợ đa giác lõm
     /// </summary>
     public void CalculateCenter(List<PointData> allPoints)
     {
-        if (pointIds == null || pointIds.Count == 0)
+        if (pointIds == null || pointIds.Count < 3)
         {
             centerPosition = Vector2.zero;
             return;
         }
         
-        Vector2 sum = Vector2.zero;
-        int validPoints = 0;
-        
+        // Lấy vị trí các điểm
+        List<Vector2> positions = new List<Vector2>();
         foreach (var pid in pointIds)
         {
             var point = allPoints.Find(p => p.pointId == pid);
             if (point != null)
             {
-                sum += point.position;
-                validPoints++;
+                positions.Add(point.position);
             }
         }
         
-        if (validPoints > 0)
+        if (positions.Count < 3)
         {
-            centerPosition = sum / validPoints;
+            centerPosition = Vector2.zero;
+            return;
+        }
+        
+        // Tính polygon centroid (trọng tâm theo diện tích)
+        float area = 0f;
+        Vector2 centroid = Vector2.zero;
+        
+        for (int i = 0; i < positions.Count; i++)
+        {
+            Vector2 p1 = positions[i];
+            Vector2 p2 = positions[(i + 1) % positions.Count];
+            
+            float cross = p1.x * p2.y - p2.x * p1.y;
+            area += cross;
+            centroid.x += (p1.x + p2.x) * cross;
+            centroid.y += (p1.y + p2.y) * cross;
+        }
+        
+        area *= 0.5f;
+        
+        if (Mathf.Abs(area) > 0.0001f)
+        {
+            centroid /= (6f * area);
+            centerPosition = centroid;
         }
         else
         {
-            centerPosition = Vector2.zero;
+            // Fallback về trung bình nếu area = 0 (degerate polygon)
+            Vector2 sum = Vector2.zero;
+            foreach (var pos in positions)
+            {
+                sum += pos;
+            }
+            centerPosition = sum / positions.Count;
         }
     }
 }

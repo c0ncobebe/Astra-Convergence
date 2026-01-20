@@ -23,12 +23,42 @@ public class GamePolygon : MonoBehaviour
     private LineRenderer lineRenderer;
     private TextMesh hintText;
     private SpriteRenderer numberSpriteRenderer;
+    private Camera mainCamera;
+    private float baseOrthographicSize = 12f;
+    private Vector3 baseScale;
     
     void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
         hintText = GetComponentInChildren<TextMesh>();
         numberSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        mainCamera = Camera.main;
+        
+        if (numberSpriteRenderer != null)
+            baseScale = numberSpriteRenderer.transform.localScale;
+        else if (hintText != null)
+            baseScale = hintText.transform.localScale;
+    }
+    
+    void LateUpdate()
+    {
+        if (mainCamera == null)
+            mainCamera = Camera.main;
+        
+        if (mainCamera != null && !isCompleted)
+        {
+            float scaleFactor = mainCamera.orthographicSize / baseOrthographicSize;
+            
+            if (numberSpriteRenderer != null && numberSpriteRenderer.gameObject.activeSelf)
+            {
+                numberSpriteRenderer.transform.localScale = baseScale * scaleFactor;
+            }
+            
+            if (hintText != null && hintText.gameObject.activeSelf)
+            {
+                hintText.transform.localScale = baseScale * scaleFactor;
+            }
+        }
     }
     
     public void Initialize(PolygonData data)

@@ -93,43 +93,41 @@ public class CameraController : MonoBehaviour
     
     void LateUpdate()
     {
-        // Smooth zoom
-        bool zoomChanged = false;
-        if (Mathf.Abs(cam.orthographicSize - targetOrthographicSize) > 0.01f)
+        // Chỉ áp dụng smooth zoom khi KHÔNG đang zoom (để tránh conflict)
+        if (!isZooming)
         {
-            cam.orthographicSize = Mathf.SmoothDamp(
-                cam.orthographicSize,
-                targetOrthographicSize,
-                ref zoomVelocity,
-                zoomSmoothTime
-            );
-            zoomChanged = true;
-        }
-        
-        // Clamp position khi zoom thay đổi (vì bounds extent thay đổi)
-        if (zoomChanged && enablePanBounds)
-        {
-            Vector3 clampedPos = ClampToBoundsHard(transform.position);
-            targetPosition = clampedPos;
-            
-            // Apply ngay nếu không đang pan
-            if (!isPanning)
+            bool zoomChanged = false;
+            if (Mathf.Abs(cam.orthographicSize - targetOrthographicSize) > 0.01f)
             {
-                transform.position = clampedPos;
+                cam.orthographicSize = Mathf.SmoothDamp(
+                    cam.orthographicSize,
+                    targetOrthographicSize,
+                    ref zoomVelocity,
+                    zoomSmoothTime
+                );
+                zoomChanged = true;
+            }
+            
+            // Clamp position khi zoom thay đổi (vì bounds extent thay đổi)
+            if (zoomChanged && enablePanBounds)
+            {
+                Vector3 clampedPos = ClampToBoundsHard(transform.position);
+                targetPosition = clampedPos;
+                
+                // Apply ngay nếu không đang pan
+                if (!isPanning)
+                {
+                    transform.position = clampedPos;
+                }
             }
         }
         
         // Pan handling - immediate khi đang pan, smooth khi không pan
-        float distance = Vector3.Distance(transform.position, targetPosition);
-        if (distance > 0.001f)
+        // Chỉ smooth khi KHÔNG đang zoom hoặc pan
+        if (!isZooming && !isPanning)
         {
-            // Nếu đang pan -> immediate (không smooth) để responsive
-            if (isPanning && disablePanSmoothingWhilePanning)
-            {
-                transform.position = targetPosition;
-            }
-            // Không pan -> smooth để mượt
-            else
+            float distance = Vector3.Distance(transform.position, targetPosition);
+            if (distance > 0.001f)
             {
                 transform.position = Vector3.SmoothDamp(
                     transform.position,
@@ -240,6 +238,9 @@ public class CameraController : MonoBehaviour
     {
         if (!isZooming) return;
         
+        // Lấy vị trí world của zoom center TRƯỚC khi zoom
+        Vector3 worldPointBeforeZoom = cam.ScreenToWorldPoint(new Vector3(centerPoint.x, centerPoint.y, cam.nearClipPlane));
+        
         // Calculate new orthographic size
         float newSize = targetOrthographicSize - (zoomDelta * zoomSpeed * targetOrthographicSize);
         
@@ -247,26 +248,39 @@ public class CameraController : MonoBehaviour
         newSize = Mathf.Clamp(newSize, minOrthographicSize, maxOrthographicSize);
         
         // Zoom towards center point (pinch center)
-        if (zoomDelta != 0)
+        if (Mathf.Abs(newSize - targetOrthographicSize) > 0.001f)
         {
-            Vector3 worldPointBeforeZoom = cam.ScreenToWorldPoint(new Vector3(centerPoint.x, centerPoint.y, cam.nearClipPlane));
+            // Lưu size cũ
+            float oldSize = cam.orthographicSize;
             
-            // Update zoom
-            float previousSize = targetOrthographicSize;
+            // Update target zoom
             targetOrthographicSize = newSize;
             
-            // Tính toán lại vị trí để zoom về phía center point
-            // Điều chỉnh vị trí camera để điểm zoom vẫn ở cùng vị trí screen
+            // Apply zoom ngay lập tức để tính toán offset chính xác
+            cam.orthographicSize = targetOrthographicSize;
+            
+            // Tính toán vị trí world của zoom center SAU khi zoom
             Vector3 worldPointAfterZoom = cam.ScreenToWorldPoint(new Vector3(centerPoint.x, centerPoint.y, cam.nearClipPlane));
+            
+            // Tính offset để giữ nguyên điểm zoom ở cùng vị trí screen
             Vector3 offset = worldPointBeforeZoom - worldPointAfterZoom;
             
-            targetPosition += offset;
+            // Di chuyển camera để bù offset
+            Vector3 newPosition = transform.position + offset;
             
             // Apply bounds if enabled
             if (enablePanBounds)
             {
-                targetPosition = ClampToBounds(targetPosition);
+                newPosition = ClampToBoundsHard(newPosition);
             }
+            
+            // Update cả transform và target position ngay lập tức
+            transform.position = newPosition;
+            targetPosition = newPosition;
+            
+            // Reset velocity để tránh smooth lag
+            zoomVelocity = 0;
+            panVelocity = Vector3.zero;
         }
     }
     

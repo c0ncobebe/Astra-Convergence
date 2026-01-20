@@ -28,13 +28,20 @@ public class GamePoint : MonoBehaviour
     [SerializeField] private ParticleSystem effect;
     [SerializeField] private Renderer brightRenderer;
     
+    private Camera mainCamera;
+    private float baseOrthographicSize = 12f;
+    private Vector3 baseScale;
+    
     public void Initialize(PointData data)
     {
         pointId = data.pointId;
         transform.position = data.position;
         remainingPolygons = new List<int>(data.belongToPolygons);
+        
+        mainCamera = Camera.main;
+        baseScale = transform.localScale;
+        
         UpdateVisual();
-
     }
 
     private void FixedUpdate()
@@ -46,6 +53,18 @@ public class GamePoint : MonoBehaviour
             {
                 debugText.text += remainingPolygons[i] + "-";
             }
+        }
+    }
+    
+    void LateUpdate()
+    {
+        if (mainCamera == null)
+            mainCamera = Camera.main;
+        
+        if (mainCamera != null)
+        {
+            float scaleFactor = mainCamera.orthographicSize / baseOrthographicSize;
+            transform.localScale = baseScale * scaleFactor;
         }
     }
 
