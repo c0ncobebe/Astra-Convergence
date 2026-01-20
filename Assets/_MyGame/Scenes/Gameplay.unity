@@ -553,6 +553,7 @@ MonoBehaviour:
   backButton: {fileID: 1573606124}
   levelCompletePanel: {fileID: 1573606124}
   narrator: {fileID: 80073133}
+  cameraController: {fileID: 519420033}
   swipeDetectionRadius: 0.5
   showDebugLines: 1
 --- !u!4 &322890481
