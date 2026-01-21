@@ -146,12 +146,9 @@ public class GameStateManager : MonoBehaviour
         // Tăng _GlowIntensity từ giá trị hiện tại lên 100 trong 1 giây
         mainMaterialEffect.GetPropertyBlock(mpb);
         float startValue = mpb.GetFloat("_GlowIntensity");
-        DOTween.To(() => startValue, x => 
-        {
-            mainMaterialEffect.GetPropertyBlock(mpb);
-            mpb.SetFloat("_GlowIntensity", x);
-            mainMaterialEffect.SetPropertyBlock(mpb);
-        }, 1f, 0f);
+        mainMaterialEffect.GetPropertyBlock(mpb);
+        mpb.SetFloat("_GlowIntensity", 1);
+        mainMaterialEffect.SetPropertyBlock(mpb);
         yield return new WaitForSeconds(0.5f);
 
         DOTween.To(() => startValue, x => 

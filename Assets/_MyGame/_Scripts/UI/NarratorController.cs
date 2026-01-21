@@ -75,7 +75,8 @@ public class NarratorController : MonoBehaviour
     
     void Start()
     {
-        meow.DOMoveY(0.25f, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine).SetRelative(true);
+        meow.localPosition = Vector3.zero;
+        meow.DOLocalMoveY(25f, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine).SetRelative(true);
     }
     
     void Update()
